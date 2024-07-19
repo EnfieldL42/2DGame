@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 1191427424}
   m_Layer: 0
   m_Name: Square (3)
-  m_TagString: Wall
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,8 +339,8 @@ Transform:
   m_GameObject: {fileID: 1191427420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 12.14, y: 2.16, z: 0}
-  m_LocalScale: {x: 26.113, y: 1, z: 1}
+  m_LocalPosition: {x: 9.87, y: 2.16, z: 0}
+  m_LocalScale: {x: 26.113, y: 3.3875, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1333042001}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Wall
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -469,8 +469,8 @@ Transform:
   m_GameObject: {fileID: 1333041997}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -12.27, y: 2.16, z: 0}
-  m_LocalScale: {x: 26.113, y: 1, z: 1}
+  m_LocalPosition: {x: -10.34, y: 2.16, z: 0}
+  m_LocalScale: {x: 26.113, y: 3.525, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 1512115007}
   - component: {fileID: 1512115008}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSpeed: 10
   speedMultiplier: 1.1
-  maxSpeed: 30
+  maxSpeed: 100
 --- !u!212 &1512115004
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ Transform:
   m_GameObject: {fileID: 1512115001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.87, y: -3.01, z: 0}
+  m_LocalPosition: {x: -7.83, y: 0.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -634,9 +634,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -697,7 +697,7 @@ GameObject:
   - component: {fileID: 1581206022}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Wall
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -763,8 +763,8 @@ Transform:
   m_GameObject: {fileID: 1581206018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.37, y: -4.16, z: 0}
-  m_LocalScale: {x: 26.113, y: 1, z: 1}
+  m_LocalPosition: {x: -0.37, y: -6.06, z: 0}
+  m_LocalScale: {x: 26.113, y: 3.6125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -827,7 +827,7 @@ GameObject:
   - component: {fileID: 1760857263}
   m_Layer: 0
   m_Name: Square (4)
-  m_TagString: Wall
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -893,8 +893,8 @@ Transform:
   m_GameObject: {fileID: 1760857259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.37, y: 4.67, z: 0}
-  m_LocalScale: {x: 26.113, y: 1, z: 1}
+  m_LocalPosition: {x: -0.37, y: 6.13, z: 0}
+  m_LocalScale: {x: 26.113, y: 3.0375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 2035694354}
   - component: {fileID: 2035694355}
   - component: {fileID: 2035694358}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8ccf0aa542d1248b31dfc66fcda091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats: {fileID: 11400000, guid: 334b17eb3721ba545b88a10334e7b2b2, type: 2}
+  _stats: {fileID: 11400000, guid: eba7c8c84c8a7b749ac2c956d82f5c8a, type: 2}
 --- !u!1 &1544650613784162020
 GameObject:
   m_ObjectHideFlags: 0
