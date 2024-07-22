@@ -9,28 +9,28 @@ public class BallPhysics : MonoBehaviour
     public float maxSpeed = 30f;
     private Vector2 currentDirection;
     private float currentSpeed;
+    private Rigidbody2D rb;
 
     void Start()
     {
-        print("refeclt");
-
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.right * initialSpeed;
         currentSpeed = initialSpeed;
-        currentDirection = Vector2.right; // Initial direction
-    }
-
-    void Update()
-    {
-        transform.Translate(currentDirection * currentSpeed * Time.deltaTime);
+        currentDirection = rb.velocity.normalized;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Collision detected with: " + collision.gameObject.name);
+
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Collided with Player");
             BounceOffPlayer(collision);
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
+            Debug.Log("Collided with Wall");
             ReflectOffWall(collision);
         }
     }
@@ -41,6 +41,9 @@ public class BallPhysics : MonoBehaviour
         float randomAngle = Random.Range(-45f, 45f);
         currentDirection = Quaternion.Euler(0, 0, randomAngle) * -currentDirection;
 
+        // Update the ball's velocity
+        rb.velocity = currentDirection * currentSpeed;
+
         // Increase speed and clamp to maxSpeed
         currentSpeed *= speedMultiplier;
         currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
@@ -49,7 +52,9 @@ public class BallPhysics : MonoBehaviour
     void ReflectOffWall(Collision2D collision)
     {
         // Reflect the direction of the ball off the wall
-        print("refeclt");
-        currentDirection = Vector2.Reflect(currentDirection, collision.contacts[0].normal);
+        currentDirection = Vector2.Reflect(currentDirection, collision.contacts[0].normal).normalized;
+
+        // Update the ball's velocity
+        rb.velocity = currentDirection * currentSpeed;
     }
 }
