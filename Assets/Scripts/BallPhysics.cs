@@ -21,7 +21,6 @@ public class BallPhysics : MonoBehaviour
    
     }
 
-
     void OnCollisionEnter2D(Collision2D collision)
     {
 
