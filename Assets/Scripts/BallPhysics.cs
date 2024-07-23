@@ -8,29 +8,30 @@ public class BallPhysics : MonoBehaviour
     public float speedMultiplier = 1.1f;
     public float maxSpeed = 30f;
     private Vector2 currentDirection;
-    private float currentSpeed;
+    public float currentSpeed;
     private Rigidbody2D rb;
 
-    void Start()
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.right * initialSpeed;
         currentSpeed = initialSpeed;
         currentDirection = rb.velocity.normalized;
+   
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collided with Player");
             BounceOffPlayer(collision);
+            FindObjectOfType<HitStop>().Stop(currentSpeed/maxSpeed);
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Collided with Wall");
             ReflectOffWall(collision);
         }
     }
@@ -57,4 +58,5 @@ public class BallPhysics : MonoBehaviour
         // Update the ball's velocity
         rb.velocity = currentDirection * currentSpeed;
     }
+
 }
