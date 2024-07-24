@@ -7,10 +7,12 @@ public class controllerp1 : MonoBehaviour
     public LayerMask solidObjectsLayer;
     public float moveSpeed;
     public bool isMoving;
-    private Vector2 input;
+    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); // Customize this to fit your needs
 
+    private Vector2 input;
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
+    private Vector2 lastTargetPos; // To store the last target position for visualization
 
     private void Awake()
     {
@@ -35,35 +37,36 @@ public class controllerp1 : MonoBehaviour
 
             if (input != Vector2.zero)
             {
-                var targetPos = GetTargetPosition();
-                UpdateColliderRotation();
+                var targetPos = (Vector2)transform.position + input;
 
-                StartCoroutine(Move(targetPos));
+                // Snap the target position to the grid
+                targetPos = SnapToGrid(targetPos);
+
+                // Rotate the player regardless of movement
+                UpdateColliderRotation();
 
                 if (IsWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
                 }
+                else
+                {
+                    // Rotate the player even if not walkable
+                    UpdateColliderRotation();
+                }
+
+                lastTargetPos = targetPos; // Store the target position for visualization
             }
         }
     }
 
-    private Vector3 GetTargetPosition()
-    {
-        Vector3 currentPosition = transform.position;
-        Vector3 targetPos = currentPosition + new Vector3(input.x, input.y, 0);
-        targetPos.x = Mathf.Round(targetPos.x);
-        targetPos.y = Mathf.Round(targetPos.y);
-        return targetPos;
-    }
-
-    private IEnumerator Move(Vector3 targetPos)
+    private IEnumerator Move(Vector2 targetPos)
     {
         isMoving = true;
 
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        while (((Vector2)transform.position - targetPos).sqrMagnitude > Mathf.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
         transform.position = targetPos;
@@ -71,9 +74,10 @@ public class controllerp1 : MonoBehaviour
         isMoving = false;
     }
 
-    private bool IsWalkable(Vector3 targetPos)
+    private bool IsWalkable(Vector2 targetPos)
     {
-        Collider2D collider = Physics2D.OverlapCircle(targetPos, 0.1f, solidObjectsLayer);
+        // Center the overlap box on the target position
+        Collider2D collider = Physics2D.OverlapBox(targetPos, overlapBoxSize, 0, solidObjectsLayer);
         return collider == null;
     }
 
@@ -103,12 +107,26 @@ public class controllerp1 : MonoBehaviour
         spriteTransform.rotation = Quaternion.Euler(0, 0, 0); // Ensure sprite stays unrotated
     }
 
+    private Vector2 SnapToGrid(Vector2 position)
+    {
+        position.x = Mathf.Round(position.x);
+        position.y = Mathf.Round(position.y);
+        return position;
+    }
+
     private void OnDrawGizmos()
     {
         if (boxCollider == null) return;
 
         Gizmos.color = Color.red;
         Vector2 direction = (Vector2)transform.position + input - (Vector2)transform.position;
-        Gizmos.DrawWireCube((Vector2)transform.position + direction, boxCollider.size);
+        Gizmos.DrawWireCube((Vector2)transform.position + direction, overlapBoxSize);
+
+        // Draw the overlap box for visualization
+        if (lastTargetPos != Vector2.zero)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(lastTargetPos, overlapBoxSize);
+        }
     }
 }
