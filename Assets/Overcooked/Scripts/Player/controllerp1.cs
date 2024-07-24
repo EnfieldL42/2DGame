@@ -38,6 +38,8 @@ public class controllerp1 : MonoBehaviour
                 var targetPos = GetTargetPosition();
                 UpdateColliderRotation();
 
+                StartCoroutine(Move(targetPos));
+
                 if (IsWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
