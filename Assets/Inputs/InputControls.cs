@@ -47,7 +47,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""6616189a-63ca-4e35-a4d1-e21b31073d97"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -68,7 +68,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c0d06c05-0a5e-4959-bdfa-ca7b86eb9c61"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -90,7 +90,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""303b386d-0670-47c1-89a0-7675864b8ec3"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

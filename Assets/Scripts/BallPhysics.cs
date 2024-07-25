@@ -24,12 +24,12 @@ public class BallPhysics : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Hitbox"))
         {
             BounceOffPlayer(collision);
             FindObjectOfType<HitStop>().Stop(currentSpeed/maxSpeed);
         }
-        else if (collision.gameObject.CompareTag("Wall"))
+        else if (collision.gameObject.CompareTag("Wall")||collision.gameObject.CompareTag("Ground"))
         {
             ReflectOffWall(collision);
         }
