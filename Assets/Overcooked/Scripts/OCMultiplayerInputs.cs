@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class MultiplayerInputManager : MonoBehaviour
+public class OCMultiplayerInputs : MonoBehaviour
 {
     public List<PlayerControls> players = new List<PlayerControls>();
-    public int maxPlayers = 2;
+    int maxPlayers = 2;
 
     public InputControls inputControls;
 
@@ -29,14 +29,14 @@ public class MultiplayerInputManager : MonoBehaviour
 
     private void JoinButtonPerformed(InputAction.CallbackContext context)
     {
-        if(players.Count >= maxPlayers)
+        if (players.Count >= maxPlayers)
         {
             return;
         }
 
-        foreach(PlayerControls player in players)
+        foreach (PlayerControls player in players)
         {
-           if (player.inputDevice  == context.control.device)
+            if (player.inputDevice == context.control.device)
             {
                 return;
             }
@@ -45,7 +45,7 @@ public class MultiplayerInputManager : MonoBehaviour
         newPlayer.SetupPlayer(context, players.Count);
         players.Add(newPlayer);
 
-        if(onPlayerJoined != null)
+        if (onPlayerJoined != null)
         {
             onPlayerJoined.Invoke(newPlayer.playerID);
         }

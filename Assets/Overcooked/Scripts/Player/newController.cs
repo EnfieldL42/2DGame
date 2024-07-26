@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 public class NewController : MonoBehaviour
 {
+    public int playerID;
+    public MultiplayerInputManager inputManager;
+    InputControls inputControls;
+
+
+
     public float walkSpeed = 2f;
     public float runSpeed = 4f;
     private float currentSpeed;
+
+    public Vector2 input;
 
     public LayerMask obstacleLayer;
 
@@ -21,6 +32,13 @@ public class NewController : MonoBehaviour
         transform.position = targetPosition;
         isMoving = false; // Ensure the player is not moving initially
     }
+
+    private void Awake()
+    {
+        inputManager.onPlayerJoined += AssignInputs;
+
+    }
+
 
     private void Start()
     {
@@ -45,14 +63,6 @@ public class NewController : MonoBehaviour
 
         if (input != Vector2.zero)
         {
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-            {
-                currentSpeed = runSpeed;
-            }
-            else
-            {
-                currentSpeed = walkSpeed;
-            }
 
             if (input.x != 0)
             {
@@ -96,5 +106,22 @@ public class NewController : MonoBehaviour
         // Adjust this as needed based on your tile size
         float tileSize = 1f; // Example tile size, change if different
         return new Vector3(Mathf.Round(position.x / tileSize) * tileSize, Mathf.Round(position.y / tileSize) * tileSize, position.z);
+    }
+
+
+    void AssignInputs(int ID)
+    {
+        if (playerID == ID)
+        {
+            inputManager.onPlayerJoined -= AssignInputs;
+            inputControls = inputManager.players[playerID].playerControls;
+            inputControls.MasterControls.Movement.performed += MovementPerformed;
+        }
+    }
+
+
+    private void MovementPerformed(InputAction.CallbackContext context)
+    {
+        input = context.ReadValue<Vector2>();
     }
 }

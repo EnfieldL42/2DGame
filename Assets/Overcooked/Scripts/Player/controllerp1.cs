@@ -1,21 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class controllerp1 : MonoBehaviour
 {
+    public int playerID;
+    public MultiplayerInputManager inputManager;
+    InputControls inputControls;
+
+    public Vector2 input;
+
+
     public LayerMask solidObjectsLayer;
+
     public float moveSpeed;
+    public float runningSpeed;
+    public float walkingSpeed;
+
+
     public bool isMoving;
     public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); // Customize this to fit your needs
 
-    private Vector2 input;
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
     private Vector2 lastTargetPos; // To store the last target position for visualization
 
     private void Awake()
     {
+        moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
         spriteTransform = transform.GetChild(0); // Assumes the sprite is the first child
     }
@@ -24,15 +37,15 @@ public class controllerp1 : MonoBehaviour
     {
         if (!isMoving)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
+            inputManager.onPlayerJoined += AssignInputs;
 
-            input.x = input.x > 0 ? 1 : (input.x < 0 ? -1 : 0);
-            input.y = input.y > 0 ? 1 : (input.y < 0 ? -1 : 0);
+
+            //input.x = input.x > 0 ? 1 : (input.x < 0 ? -1 : 0);
+            //input.y = input.y > 0 ? 1 : (input.y < 0 ? -1 : 0);
 
             if (input.x != 0)
             {
-                input.y = 0;
+                //input.y = 0;
             }
 
             if (input != Vector2.zero)
@@ -129,4 +142,37 @@ public class controllerp1 : MonoBehaviour
             Gizmos.DrawWireCube(lastTargetPos, overlapBoxSize);
         }
     }
+
+
+    void AssignInputs(int ID)
+    {
+        if (playerID == ID)
+        {
+            inputManager.onPlayerJoined -= AssignInputs;
+            inputControls = inputManager.players[playerID].playerControls;
+            inputControls.MasterControls.Movement.performed += MovementPerformed;
+            inputControls.MasterControls.Jump.performed += RunningPerformed;
+            inputControls.MasterControls.Jump.canceled += WalkingPerformed;
+
+        }
+    }
+
+
+    private void MovementPerformed(InputAction.CallbackContext context)
+    {
+        input = context.ReadValue<Vector2>();
+    }
+
+
+    private void RunningPerformed(InputAction.CallbackContext context)
+    {
+        moveSpeed = runningSpeed;
+    }
+
+    private void WalkingPerformed(InputAction.CallbackContext context)
+    {
+        moveSpeed = walkingSpeed;
+    }
+
+
 }
