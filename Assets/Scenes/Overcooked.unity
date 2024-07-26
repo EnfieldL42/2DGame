@@ -8117,8 +8117,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 5
-  runningSpeed: 5
-  walkingSpeed: 10
+  runningSpeed: 10
+  walkingSpeed: 5
   isMoving: 0
   overlapBoxSize: {x: 0.8, y: 0.8}
 --- !u!61 &1744548961
@@ -8371,8 +8371,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 5
-  runningSpeed: 5
-  walkingSpeed: 10
+  runningSpeed: 10
+  walkingSpeed: 5
   isMoving: 0
   overlapBoxSize: {x: 0.8, y: 0.8}
 --- !u!1 &1825446357
