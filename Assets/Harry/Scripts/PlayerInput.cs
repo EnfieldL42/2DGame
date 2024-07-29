@@ -11,6 +11,9 @@ public class PlayerInput : MonoBehaviour
     InputControls inputControls;
     public Rigidbody2D rb;
     public Animator anim;
+    public GameManager gameManager;
+    public BallPhysics ball;
+    public Collider2D col;
 
     public bool canJump;
     private bool facingRight;
@@ -19,9 +22,18 @@ public class PlayerInput : MonoBehaviour
     public float jumpForce = 10f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        ball = FindObjectOfType<BallPhysics>();
+        gameManager = FindObjectOfType<GameManager>();
+
+        col = GetComponent<Collider2D>();
+
         rb = GetComponent<Rigidbody2D>();
+        rb.excludeLayers.Equals("Player");
+        rb.mass = 1f;
+        rb.gravityScale = 8;
+
         anim = GetComponent<Animator>();
         inputManager.onPlayerJoined += AssignInputs;
      
@@ -76,7 +88,9 @@ public class PlayerInput : MonoBehaviour
 
     private void MovementPerformed(InputAction.CallbackContext context)
     {
-        horizontal = context.ReadValue<Vector2>().x;
+
+            horizontal = context.ReadValue<Vector2>().x;
+        
     }
 
     private void Flip()
@@ -101,5 +115,19 @@ public class PlayerInput : MonoBehaviour
         {
             canJump = false;
         }
+    }
+
+    public void PlayerHit()
+    {
+        rb.mass = 0;
+        rb.gravityScale = 0;
+        rb.velocity = ball.rb.velocity * ball.initialSpeed;
+        col.enabled = false;
+        gameManager.GameEnded();
+    }
+
+    public void DisableControls()
+    {
+       inputControls.Disable();
     }
 }
