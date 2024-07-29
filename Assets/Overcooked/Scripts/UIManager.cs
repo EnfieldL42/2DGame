@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI[] playerScoreTexts; // Array to hold the TextMeshPro components for scores
 
-    public GameManager gameManager; // Reference to the GameManager
+    public OCGameManager gameManager; // Reference to the GameManager
 
     void Start()
     {

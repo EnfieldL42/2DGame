@@ -9,7 +9,7 @@ public class controllerp1 : MonoBehaviour
     public MultiplayerInputManager inputManager;
     InputControls inputControls;
 
-    public GameManager gameManager;
+    public OCGameManager gameManager;
 
     public Vector2 input;
 
