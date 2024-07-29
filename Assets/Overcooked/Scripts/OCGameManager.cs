@@ -62,20 +62,27 @@ public class OCGameManager : MonoBehaviour
 
     void SetBallPlayers()
     {
-        //TODO
-        //Add the two lowest players to these
+        List<(int ID, int Score)> playerScoresList = new List<(int ID, int Score)>();
 
+        for (int i = 0; i < playerScores.Length; i++)
+        {
+            playerScoresList.Add((i, playerScores[i]));
+        }
 
-        //GameManager.SetPlayerOne(2);
-        //GameManager.SetPlayerTwo(3);
+        playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
+
+        int lowestScoreID = playerScoresList[0].ID;
+        int secondLowestScoreID = playerScoresList[1].ID;
+
+        GameManager.SetPlayerOne(lowestScoreID);
+        GameManager.SetPlayerTwo(secondLowestScoreID);
     }
 
-    public void AddScore(int playerIndex, int score)
+    public void AddScore(int ID, int score)
     {
-        if (playerIndex >= 0 && playerIndex < playerScores.Length)
+        if (ID >= 0 && ID < playerScores.Length)
         {
-            playerScores[playerIndex] += score;
-            // Optionally, update the UI here if necessary
+            playerScores[ID] += score;
         }
     }
 }
