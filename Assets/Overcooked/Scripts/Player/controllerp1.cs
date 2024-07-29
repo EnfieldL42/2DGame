@@ -9,6 +9,8 @@ public class controllerp1 : MonoBehaviour
     public MultiplayerInputManager inputManager;
     InputControls inputControls;
 
+    public GameManager gameManager;
+
     public Vector2 input;
 
 
@@ -153,6 +155,7 @@ public class controllerp1 : MonoBehaviour
             inputControls.MasterControls.Movement.performed += MovementPerformed;
             inputControls.MasterControls.Jump.performed += RunningPerformed;
             inputControls.MasterControls.Jump.canceled += WalkingPerformed;
+            inputControls.MasterControls.Attack.performed += InteractionPerformed;
 
         }
     }
@@ -174,5 +177,13 @@ public class controllerp1 : MonoBehaviour
         moveSpeed = walkingSpeed;
     }
 
+    private void InteractionPerformed(InputAction.CallbackContext context)
+    {
+        // Increase the player's score by a certain amount
+        if (gameManager != null)
+        {
+            gameManager.AddScore(playerID, 10); // Increase score by 10 (or any other value)
+        }
+    }
 
 }
