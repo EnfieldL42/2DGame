@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class controllerp1 : MonoBehaviour
 {
     public int playerID;
-    public MultiplayerInputManager inputManager;
+    //public MultiplayerInputManager inputManager;
     InputControls inputControls;
 
     public OCGameManager gameManager;
@@ -19,7 +19,7 @@ public class controllerp1 : MonoBehaviour
     public float moveSpeed;
     public float runningSpeed;
     public float walkingSpeed;
-
+    public bool canAttack = false;
 
     public bool isMoving;
     public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); // Customize this to fit your needs
@@ -28,19 +28,26 @@ public class controllerp1 : MonoBehaviour
     private Transform spriteTransform;
     private Vector2 lastTargetPos; // To store the last target position for visualization
 
-    private void Awake()
+    private void Start()
     {
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
         spriteTransform = transform.GetChild(0); // Assumes the sprite is the first child
+        if (MultiplayerInputManager.instance.players.Count > playerID)
+        {
+            Debug.Log(MultiplayerInputManager.instance.players.Count);
+            AssignInputs(playerID);
+        }
+        else
+        {
+            MultiplayerInputManager.instance.onPlayerJoined += AssignInputs;
+        }
     }
 
     private void Update()
     {
         if (!isMoving)
         {
-            inputManager.onPlayerJoined += AssignInputs;
-
 
             //input.x = input.x > 0 ? 1 : (input.x < 0 ? -1 : 0);
             //input.y = input.y > 0 ? 1 : (input.y < 0 ? -1 : 0);
@@ -150,13 +157,30 @@ public class controllerp1 : MonoBehaviour
     {
         if (playerID == ID)
         {
+            MultiplayerInputManager inputManager = MultiplayerInputManager.instance;
+
             inputManager.onPlayerJoined -= AssignInputs;
             inputControls = inputManager.players[playerID].playerControls;
             inputControls.MasterControls.Movement.performed += MovementPerformed;
             inputControls.MasterControls.Jump.performed += RunningPerformed;
             inputControls.MasterControls.Jump.canceled += WalkingPerformed;
             inputControls.MasterControls.Attack.performed += InteractionPerformed;
+        }
+    }
 
+    private void OnDisable()
+    {
+        if(inputControls != null)
+        {
+            inputControls.MasterControls.Movement.performed -= MovementPerformed;
+            inputControls.MasterControls.Jump.performed -= RunningPerformed;
+            inputControls.MasterControls.Jump.canceled -= WalkingPerformed;
+            inputControls.MasterControls.Attack.performed -= InteractionPerformed;
+        }
+        else
+        {
+            MultiplayerInputManager inputManager = MultiplayerInputManager.instance;
+            inputManager.onPlayerJoined -= AssignInputs;
         }
     }
 
@@ -179,11 +203,26 @@ public class controllerp1 : MonoBehaviour
 
     private void InteractionPerformed(InputAction.CallbackContext context)
     {
-        // Increase the player's score by a certain amount
-        if (gameManager != null)
+        if(canAttack)
         {
             gameManager.AddScore(playerID, 10); // Increase score by 10 (or any other value)
+
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Objectives")
+        {
+            canAttack = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Objectives")
+        {
+            canAttack = false;
+        }
+    }
 }

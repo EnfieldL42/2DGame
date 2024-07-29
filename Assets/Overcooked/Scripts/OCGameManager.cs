@@ -49,6 +49,7 @@ public class OCGameManager : MonoBehaviour
 
     public void Preliminaries()
     {
+        SetBallPlayers();
         SceneManager.LoadScene("Ball Game Test");
 
         print("start deathmatch");
@@ -57,6 +58,16 @@ public class OCGameManager : MonoBehaviour
     public void Finals()
     {
         print("start final round");
+    }
+
+    void SetBallPlayers()
+    {
+        //TODO
+        //Add the two lowest players to these
+
+
+        //GameManager.SetPlayerOne(2);
+        //GameManager.SetPlayerTwo(3);
     }
 
     public void AddScore(int playerIndex, int score)

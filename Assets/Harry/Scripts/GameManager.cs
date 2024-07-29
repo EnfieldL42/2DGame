@@ -1,29 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : MonoBehaviour
 {
     public MultiplayerInputManager inputManager;
     public string currentScene;
 
+    public static int playerOne;
+    public static int playerTwo;
 
     private void Awake()
     {
         inputManager = FindObjectOfType<MultiplayerInputManager>();
-        currentScene = SceneManager.GetActiveScene().name;    }
+        currentScene = SceneManager.GetActiveScene().name;    
+    }
+
+    public static void SetPlayerOne(int id)
+    {
+        playerOne = id;
+    }
+    public static void SetPlayerTwo(int id)
+    {
+        playerTwo = id;
+    }
+
     public void GameEnded()
     {
         inputManager.DisableInputs();
         
-        StartCoroutine(ResetGame());
     }
-    IEnumerator ResetGame()
-    {
-        yield return new WaitForSecondsRealtime(3f);
-        SceneManager.LoadScene(currentScene);
-    }
+
 }

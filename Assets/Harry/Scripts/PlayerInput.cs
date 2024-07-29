@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
     public int playerID;
-    public MultiplayerInputManager inputManager;
+    //public MultiplayerInputManager inputManager;
     InputControls inputControls;
     public Rigidbody2D rb;
     public Animator anim;
@@ -35,8 +35,24 @@ public class PlayerInput : MonoBehaviour
         rb.gravityScale = 8;
 
         anim = GetComponent<Animator>();
-        inputManager.onPlayerJoined += AssignInputs;
-     
+        if(playerID == 0)
+        {
+            playerID = GameManager.playerOne;
+        }
+        else
+        {
+            playerID = GameManager.playerTwo;
+
+        }
+
+        if (MultiplayerInputManager.instance.players.Count > playerID)
+        {
+            AssignInputs(playerID);
+        }
+        else
+        {
+            MultiplayerInputManager.instance.onPlayerJoined += AssignInputs;
+        }
     }
     private void Update()
     {
@@ -56,6 +72,8 @@ public class PlayerInput : MonoBehaviour
     {
         if(playerID == ID)
         {
+            MultiplayerInputManager inputManager = MultiplayerInputManager.instance;
+
             inputManager.onPlayerJoined -= AssignInputs;
             inputControls = inputManager.players[playerID].playerControls;
             inputControls.MasterControls.Movement.performed += MovementPerformed;

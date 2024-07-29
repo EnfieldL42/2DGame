@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 
 public class MultiplayerInputManager : MonoBehaviour
 {
+    public static MultiplayerInputManager instance;
+
     public List<PlayerControls> players = new List<PlayerControls>();
     public int maxPlayers = 2;
 
@@ -19,7 +21,16 @@ public class MultiplayerInputManager : MonoBehaviour
 
     private void Awake()
     {
-        InitializeInputs();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeInputs();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void InitializeInputs()

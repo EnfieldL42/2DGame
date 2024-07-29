@@ -9,6 +9,7 @@ TagManager:
   - Hitbox
   - please
   - Hurtbox
+  - Objectives
   layers:
   - Default
   - TransparentFX
