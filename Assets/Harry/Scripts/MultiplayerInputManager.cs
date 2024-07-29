@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,14 +31,14 @@ public class MultiplayerInputManager : MonoBehaviour
 
     private void JoinButtonPerformed(InputAction.CallbackContext context)
     {
-        if(players.Count >= maxPlayers)
+        if (players.Count >= maxPlayers)
         {
             return;
         }
 
-        foreach(PlayerControls player in players)
+        foreach (PlayerControls player in players)
         {
-           if (player.inputDevice  == context.control.device)
+            if (player.inputDevice == context.control.device)
             {
                 return;
             }
@@ -45,9 +47,17 @@ public class MultiplayerInputManager : MonoBehaviour
         newPlayer.SetupPlayer(context, players.Count);
         players.Add(newPlayer);
 
-        if(onPlayerJoined != null)
+        if (onPlayerJoined != null)
         {
             onPlayerJoined.Invoke(newPlayer.playerID);
+        }
+    }
+    public void DisableInputs()
+    {
+        inputControls.Disable();
+        foreach (PlayerControls players in players)
+        {
+            players.playerControls.Disable();
         }
     }
 }

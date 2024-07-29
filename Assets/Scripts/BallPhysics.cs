@@ -9,33 +9,50 @@ public class BallPhysics : MonoBehaviour
     public float maxSpeed = 30f;
     private Vector2 currentDirection;
     public float currentSpeed;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
+    public SpriteRenderer spriteRenderer;
+    public Color color;
 
+    public int lastHit;
+    public GameManager gameManager;
 
     void Awake()
     {
+        lastHit = 100;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManager = FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.right * initialSpeed;
+        rb.velocity = Vector2.down * initialSpeed;
         currentSpeed = initialSpeed;
         currentDirection = rb.velocity.normalized;
-   
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.CompareTag("Hitbox"))
-        {
-            BounceOffPlayer(collision);
-            FindObjectOfType<HitStop>().Stop(currentSpeed/maxSpeed);
-        }
-        else if (collision.gameObject.CompareTag("Wall")||collision.gameObject.CompareTag("Ground"))
+    {if (collision.gameObject.CompareTag("Wall")||collision.gameObject.CompareTag("Ground"))
         {
             ReflectOffWall(collision);
         }
     }
 
-    void BounceOffPlayer(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hitbox"))
+        {
+            BallLaunched(collision);
+            FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
+            lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
+            collision.gameObject.SetActive(false);
+            ChangeColor();
+        }
+        else if (collision.gameObject.CompareTag("Hurtbox") & collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
+        {
+            FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
+            collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
+        }
+    }
+
+    void BallLaunched(Collider2D collision)
     {
         // Calculate a new random direction within a specified angle range
         float randomAngle = Random.Range(-45f, 45f);
@@ -58,4 +75,15 @@ public class BallPhysics : MonoBehaviour
         rb.velocity = currentDirection * currentSpeed;
     }
 
+    void ChangeColor()
+    {
+        if(lastHit == 0)
+        {
+            spriteRenderer.color = Color.red;
+        }
+        else if (lastHit == 1)
+        {
+            spriteRenderer.color = Color.blue;
+        }
+    }
 }
