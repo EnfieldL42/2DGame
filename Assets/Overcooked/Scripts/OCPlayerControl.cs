@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+public enum Direction
+{
+    up, down, left, right
+}
 
-
-public class controllerp1 : MonoBehaviour
+public class OCPlayerControl : MonoBehaviour
 {
     public int playerID;
     InputControls inputControls;
@@ -22,16 +25,22 @@ public class controllerp1 : MonoBehaviour
     public bool canAttack = false;
 
     public bool isMoving;
-    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); 
+    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f);
 
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
-    private Vector2 lastTargetPos; 
+
+
+    private Vector2 lastTargetPos;
+    Vector3 TargetPosition;
+    Direction Direction;
+
     private void Start()
     {
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
-        spriteTransform = transform.GetChild(0); 
+        spriteTransform = transform.GetChild(0);
+
         if (MultiplayerInputManager.instance.players.Count > playerID)
         {
             AssignInputs(playerID);
@@ -40,6 +49,9 @@ public class controllerp1 : MonoBehaviour
         {
             MultiplayerInputManager.instance.onPlayerJoined += AssignInputs;
         }
+
+        TargetPosition = new Vector2(transform.position.x, transform.position.y);
+        Direction = Direction.down;
     }
 
     private void Update()
@@ -52,41 +64,60 @@ public class controllerp1 : MonoBehaviour
             {
                 var targetPos = (Vector2)transform.position + input;
 
-                targetPos = SnapToGrid(targetPos);
+                //targetPos = SnapToGrid(targetPos);
 
                 UpdateColliderRotation();
 
                 if (IsWalkable(targetPos))
                 {
-                    StartCoroutine(Move(targetPos));
+                    Move();
                 }
                 else
                 {
                     UpdateColliderRotation();
                 }
 
-                lastTargetPos = targetPos; 
+                lastTargetPos = targetPos;
             }
         }
     }
-
-    private IEnumerator Move(Vector2 targetPos)
+    private Vector2 SnapToGrid(Vector2 position)
     {
-        isMoving = true;
-
-        while (((Vector2)transform.position - targetPos).sqrMagnitude > Mathf.Epsilon)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        transform.position = targetPos;
-
-        isMoving = false;
+        position.x = Mathf.Round(position.x);
+        position.y = Mathf.Round(position.y);
+        return position;
     }
+
+
+    bool GetCollision
+    {
+        get
+        {
+            RaycastHit2D rh;
+
+            Vector2 dir = Vector2.zero;
+
+            if (Direction == Direction.down)
+                dir = Vector2.down;
+
+            if (Direction == Direction.left)
+                dir = Vector2.left;
+
+            if (Direction == Direction.right)
+                dir = Vector2.right;
+
+            if (Direction == Direction.up)
+                dir = Vector2.up;
+
+            rh = Physics2D.Raycast(transform.position, dir, 1, solidObjectsLayer);
+
+            return rh.collider != null;
+        }
+    }
+
 
     private bool IsWalkable(Vector2 targetPos)
     {
-        // Center the overlap box on the target position
         Collider2D collider = Physics2D.OverlapBox(targetPos, overlapBoxSize, 0, solidObjectsLayer);
         return collider == null;
     }
@@ -111,18 +142,61 @@ public class controllerp1 : MonoBehaviour
         }
     }
 
+    private void Move()
+    {
+
+        if (input != Vector2.zero && TargetPosition == transform.position)
+        {
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+            {
+
+                if (input.x > 0)
+                {
+                    Direction = Direction.right;
+
+                    if (!GetCollision)
+                        TargetPosition += Vector3.right;
+                }
+                else
+                {
+                    Direction = Direction.left;
+
+                    if (!GetCollision)
+                        TargetPosition += Vector3.left;
+                }
+
+
+
+            }
+            else
+            {
+                if (input.y > 0)
+                {
+                    Direction = Direction.up;
+
+                    if (!GetCollision)
+                        TargetPosition += Vector3.up;
+                }
+                else
+                {
+                    Direction = Direction.down;
+
+                    if (!GetCollision)
+                        TargetPosition += Vector3.down;
+                }
+            }
+        }
+        transform.position = Vector3.MoveTowards(transform.position, TargetPosition, moveSpeed * Time.deltaTime);
+    
+    }
+
     private void RotateCollider(float angle)
     {
         transform.rotation = Quaternion.Euler(0, 0, angle);
         spriteTransform.rotation = Quaternion.Euler(0, 0, 0); // Ensure sprite stays unrotated
     }
 
-    private Vector2 SnapToGrid(Vector2 position)
-    {
-        position.x = Mathf.Round(position.x);
-        position.y = Mathf.Round(position.y);
-        return position;
-    }
+
 
     private void OnDrawGizmos()
     {
@@ -158,7 +232,7 @@ public class controllerp1 : MonoBehaviour
 
     private void OnDisable()
     {
-        if(inputControls != null)
+        if (inputControls != null)
         {
             inputControls.MasterControls.Movement.performed -= MovementPerformed;
             inputControls.MasterControls.Jump.performed -= RunningPerformed;
@@ -191,7 +265,7 @@ public class controllerp1 : MonoBehaviour
 
     private void InteractionPerformed(InputAction.CallbackContext context)
     {
-        if(canAttack)
+        if (canAttack)
         {
             gameManager.AddScore(playerID, 10); // Increase score by 10 (or any other value)
         }
@@ -212,4 +286,7 @@ public class controllerp1 : MonoBehaviour
             canAttack = false;
         }
     }
+
+
 }
+

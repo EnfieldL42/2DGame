@@ -8,6 +8,7 @@ public class OCGameManager : MonoBehaviour
     public float gameDuration;
     public float timer;
     public List<int> playerScores = new List<int>();
+    public List<GameObject> playerGameObjects = new List<GameObject>(); // List of player GameObjects
 
     public int whichRound = 0;
 
@@ -20,7 +21,13 @@ public class OCGameManager : MonoBehaviour
     {
         MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
 
+        EnablePlayers();
         InitializePlayerScores();
+    }
+
+    private void OnDestroy()
+    {
+        MultiplayerInputManager.instance.onPlayerJoined -= OnPlayerJoined;
     }
 
     private void OnPlayerJoined(int playerID)
@@ -28,6 +35,22 @@ public class OCGameManager : MonoBehaviour
         if (playerID >= playerScores.Count)
         {
             playerScores.Add(0);
+        }
+
+        if (playerID < playerGameObjects.Count)
+        {
+            playerGameObjects[playerID].SetActive(true); 
+        }
+    }
+
+    private void EnablePlayers()
+    {
+        for (int i = 0; i < MultiplayerInputManager.instance.players.Count; i++)
+        {
+            if (i < playerGameObjects.Count)
+            {
+                playerGameObjects[i].SetActive(true); 
+            }
         }
     }
 
@@ -79,16 +102,15 @@ public class OCGameManager : MonoBehaviour
             playerScoresList.Add((i, playerScores[i]));
         }
 
-            playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
+        playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
 
-            int lowestScoreID = playerScoresList[0].ID;
-            int secondLowestScoreID = playerScoresList[1].ID;
+        int lowestScoreID = playerScoresList[0].ID;
+        int secondLowestScoreID = playerScoresList[1].ID;
 
-            GameManager.SetPlayerOne(lowestScoreID);
-            GameManager.SetPlayerTwo(secondLowestScoreID);
+        GameManager.SetPlayerOne(lowestScoreID);
+        GameManager.SetPlayerTwo(secondLowestScoreID);
 
-            SceneManager.LoadScene("Ball Game Test");
-  
+        SceneManager.LoadScene("Ball Game Test");
     }
 
     public void AddScore(int ID, int score)

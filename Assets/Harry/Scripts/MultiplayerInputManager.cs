@@ -12,7 +12,7 @@ public class MultiplayerInputManager : MonoBehaviour
     public static MultiplayerInputManager instance;
 
     public List<PlayerControls> players = new List<PlayerControls>();
-    public int maxPlayers = 2;
+    public int maxPlayers = 4;
 
     public InputControls inputControls;
 

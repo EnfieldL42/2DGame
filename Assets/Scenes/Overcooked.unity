@@ -1165,9 +1165,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f191a4f77fe633b42bcf712cb1ef61b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDuration: 600
+  gameDuration: 60
   timer: 0
   playerScores: 
+  playerGameObjects:
+  - {fileID: 1803546091}
+  - {fileID: 1744548959}
+  - {fileID: 1853531515}
+  - {fileID: 1021225433}
   whichRound: 0
 --- !u!1 &456307076
 GameObject:
@@ -1476,13 +1481,14 @@ GameObject:
   - component: {fileID: 1021225436}
   - component: {fileID: 1021225434}
   - component: {fileID: 1021225438}
+  - component: {fileID: 1021225439}
   m_Layer: 0
   m_Name: Player 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1021225434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,6 +1601,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1021225439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021225433}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ab8fc8f8aa5f44490007f69fbfaeae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 3
+  gameManager: {fileID: 349683754}
+  input: {x: 0, y: 0}
+  solidObjectsLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 5
+  runningSpeed: 10
+  walkingSpeed: 5
+  canAttack: 0
+  isMoving: 0
+  overlapBoxSize: {x: 0.8, y: 0.8}
 --- !u!1 &1067889536
 GameObject:
   m_ObjectHideFlags: 0
@@ -9191,13 +9221,14 @@ GameObject:
   - component: {fileID: 1744548962}
   - component: {fileID: 1744548960}
   - component: {fileID: 1744548964}
+  - component: {fileID: 1744548965}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1744548960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9310,6 +9341,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1744548965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744548959}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ab8fc8f8aa5f44490007f69fbfaeae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  gameManager: {fileID: 349683754}
+  input: {x: 0, y: 0}
+  solidObjectsLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 5
+  runningSpeed: 10
+  walkingSpeed: 5
+  canAttack: 0
+  isMoving: 0
+  overlapBoxSize: {x: 0.8, y: 0.8}
 --- !u!1 &1760040392
 GameObject:
   m_ObjectHideFlags: 0
@@ -9446,6 +9501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1803546092}
   - component: {fileID: 1803546104}
+  - component: {fileID: 1803546106}
   - component: {fileID: 1803546095}
   - component: {fileID: 1803546103}
   - component: {fileID: 1803546105}
@@ -9589,6 +9645,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1803546106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803546091}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ab8fc8f8aa5f44490007f69fbfaeae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  gameManager: {fileID: 349683754}
+  input: {x: 0, y: 0}
+  solidObjectsLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 5
+  runningSpeed: 10
+  walkingSpeed: 5
+  canAttack: 0
+  isMoving: 0
+  overlapBoxSize: {x: 0.8, y: 0.8}
 --- !u!1 &1825446357
 GameObject:
   m_ObjectHideFlags: 0
@@ -9628,7 +9708,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.11932, y: -0.11932, z: 0}
-  m_LocalScale: {x: 0.6200282, y: 0.6200282, z: 0.6200282}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1523644015}
@@ -9653,13 +9733,14 @@ GameObject:
   - component: {fileID: 1853531518}
   - component: {fileID: 1853531516}
   - component: {fileID: 1853531520}
+  - component: {fileID: 1853531521}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1853531516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9772,6 +9853,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1853531521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853531515}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ab8fc8f8aa5f44490007f69fbfaeae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 2
+  gameManager: {fileID: 349683754}
+  input: {x: 0, y: 0}
+  solidObjectsLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 5
+  runningSpeed: 10
+  walkingSpeed: 5
+  canAttack: 0
+  isMoving: 0
+  overlapBoxSize: {x: 0.8, y: 0.8}
 --- !u!1 &1902022382
 GameObject:
   m_ObjectHideFlags: 0
