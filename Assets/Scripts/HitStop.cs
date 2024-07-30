@@ -10,7 +10,7 @@ public class HitStop : MonoBehaviour
     {
         if (waiting)
             return;
-        Time.timeScale = 0f;
+        Time.timeScale = 0.05f;
             StartCoroutine(Wait(duration));
     }
     IEnumerator Wait(float duration)

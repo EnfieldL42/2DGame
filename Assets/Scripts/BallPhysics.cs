@@ -81,7 +81,7 @@ public class BallPhysics : MonoBehaviour
     void ReflectOffWall(Collision2D collision)
     {
         // Reflect the direction of the ball off the wall
-        currentDirection = Vector2.Reflect(currentDirection, collision.contacts[0].normal).normalized;
+        currentDirection = Vector2.Reflect(currentDirection, collision.GetContact(0).normal).normalized;
 
         // Update the ball's velocity
         rb.velocity = currentDirection * currentSpeed;
