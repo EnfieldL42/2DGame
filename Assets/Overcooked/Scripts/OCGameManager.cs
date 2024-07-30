@@ -7,7 +7,7 @@ public class OCGameManager : MonoBehaviour
 {
     public float gameDuration;
     public float timer;
-    public int[] playerScores = new int[4];
+    public List<int> playerScores = new List<int>();
 
     public int whichRound = 0;
 
@@ -16,12 +16,28 @@ public class OCGameManager : MonoBehaviour
         timer = gameDuration;
     }
 
+    void Start()
+    {
+        // Register to the player joined event
+        MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
+
+        // Initialize player scores based on current players
+        InitializePlayerScores();
+    }
+
+    private void OnPlayerJoined(int playerID)
+    {
+        // Add a new score entry for the new player
+        if (playerID >= playerScores.Count)
+        {
+            playerScores.Add(0);
+        }
+    }
+
     void Update()
     {
         StartTimer();
-
     }
-
 
     public void StartTimer()
     {
@@ -32,7 +48,6 @@ public class OCGameManager : MonoBehaviour
             {
                 timer = 0;
             }
-            //UpdateTimerUI();
         }
         else
         {
@@ -50,8 +65,6 @@ public class OCGameManager : MonoBehaviour
     public void Preliminaries()
     {
         SetBallPlayers();
-        SceneManager.LoadScene("Ball Game Test");
-
         print("start deathmatch");
     }
 
@@ -64,25 +77,53 @@ public class OCGameManager : MonoBehaviour
     {
         List<(int ID, int Score)> playerScoresList = new List<(int ID, int Score)>();
 
-        for (int i = 0; i < playerScores.Length; i++)
+        for (int i = 0; i < playerScores.Count; i++)
         {
             playerScoresList.Add((i, playerScores[i]));
         }
 
-        playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
+        int zeroScoreCount = 0;
 
-        int lowestScoreID = playerScoresList[0].ID;
-        int secondLowestScoreID = playerScoresList[1].ID;
+        foreach (var player in playerScoresList)
+        {
+            if (player.Score == 0)
+            {
+                zeroScoreCount++;
+            }
+        }
 
-        GameManager.SetPlayerOne(lowestScoreID);
-        GameManager.SetPlayerTwo(secondLowestScoreID);
+        if (zeroScoreCount >= 3)
+        {
+            timer = gameDuration;
+        }
+        else
+        {
+            playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
+
+            int lowestScoreID = playerScoresList[0].ID;
+            int secondLowestScoreID = playerScoresList[1].ID;
+
+            GameManager.SetPlayerOne(lowestScoreID);
+            GameManager.SetPlayerTwo(secondLowestScoreID);
+
+            SceneManager.LoadScene("Ball Game Test");
+        }
     }
 
     public void AddScore(int ID, int score)
     {
-        if (ID >= 0 && ID < playerScores.Length)
+        if (ID >= 0 && ID < playerScores.Count)
         {
             playerScores[ID] += score;
+        }
+    }
+
+    private void InitializePlayerScores()
+    {
+        playerScores.Clear();
+        for (int i = 0; i < MultiplayerInputManager.instance.players.Count; i++)
+        {
+            playerScores.Add(0); // Initialize scores to 0 for each player
         }
     }
 }
