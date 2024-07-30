@@ -27,7 +27,9 @@ public class UIManager : MonoBehaviour
 
     void UpdateTimer(float timer)
     {
-        timerText.text = timer.ToString("F2"); // Format the timer text to 2 decimal places
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        int seconds = Mathf.FloorToInt(timer - minutes * 60);
+        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     void UpdateScores(List<int> scores)
@@ -37,7 +39,7 @@ public class UIManager : MonoBehaviour
             if (i < scores.Count)
             {
                 playerScoreTexts[i].gameObject.SetActive(true); // Activate the text element
-                playerScoreTexts[i].text = "Player " + (i + 1) + ": " + scores[i];
+                playerScoreTexts[i].text = "P" + (i + 1) + ": " + scores[i];
             }
             else
             {

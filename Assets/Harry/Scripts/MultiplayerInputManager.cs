@@ -29,15 +29,10 @@ public class MultiplayerInputManager : MonoBehaviour
         }
         else
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
-    private void Start()
-    {
-
-        Debug.Log("MultiplayerInputManager GameObject is active: " + gameObject.activeInHierarchy);
-    }
     private void InitializeInputs()
     {
         inputControls = new InputControls();

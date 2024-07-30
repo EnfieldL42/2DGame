@@ -18,16 +18,13 @@ public class OCGameManager : MonoBehaviour
 
     void Start()
     {
-        // Register to the player joined event
         MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
 
-        // Initialize player scores based on current players
         InitializePlayerScores();
     }
 
     private void OnPlayerJoined(int playerID)
     {
-        // Add a new score entry for the new player
         if (playerID >= playerScores.Count)
         {
             playerScores.Add(0);
@@ -82,22 +79,6 @@ public class OCGameManager : MonoBehaviour
             playerScoresList.Add((i, playerScores[i]));
         }
 
-        int zeroScoreCount = 0;
-
-        foreach (var player in playerScoresList)
-        {
-            if (player.Score == 0)
-            {
-                zeroScoreCount++;
-            }
-        }
-
-        if (zeroScoreCount >= 3)
-        {
-            timer = gameDuration;
-        }
-        else
-        {
             playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
 
             int lowestScoreID = playerScoresList[0].ID;
@@ -107,7 +88,7 @@ public class OCGameManager : MonoBehaviour
             GameManager.SetPlayerTwo(secondLowestScoreID);
 
             SceneManager.LoadScene("Ball Game Test");
-        }
+  
     }
 
     public void AddScore(int ID, int score)

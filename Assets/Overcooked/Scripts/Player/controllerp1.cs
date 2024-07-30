@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class controllerp1 : MonoBehaviour
 {
     public int playerID;
-    //public MultiplayerInputManager inputManager;
     InputControls inputControls;
 
     public OCGameManager gameManager;
@@ -22,20 +21,18 @@ public class controllerp1 : MonoBehaviour
     public bool canAttack = false;
 
     public bool isMoving;
-    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); // Customize this to fit your needs
+    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); 
 
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
-    private Vector2 lastTargetPos; // To store the last target position for visualization
-
+    private Vector2 lastTargetPos; 
     private void Start()
     {
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
-        spriteTransform = transform.GetChild(0); // Assumes the sprite is the first child
+        spriteTransform = transform.GetChild(0); 
         if (MultiplayerInputManager.instance.players.Count > playerID)
         {
-            Debug.Log(MultiplayerInputManager.instance.players.Count);
             AssignInputs(playerID);
         }
         else
@@ -49,22 +46,13 @@ public class controllerp1 : MonoBehaviour
         if (!isMoving)
         {
 
-            //input.x = input.x > 0 ? 1 : (input.x < 0 ? -1 : 0);
-            //input.y = input.y > 0 ? 1 : (input.y < 0 ? -1 : 0);
-
-            if (input.x != 0)
-            {
-                //input.y = 0;
-            }
 
             if (input != Vector2.zero)
             {
                 var targetPos = (Vector2)transform.position + input;
 
-                // Snap the target position to the grid
                 targetPos = SnapToGrid(targetPos);
 
-                // Rotate the player regardless of movement
                 UpdateColliderRotation();
 
                 if (IsWalkable(targetPos))
@@ -73,11 +61,10 @@ public class controllerp1 : MonoBehaviour
                 }
                 else
                 {
-                    // Rotate the player even if not walkable
                     UpdateColliderRotation();
                 }
 
-                lastTargetPos = targetPos; // Store the target position for visualization
+                lastTargetPos = targetPos; 
             }
         }
     }
