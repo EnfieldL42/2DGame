@@ -12,12 +12,15 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-
+        // Initially deactivate all player score texts
+        foreach (var scoreText in playerScoreTexts)
+        {
+            scoreText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-
         UpdateTimer(gameManager.timer);
         UpdateScores(gameManager.playerScores);
     }
@@ -27,11 +30,19 @@ public class UIManager : MonoBehaviour
         timerText.text = timer.ToString("F2"); // Format the timer text to 2 decimal places
     }
 
-    void UpdateScores(int[] scores)
+    void UpdateScores(List<int> scores)
     {
         for (int i = 0; i < playerScoreTexts.Length; i++)
         {
-            playerScoreTexts[i].text = "Player " + (i + 1) + ": " + scores[i];
+            if (i < scores.Count)
+            {
+                playerScoreTexts[i].gameObject.SetActive(true); // Activate the text element
+                playerScoreTexts[i].text = "Player " + (i + 1) + ": " + scores[i];
+            }
+            else
+            {
+                playerScoreTexts[i].gameObject.SetActive(false); // Deactivate the text element
+            }
         }
     }
 }

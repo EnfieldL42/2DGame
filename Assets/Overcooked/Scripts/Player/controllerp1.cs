@@ -206,7 +206,6 @@ public class controllerp1 : MonoBehaviour
         if(canAttack)
         {
             gameManager.AddScore(playerID, 10); // Increase score by 10 (or any other value)
-
         }
     }
 
