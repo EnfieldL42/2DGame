@@ -15,8 +15,6 @@ public class HitboxParameters : MonoBehaviour
         float random = Random.Range(min, max);
         Quaternion randomAngle = Quaternion.AngleAxis(random, Vector3.forward );
 
-        Debug.Log(random);
-        Debug.Log(randomAngle);
         if (gameObject.GetComponentInParent<PlayerInput>().facingRight == true)
         {
             launchAngle = randomAngle * Vector2.left;

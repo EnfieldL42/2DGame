@@ -16,10 +16,12 @@ public class PlayerInput : MonoBehaviour
     public Collider2D col;
 
     public bool canJump;
+    public Vector2 stickCoord;
     public bool facingRight;
     private float horizontal;
     public float speed = 5f;
     public float jumpForce = 10f;
+    bool playerActive;
 
     // Start is called before the first frame update
     void Awake()
@@ -66,8 +68,13 @@ public class PlayerInput : MonoBehaviour
         {
             Flip();
         }
-
-        anim.SetFloat("StickY", inputControls.MasterControls.Movement.ReadValue<Vector2>().y);
+        if(playerActive == true)
+        {
+            stickCoord = inputControls.MasterControls.Movement.ReadValue<Vector2>();
+            anim.SetFloat("StickX", stickCoord.x);
+            anim.SetFloat("StickY", stickCoord.y);
+        }
+        
     }
 
     void AssignInputs(int ID)
@@ -82,6 +89,8 @@ public class PlayerInput : MonoBehaviour
             inputControls.MasterControls.Jump.performed += JumpPerformed;
             inputControls.MasterControls.Jump.canceled += JumpCanceled;
             inputControls.MasterControls.Attack.performed += AttackPerformed;
+
+            playerActive = true;
         }
     }
 
@@ -150,6 +159,7 @@ public class PlayerInput : MonoBehaviour
 
     public void DisableControls()
     {
+       playerActive = false;
        inputControls.Disable();
     }
 }
