@@ -16,7 +16,7 @@ public class PlayerInput : MonoBehaviour
     public Collider2D col;
 
     public bool canJump;
-    private bool facingRight;
+    public bool facingRight;
     private float horizontal;
     public float speed = 5f;
     public float jumpForce = 10f;
@@ -66,6 +66,8 @@ public class PlayerInput : MonoBehaviour
         {
             Flip();
         }
+
+        anim.SetFloat("StickY", inputControls.MasterControls.Movement.ReadValue<Vector2>().y);
     }
 
     void AssignInputs(int ID)
@@ -124,6 +126,7 @@ public class PlayerInput : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             canJump = true;
+            anim.SetBool("Airborne", false);
         }
     }
 
@@ -132,6 +135,7 @@ public class PlayerInput : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             canJump = false;
+            anim.SetBool("Airborne", true);
         }
     }
 

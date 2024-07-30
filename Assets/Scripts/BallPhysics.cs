@@ -7,17 +7,22 @@ public class BallPhysics : MonoBehaviour
     public float initialSpeed = 10f;
     public float speedMultiplier = 1.1f;
     public float maxSpeed = 30f;
+
+    public float debounce;
+
     private Vector2 currentDirection;
     public float currentSpeed;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
     public Color color;
+    
 
     public int lastHit;
     public GameManager gameManager;
 
     void Awake()
     {
+        debounce = 0;
         lastHit = 100;
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManager>();
@@ -26,6 +31,12 @@ public class BallPhysics : MonoBehaviour
         currentSpeed = initialSpeed;
         currentDirection = rb.velocity.normalized;
 
+    }
+
+
+    private void Update()
+    {
+        debounce += 1f * Time.deltaTime; 
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -37,15 +48,16 @@ public class BallPhysics : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hitbox"))
+        if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
         {
             BallLaunched(collision);
+            debounce = 0;
             FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
             lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
             collision.gameObject.SetActive(false);
             ChangeColor();
         }
-        else if (collision.gameObject.CompareTag("Hurtbox") & collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
+        else if (collision.gameObject.CompareTag("Hurtbox") && collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
         {
             FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
             collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
@@ -55,8 +67,8 @@ public class BallPhysics : MonoBehaviour
     void BallLaunched(Collider2D collision)
     {
         // Calculate a new random direction within a specified angle range
-        float randomAngle = Random.Range(-45f, 45f);
-        currentDirection = Quaternion.Euler(0, 0, randomAngle) * -currentDirection;
+        collision.gameObject.GetComponent<HitboxParameters>().GenerateAngle();
+        currentDirection = collision.gameObject.GetComponent<HitboxParameters>().launchAngle;
 
         // Update the ball's velocity
         rb.velocity = currentDirection * currentSpeed;
