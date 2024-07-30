@@ -89,11 +89,11 @@ public class BallPhysics : MonoBehaviour
 
     void ChangeColor()
     {
-        if(lastHit == 0)
+        if(lastHit == GameManager.playerOne)
         {
             spriteRenderer.color = Color.red;
         }
-        else if (lastHit == 1)
+        else if (lastHit == GameManager.playerTwo)
         {
             spriteRenderer.color = Color.blue;
         }
