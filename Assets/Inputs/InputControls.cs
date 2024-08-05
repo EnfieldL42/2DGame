@@ -516,7 +516,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             AddCallbacks(instance);
         }
     }
-    public MasterControlsActions MasterControls => new MasterControlsActions(this);
+    public MasterControlsActions @MasterControls => new MasterControlsActions(this);
 
     // BallControls
     private readonly InputActionMap m_BallControls;

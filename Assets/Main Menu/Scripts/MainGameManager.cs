@@ -8,7 +8,7 @@ public class MainGameManager : MonoBehaviour
 {
     public void startGame()
     {
-        SceneManager.LoadScene("Overcooked");
+        SceneManager.LoadScene("Don't Stop Smithing");
 
     }
 }

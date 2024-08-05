@@ -32,7 +32,6 @@ public class controllerp1 : MonoBehaviour
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
 
-        // Assuming the sprite and animator are on a child object
         Transform spriteObject = transform.GetChild(0);
         spriteTransform = spriteObject;
         animator = spriteObject.GetComponent<Animator>();
@@ -53,7 +52,8 @@ public class controllerp1 : MonoBehaviour
         {
             if (input != Vector2.zero)
             {
-                var targetPos = (Vector2)transform.position + input;
+                Vector2 filteredInput = FilterInput(input);
+                var targetPos = (Vector2)transform.position + filteredInput;
                 targetPos = SnapToGrid(targetPos);
 
                 if (IsWalkable(targetPos))
@@ -63,6 +63,18 @@ public class controllerp1 : MonoBehaviour
 
                 lastTargetPos = targetPos;
             }
+        }
+    }
+
+    private Vector2 FilterInput(Vector2 rawInput)
+    {
+        if (Mathf.Abs(rawInput.x) > Mathf.Abs(rawInput.y))
+        {
+            return new Vector2(Mathf.Sign(rawInput.x), 0);
+        }
+        else
+        {
+            return new Vector2(0, Mathf.Sign(rawInput.y));
         }
     }
 
@@ -88,14 +100,13 @@ public class controllerp1 : MonoBehaviour
 
     private Vector2 SnapToGrid(Vector2 position)
     {
-        position.x = Mathf.Round(position.x);
-        position.y = Mathf.Round(position.y);
+        position.x = Mathf.Floor(position.x) + 0.5f;
+        position.y = Mathf.Floor(position.y) + 0.7f;
         return position;
     }
 
     private void UpdateAnimatorParameters()
     {
-        // Set animator parameters based on input direction
         if (input.x > 0)
         {
             animator.SetBool("isMovingRight", true);
@@ -126,7 +137,6 @@ public class controllerp1 : MonoBehaviour
         }
         else
         {
-            // Reset animator parameters when not moving
             animator.SetBool("isMovingRight", false);
             animator.SetBool("isMovingLeft", false);
             animator.SetBool("isMovingUp", false);
@@ -183,7 +193,7 @@ public class controllerp1 : MonoBehaviour
     private void MovementPerformed(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
-        UpdateAnimatorParameters(); // Update animator parameters based on movement
+        UpdateAnimatorParameters();
     }
 
     private void RunningPerformed(InputAction.CallbackContext context)
@@ -205,9 +215,13 @@ public class controllerp1 : MonoBehaviour
             if (station != null)
             {
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-                if (playerInventory != null && playerInventory.inventory.Count < playerInventory.maxItems)
+                if (playerInventory != null && playerInventory.CollectItem(station.itemID))
                 {
-                    playerInventory.CollectItem(station.itemID);
+                    ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
+                    if (itemDisplay != null)
+                    {
+                        itemDisplay.UpdateItemDisplay();  // Update item display after collecting an item
+                    }
                 }
                 break;
             }
