@@ -23,6 +23,7 @@ public class OCGameManager : MonoBehaviour
 
         EnablePlayers();
         InitializePlayerScores();
+        DisablePlayer();
     }
 
     private void OnDestroy()
@@ -128,5 +129,14 @@ public class OCGameManager : MonoBehaviour
         {
             playerScores.Add(0); // Initialize scores to 0 for each player
         }
+    }
+
+    public void DisablePlayer()
+    {
+        if(GameManager.loserID >= 5)
+        {
+            return;
+        }
+        playerGameObjects[GameManager.loserID].SetActive(false);
     }
 }

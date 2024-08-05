@@ -97,6 +97,7 @@ public class PlayerInput : MonoBehaviour
     private void AttackPerformed(InputAction.CallbackContext context)
     {
         anim.SetTrigger("Attack");
+        StartCoroutine(DisableAttack());
     }
 
     private void JumpCanceled(InputAction.CallbackContext context)
@@ -154,12 +155,19 @@ public class PlayerInput : MonoBehaviour
         rb.gravityScale = 0;
         rb.velocity = ball.rb.velocity * ball.initialSpeed;
         col.enabled = false;
-        gameManager.GameEnded();
+        int id = playerID;
+        gameManager.GameEnded(id);
     }
 
     public void DisableControls()
     {
        playerActive = false;
        inputControls.Disable();
+    }
+    IEnumerator DisableAttack()
+    {
+        inputControls.MasterControls.Attack.performed -= AttackPerformed;
+        yield return new WaitForSeconds(0.2f);
+        inputControls.MasterControls.Attack.performed += AttackPerformed;
     }
 }

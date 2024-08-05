@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static int playerOne;
     public static int playerTwo;
+    public static int loserID = 5;
 
     private void Awake()
     {
@@ -25,10 +26,18 @@ public class GameManager : MonoBehaviour
         playerTwo = id;
     }
 
-    public void GameEnded()
+    public void GameEnded(int id)
     {
-        inputManager.DisableInputs();
-        
+        loserID = id;
+        StartCoroutine(ReturnToMain());
+        Debug.Log(loserID);
+
+    }
+
+    IEnumerator ReturnToMain()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        SceneManager.LoadScene("Overcooked");
     }
 
 }

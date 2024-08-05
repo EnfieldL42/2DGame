@@ -198,6 +198,182 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""BallControls"",
+            ""id"": ""15776c11-fa65-4cda-b7e3-71c97d625a42"",
+            ""actions"": [
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""7068598f-7dde-41db-b786-d8885a7d3fec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""2efa941a-aefb-4058-9054-064bc4feb54d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ed7a1679-a619-408b-9d60-ebd20fa5a2e8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""JoinButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""85d43b97-2e84-423c-a2cd-76078bd859ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""555a9efa-495d-4290-bcaa-5ba2b8b2ac05"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2280be9-b8c1-4f61-8134-58706cbb8863"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da392565-78ec-41d6-bbcc-b8bd4cd53f72"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65cf7cd3-e342-4ec1-be62-71bbb9e67a3a"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49b16d0c-23fb-40da-9590-68481aab0693"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""68efcde3-6c37-48d1-abb0-190f8beede02"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ffeb87f0-9f4c-44a0-9d41-f3c188bcb5d8"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""206be639-28a1-416b-80c2-63022cc12ae9"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""ca3500e4-9ac8-4020-8e08-3613d2a03d52"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""02a3f2e2-66fa-4f8e-b82e-a4b40e1c841f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e0a6a95-ff86-486a-9aa3-819ce382a4c1"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JoinButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ef22c65-4cbc-47f7-b6af-e63e9f1efd23"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JoinButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -208,6 +384,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_MasterControls_Attack = m_MasterControls.FindAction("Attack", throwIfNotFound: true);
         m_MasterControls_Movement = m_MasterControls.FindAction("Movement", throwIfNotFound: true);
         m_MasterControls_JoinButton = m_MasterControls.FindAction("JoinButton", throwIfNotFound: true);
+        // BallControls
+        m_BallControls = asset.FindActionMap("BallControls", throwIfNotFound: true);
+        m_BallControls_Jump = m_BallControls.FindAction("Jump", throwIfNotFound: true);
+        m_BallControls_Attack = m_BallControls.FindAction("Attack", throwIfNotFound: true);
+        m_BallControls_Movement = m_BallControls.FindAction("Movement", throwIfNotFound: true);
+        m_BallControls_JoinButton = m_BallControls.FindAction("JoinButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -334,8 +516,85 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             AddCallbacks(instance);
         }
     }
-    public MasterControlsActions @MasterControls => new MasterControlsActions(this);
+    public MasterControlsActions MasterControls => new MasterControlsActions(this);
+
+    // BallControls
+    private readonly InputActionMap m_BallControls;
+    private List<IBallControlsActions> m_BallControlsActionsCallbackInterfaces = new List<IBallControlsActions>();
+    private readonly InputAction m_BallControls_Jump;
+    private readonly InputAction m_BallControls_Attack;
+    private readonly InputAction m_BallControls_Movement;
+    private readonly InputAction m_BallControls_JoinButton;
+    public struct BallControlsActions
+    {
+        private @InputControls m_Wrapper;
+        public BallControlsActions(@InputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Jump => m_Wrapper.m_BallControls_Jump;
+        public InputAction @Attack => m_Wrapper.m_BallControls_Attack;
+        public InputAction @Movement => m_Wrapper.m_BallControls_Movement;
+        public InputAction @JoinButton => m_Wrapper.m_BallControls_JoinButton;
+        public InputActionMap Get() { return m_Wrapper.m_BallControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BallControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IBallControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BallControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BallControlsActionsCallbackInterfaces.Add(instance);
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @JoinButton.started += instance.OnJoinButton;
+            @JoinButton.performed += instance.OnJoinButton;
+            @JoinButton.canceled += instance.OnJoinButton;
+        }
+
+        private void UnregisterCallbacks(IBallControlsActions instance)
+        {
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @JoinButton.started -= instance.OnJoinButton;
+            @JoinButton.performed -= instance.OnJoinButton;
+            @JoinButton.canceled -= instance.OnJoinButton;
+        }
+
+        public void RemoveCallbacks(IBallControlsActions instance)
+        {
+            if (m_Wrapper.m_BallControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBallControlsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BallControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BallControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BallControlsActions @BallControls => new BallControlsActions(this);
     public interface IMasterControlsActions
+    {
+        void OnJump(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
+        void OnJoinButton(InputAction.CallbackContext context);
+    }
+    public interface IBallControlsActions
     {
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
