@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class controllerp1 : MonoBehaviour
 {
     public int playerID;
@@ -13,7 +12,6 @@ public class controllerp1 : MonoBehaviour
 
     public Vector2 input;
 
-
     public LayerMask solidObjectsLayer;
 
     public float moveSpeed;
@@ -22,16 +20,17 @@ public class controllerp1 : MonoBehaviour
     public bool canAttack = false;
 
     public bool isMoving;
-    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f); 
+    public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f);
 
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
-    private Vector2 lastTargetPos; 
+    private Vector2 lastTargetPos;
+
     private void Start()
     {
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
-        spriteTransform = transform.GetChild(0); 
+        spriteTransform = transform.GetChild(0);
         if (MultiplayerInputManager.instance.players.Count > playerID)
         {
             AssignInputs(playerID);
@@ -46,8 +45,6 @@ public class controllerp1 : MonoBehaviour
     {
         if (!isMoving)
         {
-
-
             if (input != Vector2.zero)
             {
                 var targetPos = (Vector2)transform.position + input;
@@ -65,7 +62,7 @@ public class controllerp1 : MonoBehaviour
                     UpdateColliderRotation();
                 }
 
-                lastTargetPos = targetPos; 
+                lastTargetPos = targetPos;
             }
         }
     }
@@ -140,7 +137,6 @@ public class controllerp1 : MonoBehaviour
         }
     }
 
-
     void AssignInputs(int ID)
     {
         if (playerID == ID)
@@ -158,7 +154,7 @@ public class controllerp1 : MonoBehaviour
 
     private void OnDisable()
     {
-        if(inputControls != null)
+        if (inputControls != null)
         {
             inputControls.MasterControls.Movement.performed -= MovementPerformed;
             inputControls.MasterControls.Jump.performed -= RunningPerformed;
@@ -172,12 +168,10 @@ public class controllerp1 : MonoBehaviour
         }
     }
 
-
     private void MovementPerformed(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
     }
-
 
     private void RunningPerformed(InputAction.CallbackContext context)
     {
@@ -191,25 +185,19 @@ public class controllerp1 : MonoBehaviour
 
     private void InteractionPerformed(InputAction.CallbackContext context)
     {
-        if(canAttack)
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, overlapBoxSize, 0);
+        foreach (Collider2D collider in colliders)
         {
-            gameManager.AddScore(playerID, 10); // Increase score by 10 (or any other value)
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Objectives")
-        {
-            canAttack = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Objectives")
-        {
-            canAttack = false;
+            ItemStation station = collider.GetComponent<ItemStation>();
+            if (station != null)
+            {
+                PlayerInventory playerInventory = GetComponent<PlayerInventory>();
+                if (playerInventory != null && playerInventory.inventory.Count < playerInventory.maxItems)
+                {
+                    playerInventory.CollectItem(station.itemID);
+                }
+                break;
+            }
         }
     }
 }

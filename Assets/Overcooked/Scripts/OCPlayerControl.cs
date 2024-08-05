@@ -24,12 +24,12 @@ public class OCPlayerControl : MonoBehaviour
     public float walkingSpeed;
     public bool canAttack = false;
 
-    public bool isMoving;
     public Vector2 overlapBoxSize = new Vector2(0.8f, 0.8f);
 
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
 
+    public Transform movePoint;
 
     private Vector2 lastTargetPos;
     Vector3 TargetPosition;
@@ -37,6 +37,9 @@ public class OCPlayerControl : MonoBehaviour
 
     private void Start()
     {
+        movePoint.parent = null;
+
+
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
         spriteTransform = transform.GetChild(0);
@@ -56,29 +59,13 @@ public class OCPlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (!isMoving)
+        if (Mathf.Abs(input.x) == 1f)
         {
-
-
-            if (input != Vector2.zero)
-            {
-                var targetPos = (Vector2)transform.position + input;
-
-                //targetPos = SnapToGrid(targetPos);
-
-                UpdateColliderRotation();
-
-                if (IsWalkable(targetPos))
-                {
-                    Move();
-                }
-                else
-                {
-                    UpdateColliderRotation();
-                }
-
-                lastTargetPos = targetPos;
-            }
+            movePoint.position += new Vector3(input.x, 0f, 0f);
+        }
+        if (Mathf.Abs(input.y) == 1f)
+        {
+            movePoint.position += new Vector3(0f, input.y, 0f);
         }
     }
     private Vector2 SnapToGrid(Vector2 position)
@@ -193,7 +180,7 @@ public class OCPlayerControl : MonoBehaviour
     private void RotateCollider(float angle)
     {
         transform.rotation = Quaternion.Euler(0, 0, angle);
-        spriteTransform.rotation = Quaternion.Euler(0, 0, 0); // Ensure sprite stays unrotated
+        spriteTransform.rotation = Quaternion.Euler(0, 0, 0); 
     }
 
 
