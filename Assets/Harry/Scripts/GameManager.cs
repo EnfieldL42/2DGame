@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        inputManager = FindObjectOfType<MultiplayerInputManager>();
-        currentScene = SceneManager.GetActiveScene().name;    
+        inputManager = FindObjectOfType<MultiplayerInputManager>();   
     }
 
     public static void SetPlayerOne(int id)
