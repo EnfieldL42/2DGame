@@ -24,13 +24,19 @@ public class controllerp1 : MonoBehaviour
 
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
+    private Animator animator;
     private Vector2 lastTargetPos;
 
     private void Start()
     {
         moveSpeed = walkingSpeed;
         boxCollider = GetComponent<BoxCollider2D>();
-        spriteTransform = transform.GetChild(0);
+
+        // Assuming the sprite and animator are on a child object
+        Transform spriteObject = transform.GetChild(0);
+        spriteTransform = spriteObject;
+        animator = spriteObject.GetComponent<Animator>();
+
         if (MultiplayerInputManager.instance.players.Count > playerID)
         {
             AssignInputs(playerID);
@@ -48,18 +54,11 @@ public class controllerp1 : MonoBehaviour
             if (input != Vector2.zero)
             {
                 var targetPos = (Vector2)transform.position + input;
-
                 targetPos = SnapToGrid(targetPos);
-
-                UpdateColliderRotation();
 
                 if (IsWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
-                }
-                else
-                {
-                    UpdateColliderRotation();
                 }
 
                 lastTargetPos = targetPos;
@@ -83,35 +82,8 @@ public class controllerp1 : MonoBehaviour
 
     private bool IsWalkable(Vector2 targetPos)
     {
-        // Center the overlap box on the target position
         Collider2D collider = Physics2D.OverlapBox(targetPos, overlapBoxSize, 0, solidObjectsLayer);
         return collider == null;
-    }
-
-    private void UpdateColliderRotation()
-    {
-        if (input.x > 0)
-        {
-            RotateCollider(90); // Facing right
-        }
-        else if (input.x < 0)
-        {
-            RotateCollider(270); // Facing left
-        }
-        else if (input.y > 0)
-        {
-            RotateCollider(180); // Facing up
-        }
-        else if (input.y < 0)
-        {
-            RotateCollider(0); // Facing down
-        }
-    }
-
-    private void RotateCollider(float angle)
-    {
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-        spriteTransform.rotation = Quaternion.Euler(0, 0, 0); // Ensure sprite stays unrotated
     }
 
     private Vector2 SnapToGrid(Vector2 position)
@@ -119,6 +91,47 @@ public class controllerp1 : MonoBehaviour
         position.x = Mathf.Round(position.x);
         position.y = Mathf.Round(position.y);
         return position;
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        // Set animator parameters based on input direction
+        if (input.x > 0)
+        {
+            animator.SetBool("isMovingRight", true);
+            animator.SetBool("isMovingLeft", false);
+            animator.SetBool("isMovingUp", false);
+            animator.SetBool("isMovingDown", false);
+        }
+        else if (input.x < 0)
+        {
+            animator.SetBool("isMovingRight", false);
+            animator.SetBool("isMovingLeft", true);
+            animator.SetBool("isMovingUp", false);
+            animator.SetBool("isMovingDown", false);
+        }
+        else if (input.y > 0)
+        {
+            animator.SetBool("isMovingRight", false);
+            animator.SetBool("isMovingLeft", false);
+            animator.SetBool("isMovingUp", true);
+            animator.SetBool("isMovingDown", false);
+        }
+        else if (input.y < 0)
+        {
+            animator.SetBool("isMovingRight", false);
+            animator.SetBool("isMovingLeft", false);
+            animator.SetBool("isMovingUp", false);
+            animator.SetBool("isMovingDown", true);
+        }
+        else
+        {
+            // Reset animator parameters when not moving
+            animator.SetBool("isMovingRight", false);
+            animator.SetBool("isMovingLeft", false);
+            animator.SetBool("isMovingUp", false);
+            animator.SetBool("isMovingDown", false);
+        }
     }
 
     private void OnDrawGizmos()
@@ -129,7 +142,6 @@ public class controllerp1 : MonoBehaviour
         Vector2 direction = (Vector2)transform.position + input - (Vector2)transform.position;
         Gizmos.DrawWireCube((Vector2)transform.position + direction, overlapBoxSize);
 
-        // Draw the overlap box for visualization
         if (lastTargetPos != Vector2.zero)
         {
             Gizmos.color = Color.green;
@@ -171,6 +183,7 @@ public class controllerp1 : MonoBehaviour
     private void MovementPerformed(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
+        UpdateAnimatorParameters(); // Update animator parameters based on movement
     }
 
     private void RunningPerformed(InputAction.CallbackContext context)
