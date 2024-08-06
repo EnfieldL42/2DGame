@@ -5,6 +5,7 @@ public class PlayerInventory : MonoBehaviour
 {
     public int maxItems = 3;  // Maximum number of items a player can hold
     public List<int> inventory = new List<int>();  // List of item IDs
+    public int uniqueItem = -1;  // ID of the unique item (-1 if no unique item)
 
     public bool CollectItem(int itemID)
     {
@@ -24,6 +25,21 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    public void ClearInventory()
+    {
+        inventory.Clear();
+    }
+
+    public bool AddUniqueItem(int itemID)
+    {
+        if (uniqueItem == -1)
+        {
+            uniqueItem = itemID;
+            return true;
+        }
+        return false;
+    }
+
     public int GetItemAtIndex(int index)
     {
         if (index >= 0 && index < inventory.Count)
@@ -31,5 +47,10 @@ public class PlayerInventory : MonoBehaviour
             return inventory[index];
         }
         return -1;  // Return -1 if index is out of range
+    }
+
+    public int GetUniqueItem()
+    {
+        return uniqueItem;
     }
 }

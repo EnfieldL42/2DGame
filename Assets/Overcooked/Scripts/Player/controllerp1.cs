@@ -215,12 +215,34 @@ public class controllerp1 : MonoBehaviour
             if (station != null)
             {
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-                if (playerInventory != null && playerInventory.CollectItem(station.itemID))
+                if (playerInventory != null && station.TryCollectItem(playerID, playerInventory))
                 {
                     ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
                     if (itemDisplay != null)
                     {
-                        itemDisplay.UpdateItemDisplay();  // Update item display after collecting an item
+                        itemDisplay.UpdateItemDisplay();
+                    }
+                }
+                break;
+            }
+
+            CraftingStation craftingStation = collider.GetComponent<CraftingStation>();
+            if (craftingStation != null)
+            {
+                PlayerInventory playerInventory = GetComponent<PlayerInventory>();
+                if (playerInventory != null && playerInventory.inventory.Count == playerInventory.maxItems && playerInventory.uniqueItem == -1)
+                {
+                    int uniqueItemID;
+                    if (craftingStation.TryCraftItem(playerInventory.inventory, out uniqueItemID))
+                    {
+                        playerInventory.ClearInventory();
+                        playerInventory.AddUniqueItem(uniqueItemID);
+                        ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
+                        if (itemDisplay != null)
+                        {
+                            itemDisplay.UpdateItemDisplay();
+                        }
+                        Debug.Log($"Player {playerInventory.gameObject.name} crafted item {uniqueItemID}.");
                     }
                 }
                 break;
