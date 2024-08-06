@@ -2610,8 +2610,8 @@ MonoBehaviour:
   ingredientPositions: []
   ingredientRenderers: []
   ingredientSprites: []
-  uniqueItemPositions: []
-  uniqueItemRenderers: []
+  uniqueItemPosition: {fileID: 0}
+  uniqueItemRenderer: {fileID: 0}
   uniqueItemSprites: []
 --- !u!1 &731628546
 GameObject:
@@ -2663,8 +2663,8 @@ MonoBehaviour:
   ingredientPositions: []
   ingredientRenderers: []
   ingredientSprites: []
-  uniqueItemPositions: []
-  uniqueItemRenderers: []
+  uniqueItemPosition: {fileID: 0}
+  uniqueItemRenderer: {fileID: 0}
   uniqueItemSprites: []
 --- !u!1 &771127616
 GameObject:
@@ -4828,7 +4828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxItems: 3
   inventory: 
-  uniqueItems: 
+  uniqueItem: -1
 --- !u!1 &1102625546
 GameObject:
   m_ObjectHideFlags: 0
@@ -7569,8 +7569,8 @@ MonoBehaviour:
   ingredientPositions: []
   ingredientRenderers: []
   ingredientSprites: []
-  uniqueItemPositions: []
-  uniqueItemRenderers: []
+  uniqueItemPosition: {fileID: 0}
+  uniqueItemRenderer: {fileID: 0}
   uniqueItemSprites: []
 --- !u!1 &1411830066
 GameObject:
@@ -7633,10 +7633,8 @@ MonoBehaviour:
   - {fileID: 1892806461834874077, guid: 3111f23cd57d2be48b2ee6bac4a23588, type: 3}
   - {fileID: -1038918931832879880, guid: 3111f23cd57d2be48b2ee6bac4a23588, type: 3}
   - {fileID: -1648692735, guid: 9a13aff9b298da144b3c2bdf093d02ca, type: 3}
-  uniqueItemPositions:
-  - {fileID: 463117720}
-  uniqueItemRenderers:
-  - {fileID: 463117721}
+  uniqueItemPosition: {fileID: 463117720}
+  uniqueItemRenderer: {fileID: 463117721}
   uniqueItemSprites:
   - {fileID: -404128364, guid: 457d1ade8f441be428fdc1c3ed0912ce, type: 3}
 --- !u!1 &1420306455
@@ -8256,7 +8254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxItems: 3
   inventory: 
-  uniqueItems: 
+  uniqueItem: -1
 --- !u!1 &1749630152
 GameObject:
   m_ObjectHideFlags: 0
@@ -8822,7 +8820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxItems: 3
   inventory: 
-  uniqueItems: 
+  uniqueItem: -1
 --- !u!1 &1848183648
 GameObject:
   m_ObjectHideFlags: 0
@@ -9022,7 +9020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxItems: 3
   inventory: 
-  uniqueItems: 
+  uniqueItem: -1
 --- !u!1 &2020837308
 GameObject:
   m_ObjectHideFlags: 0
