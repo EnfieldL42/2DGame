@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public MultiplayerInputManager inputManager;
-    public string currentScene;
 
     public static int playerOne;
     public static int playerTwo;
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ReturnToMain()
     {
         yield return new WaitForSecondsRealtime(2);
-        SceneManager.LoadScene("Overcooked");
+        SceneManager.LoadScene("Don't Stop Smithing");
     }
 
 }

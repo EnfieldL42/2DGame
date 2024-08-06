@@ -70,7 +70,7 @@ public class PlayerInput : MonoBehaviour
         }
         if(playerActive == true)
         {
-            stickCoord = inputControls.MasterControls.Movement.ReadValue<Vector2>();
+            stickCoord = inputControls.BallControls.Movement.ReadValue<Vector2>();
             anim.SetFloat("StickX", stickCoord.x);
             anim.SetFloat("StickY", stickCoord.y);
         }
@@ -85,10 +85,10 @@ public class PlayerInput : MonoBehaviour
 
             inputManager.onPlayerJoined -= AssignInputs;
             inputControls = inputManager.players[playerID].playerControls;
-            inputControls.MasterControls.Movement.performed += MovementPerformed;
-            inputControls.MasterControls.Jump.performed += JumpPerformed;
-            inputControls.MasterControls.Jump.canceled += JumpCanceled;
-            inputControls.MasterControls.Attack.performed += AttackPerformed;
+            inputControls.BallControls.Movement.performed += MovementPerformed;
+            inputControls.BallControls.Jump.performed += JumpPerformed;
+            inputControls.BallControls.Jump.canceled += JumpCanceled;
+            inputControls.BallControls.Attack.performed += AttackPerformed;
 
             playerActive = true;
         }
@@ -166,8 +166,8 @@ public class PlayerInput : MonoBehaviour
     }
     IEnumerator DisableAttack()
     {
-        inputControls.MasterControls.Attack.performed -= AttackPerformed;
+        inputControls.BallControls.Attack.performed -= AttackPerformed;
         yield return new WaitForSeconds(0.2f);
-        inputControls.MasterControls.Attack.performed += AttackPerformed;
+        inputControls.BallControls.Attack.performed += AttackPerformed;
     }
 }
