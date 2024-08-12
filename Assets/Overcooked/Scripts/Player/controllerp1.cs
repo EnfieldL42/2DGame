@@ -7,6 +7,8 @@ public class controllerp1 : MonoBehaviour
 {
     public int playerID;
     InputControls inputControls;
+    public PlayerInventory playerInventory;
+    public ItemDisplay itemDisplay;
 
     public OCGameManager gameManager;
 
@@ -211,11 +213,11 @@ public class controllerp1 : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, overlapBoxSize, 0);
         foreach (Collider2D collider in colliders)
         {
-            ItemStation station = collider.GetComponent<ItemStation>();
-            if (station != null)
+            ItemStation itemStation = collider.GetComponent<ItemStation>();
+            if (itemStation != null)
             {
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-                if (playerInventory != null && station.TryCollectItem(playerID, playerInventory))
+                if (playerInventory != null && itemStation.TryCollectItem(playerID, playerInventory))
                 {
                     ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
                     if (itemDisplay != null)
@@ -230,23 +232,44 @@ public class controllerp1 : MonoBehaviour
             if (craftingStation != null)
             {
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-                if (playerInventory != null && playerInventory.inventory.Count == playerInventory.maxItems && playerInventory.uniqueItem == -1)
+                if (playerInventory != null)
                 {
                     int uniqueItemID;
-                    if (craftingStation.TryCraftItem(playerInventory.inventory, out uniqueItemID))
+                    if (craftingStation.TryCraftItem(playerInventory, out uniqueItemID))
                     {
-                        playerInventory.ClearInventory();
-                        playerInventory.AddUniqueItem(uniqueItemID);
+                        // Update the item display after the unique item has been added
                         ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
                         if (itemDisplay != null)
                         {
                             itemDisplay.UpdateItemDisplay();
                         }
+
                         Debug.Log($"Player {playerInventory.gameObject.name} crafted item {uniqueItemID}.");
                     }
                 }
                 break;
             }
+
+            DummyArea triggerArea = collider.GetComponent<DummyArea>();
+            if (triggerArea != null && playerInventory.GetUniqueItem() != -1)
+            {
+                int uniqueItemID = playerInventory.GetUniqueItem();
+
+                if (playerInventory.UseUniqueItem())
+                {
+                    gameManager.AddScore(playerID, uniqueItemID);
+                    Debug.Log("Unique item used, " + triggerArea.pointsToAdd + " points added to player " + playerID);
+                    itemDisplay.UpdateItemDisplay();  // Update item display after using the unique item
+
+                    // Reset collection status in all item stations
+                    ItemStation[] itemStations = FindObjectsOfType<ItemStation>();
+                    foreach (ItemStation stationToReset in itemStations)
+                    {
+                        stationToReset.ResetCollectionStatus(playerID);
+                    }
+                }
+            }
         }
     }
+
 }

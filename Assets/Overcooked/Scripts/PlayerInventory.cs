@@ -3,54 +3,56 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public int maxItems = 3;  // Maximum number of items a player can hold
-    public List<int> inventory = new List<int>();  // List of item IDs
-    public int uniqueItem = -1;  // ID of the unique item (-1 if no unique item)
+    public int maxItems = 3;
+    public List<int> inventory = new List<int>();
+    public int uniqueItem = -1;
 
+    // Method to collect an item
     public bool CollectItem(int itemID)
     {
-        if (inventory.Count < maxItems && !inventory.Contains(itemID))
+        if (inventory.Count < maxItems)
         {
             inventory.Add(itemID);
-            return true;  // Item successfully added
-        }
-        return false;  // Item could not be added (either max items or already collected)
-    }
-
-    public void RemoveItem(int itemID)
-    {
-        if (inventory.Contains(itemID))
-        {
-            inventory.Remove(itemID);
-        }
-    }
-
-    public void ClearInventory()
-    {
-        inventory.Clear();
-    }
-
-    public bool AddUniqueItem(int itemID)
-    {
-        if (uniqueItem == -1)
-        {
-            uniqueItem = itemID;
             return true;
         }
         return false;
     }
 
+    // Method to clear the inventory
+    public void ClearInventory()
+    {
+        inventory.Clear();
+    }
+
+    // Method to add a unique item
+    public void AddUniqueItem(int itemID)
+    {
+        uniqueItem = itemID;
+    }
+
+    // Method to get an item at a specific index
     public int GetItemAtIndex(int index)
     {
-        if (index >= 0 && index < inventory.Count)
+        if (index < inventory.Count)
         {
             return inventory[index];
         }
-        return -1;  // Return -1 if index is out of range
+        return -1;
     }
 
+    // Method to get the unique item
     public int GetUniqueItem()
     {
         return uniqueItem;
+    }
+
+    public bool UseUniqueItem()
+    {
+        if (uniqueItem != -1)
+        {
+            uniqueItem = -1; // Reset unique item
+            return true;
+        }
+        return false;
     }
 }

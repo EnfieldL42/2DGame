@@ -10,6 +10,9 @@ public class OCGameManager : MonoBehaviour
     public List<int> playerScores = new List<int>();
     public List<GameObject> playerGameObjects = new List<GameObject>(); // List of player GameObjects
 
+    [SerializeField]
+    private Dictionary<int, int> uniqueItemScores = new Dictionary<int, int>();
+
     public int whichRound = 0;
 
     private void Awake()
@@ -24,6 +27,12 @@ public class OCGameManager : MonoBehaviour
         EnablePlayers();
         InitializePlayerScores();
         DisablePlayer();
+
+
+        uniqueItemScores[0] = 100;
+        uniqueItemScores[1] = 200;
+        uniqueItemScores[2] = 300;
+        uniqueItemScores[3] = 400;
     }
 
     private void OnDestroy()
@@ -113,12 +122,17 @@ public class OCGameManager : MonoBehaviour
 
         SceneManager.LoadScene("Ball Game Test");
     }
-
-    public void AddScore(int ID, int score)
+    public void AddScore(int playerID, int uniqueItemID)
     {
-        if (ID >= 0 && ID < playerScores.Count)
+        if (uniqueItemScores.TryGetValue(uniqueItemID, out int score))
         {
-            playerScores[ID] += score;
+            // Assuming you have an array or list to store player scores
+            playerScores[playerID] += score;
+            Debug.Log($"Added {score} points to player {playerID} for using unique item {uniqueItemID}");
+        }
+        else
+        {
+            Debug.LogWarning($"No score found for unique item ID {uniqueItemID}");
         }
     }
 
@@ -139,4 +153,5 @@ public class OCGameManager : MonoBehaviour
         }
         playerGameObjects[GameManager.loserID].SetActive(false);
     }
+
 }

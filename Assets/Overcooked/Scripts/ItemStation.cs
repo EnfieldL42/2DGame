@@ -5,9 +5,8 @@ public class ItemStation : MonoBehaviour
 {
     public int itemID; // ID of the item this station provides
     private HashSet<int> collectedByPlayers = new HashSet<int>();
-// Track players who have collected from this station
 
-    // Method to attempt collecting an item from this station
+    // Track players who have collected from this station
     public bool TryCollectItem(int playerID, PlayerInventory playerInventory)
     {
         if (collectedByPlayers.Contains(playerID))
@@ -25,5 +24,15 @@ public class ItemStation : MonoBehaviour
         }
 
         return false; // Failed to collect item (inventory might be full)
+    }
+
+    // Method to reset collection status for a specific player
+    public void ResetCollectionStatus(int playerID)
+    {
+        if (collectedByPlayers.Contains(playerID))
+        {
+            collectedByPlayers.Remove(playerID);
+            Debug.Log($"Player {playerID} can now collect from this station again.");
+        }
     }
 }
