@@ -14,7 +14,7 @@ public class OCGameManager : MonoBehaviour
     public List<int> uniqueScores = new List<int>();
     public List<int> startingScores = new List<int>();
     public List<int> scores = new List<int>();
-    public int whichRound = 0;
+    public int whichRound = 0; //hh
 
     private void Awake()
     {
