@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class ItemDisplay : MonoBehaviour
 {
-    public Transform[] ingredientPositions;  // Positions for the ingredients to display
-    public SpriteRenderer[] ingredientRenderers;  // SpriteRenderers for each ingredient position
-    public Sprite[] ingredientSprites;  // Array of all possible ingredient sprites
+    public Transform[] ingredientPositions;  
+    public SpriteRenderer[] ingredientRenderers;  
+    public Sprite[] ingredientSprites;  
 
-    public Transform uniqueItemPosition;  // Position for the unique item to display
-    public SpriteRenderer uniqueItemRenderer;  // SpriteRenderer for the unique item position
-    public Sprite[] uniqueItemSprites;  // Array of all possible unique item sprites
+    public Transform uniqueItemPosition;  
+    public SpriteRenderer uniqueItemRenderer;  
+    public Sprite[] uniqueItemSprites;  
 
     private PlayerInventory playerInventory;
 
@@ -31,12 +31,12 @@ public class ItemDisplay : MonoBehaviour
             {
                 Debug.Log($"Setting ingredient sprite for position {i} to itemID {itemID}");
                 ingredientRenderers[i].sprite = ingredientSprites[itemID];
-                ingredientRenderers[i].enabled = true;  // Enable the renderer
+                ingredientRenderers[i].enabled = true;  
             }
             else
             {
                 Debug.Log($"Disabling ingredient renderer at position {i}");
-                ingredientRenderers[i].enabled = false;  // Disable the renderer if no item is present
+                ingredientRenderers[i].enabled = false; 
             }
         }
 
@@ -46,12 +46,12 @@ public class ItemDisplay : MonoBehaviour
         {
             Debug.Log($"Setting unique item sprite to itemID {uniqueItemID}");
             uniqueItemRenderer.sprite = uniqueItemSprites[uniqueItemID];
-            uniqueItemRenderer.enabled = true;  // Enable the renderer
+            uniqueItemRenderer.enabled = true;
         }
         else
         {
             Debug.Log($"Disabling unique item renderer");
-            uniqueItemRenderer.enabled = false;  // Disable the renderer if no unique item is present
+            uniqueItemRenderer.enabled = false;
         }
     }
 }

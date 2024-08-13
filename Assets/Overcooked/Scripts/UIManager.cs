@@ -6,16 +6,20 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] TextMeshProUGUI[] playerScoreTexts; // Array to hold the TextMeshPro components for scores
+    [SerializeField] TextMeshProUGUI[] playerScoreTexts;
+    [SerializeField] TextMeshProUGUI[] uniqueScoreTexts;
 
-    public OCGameManager gameManager; // Reference to the GameManager
+    public OCGameManager gameManager;
 
     void Start()
     {
-        // Initially deactivate all player score texts
         foreach (var scoreText in playerScoreTexts)
         {
             scoreText.gameObject.SetActive(false);
+        }
+        foreach (var uniqueScoreText in uniqueScoreTexts)
+        {
+            uniqueScoreText.gameObject.SetActive(false);
         }
     }
 
@@ -23,6 +27,7 @@ public class UIManager : MonoBehaviour
     {
         UpdateTimer(gameManager.timer);
         UpdateScores(gameManager.playerScores);
+        UpdateUniqueScores(gameManager.uniqueScores);
     }
 
     void UpdateTimer(float timer)
@@ -38,12 +43,36 @@ public class UIManager : MonoBehaviour
         {
             if (i < scores.Count)
             {
-                playerScoreTexts[i].gameObject.SetActive(true); // Activate the text element
-                playerScoreTexts[i].text = "P" + (i + 1) + ": " + scores[i];
+                playerScoreTexts[i].gameObject.SetActive(true);
+
+                if (scores[i] == int.MaxValue)
+                {
+                    playerScoreTexts[i].text = "P" + (i + 1) + ": Dead";
+                }
+                else
+                {
+                    playerScoreTexts[i].text = "P" + (i + 1) + ": " + scores[i];
+                }
             }
             else
             {
-                playerScoreTexts[i].gameObject.SetActive(false); // Deactivate the text element
+                playerScoreTexts[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void UpdateUniqueScores(List<int> uniqueScores)
+    {
+        for (int i = 0; i < uniqueScoreTexts.Length; i++)
+        {
+            if (i < uniqueScores.Count)
+            {
+                uniqueScoreTexts[i].gameObject.SetActive(true);
+                uniqueScoreTexts[i].text = uniqueScores[i].ToString();
+            }
+            else
+            {
+                uniqueScoreTexts[i].gameObject.SetActive(false);
             }
         }
     }

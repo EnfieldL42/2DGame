@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class controllerp1 : MonoBehaviour
 {
     public int playerID;
-    InputControls inputControls;
+    private InputControls inputControls;
     public PlayerInventory playerInventory;
     public ItemDisplay itemDisplay;
 
@@ -237,7 +237,6 @@ public class controllerp1 : MonoBehaviour
                     int uniqueItemID;
                     if (craftingStation.TryCraftItem(playerInventory, out uniqueItemID))
                     {
-                        // Update the item display after the unique item has been added
                         ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
                         if (itemDisplay != null)
                         {
@@ -259,9 +258,9 @@ public class controllerp1 : MonoBehaviour
                 {
                     gameManager.AddScore(playerID, uniqueItemID);
                     Debug.Log("Unique item used, " + triggerArea.pointsToAdd + " points added to player " + playerID);
-                    itemDisplay.UpdateItemDisplay();  // Update item display after using the unique item
+                    itemDisplay.UpdateItemDisplay();  
 
-                    // Reset collection status in all item stations
+                    
                     ItemStation[] itemStations = FindObjectsOfType<ItemStation>();
                     foreach (ItemStation stationToReset in itemStations)
                     {

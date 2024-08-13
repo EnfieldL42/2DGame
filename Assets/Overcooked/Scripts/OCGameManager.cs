@@ -8,11 +8,12 @@ public class OCGameManager : MonoBehaviour
     public float gameDuration;
     public float timer;
     public List<int> playerScores = new List<int>();
-    public List<GameObject> playerGameObjects = new List<GameObject>(); // List of player GameObjects
+    public List<GameObject> playerGameObjects = new List<GameObject>();
 
-    [SerializeField]
-    private Dictionary<int, int> uniqueItemScores = new Dictionary<int, int>();
-
+    [SerializeField] private Dictionary<int, int> uniqueItemScores = new Dictionary<int, int>();
+    public List<int> uniqueScores = new List<int>();
+    public List<int> startingScores = new List<int>();
+    public List<int> scores = new List<int>();
     public int whichRound = 0;
 
     private void Awake()
@@ -26,13 +27,27 @@ public class OCGameManager : MonoBehaviour
 
         EnablePlayers();
         InitializePlayerScores();
-        DisablePlayer();
+        DisableLosers(); // Disable all losers from previous rounds
 
+        ChooseScores();
+    }
 
-        uniqueItemScores[0] = 100;
-        uniqueItemScores[1] = 200;
-        uniqueItemScores[2] = 300;
-        uniqueItemScores[3] = 400;
+    void ChooseScores()
+    {
+        //goes through all your uniqueScores to add random Score
+        for (int i = 0; i < 4; i++)
+        {
+            int randomScore = Random.Range(0, startingScores.Count);
+            uniqueItemScores[i] = startingScores[randomScore];
+            uniqueScores[i] = startingScores[randomScore];
+        }
+    }
+
+    void SetSingleItem(int id)
+    {
+        int randomScore = Random.Range(0, scores.Count);
+        uniqueItemScores[id] = scores[randomScore];
+        uniqueScores[id] = scores[randomScore];
     }
 
     private void OnDestroy()
@@ -49,7 +64,7 @@ public class OCGameManager : MonoBehaviour
 
         if (playerID < playerGameObjects.Count)
         {
-            playerGameObjects[playerID].SetActive(true); 
+            playerGameObjects[playerID].SetActive(true);
         }
     }
 
@@ -59,7 +74,7 @@ public class OCGameManager : MonoBehaviour
         {
             if (i < playerGameObjects.Count)
             {
-                playerGameObjects[i].SetActive(true); 
+                playerGameObjects[i].SetActive(true);
             }
         }
     }
@@ -109,25 +124,48 @@ public class OCGameManager : MonoBehaviour
 
         for (int i = 0; i < playerScores.Count; i++)
         {
-            playerScoresList.Add((i, playerScores[i]));
+            if (playerGameObjects[i].activeSelf) // Only consider active players
+            {
+                playerScoresList.Add((i, playerScores[i]));
+            }
         }
 
         playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
 
-        int lowestScoreID = playerScoresList[0].ID;
-        int secondLowestScoreID = playerScoresList[1].ID;
+        if (playerScoresList.Count >= 2)
+        {
+            int lowestScoreID = playerScoresList[0].ID;
+            int secondLowestScoreID = playerScoresList[1].ID;
 
-        GameManager.SetPlayerOne(lowestScoreID);
-        GameManager.SetPlayerTwo(secondLowestScoreID);
+            GameManager.SetPlayerOne(lowestScoreID);
+            GameManager.SetPlayerTwo(secondLowestScoreID);
 
-        SceneManager.LoadScene("Ball Game Test");
+            SceneManager.LoadScene("Ball Game Test");
+        }
+        else
+        {
+            Debug.LogWarning("Not enough active players for a deathmatch!");
+        }
     }
+
+    private void DisableLosers()
+    {
+        foreach (int loserID in GameManager.losers)
+        {
+            if (loserID < playerGameObjects.Count)
+            {
+                playerGameObjects[loserID].SetActive(false);
+                playerScores[loserID] = int.MaxValue; // Set the loser's score to a high value to exclude them
+            }
+        }
+    }
+
     public void AddScore(int playerID, int uniqueItemID)
     {
         if (uniqueItemScores.TryGetValue(uniqueItemID, out int score))
         {
-            // Assuming you have an array or list to store player scores
             playerScores[playerID] += score;
+            SetSingleItem(uniqueItemID);
             Debug.Log($"Added {score} points to player {playerID} for using unique item {uniqueItemID}");
         }
         else
@@ -141,17 +179,7 @@ public class OCGameManager : MonoBehaviour
         playerScores.Clear();
         for (int i = 0; i < MultiplayerInputManager.instance.players.Count; i++)
         {
-            playerScores.Add(0); // Initialize scores to 0 for each player
+            playerScores.Add(0);
         }
     }
-
-    public void DisablePlayer()
-    {
-        if(GameManager.loserID >= 5)
-        {
-            return;
-        }
-        playerGameObjects[GameManager.loserID].SetActive(false);
-    }
-
 }
