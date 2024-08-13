@@ -45,7 +45,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (uniqueItem != -1)
         {
-            uniqueItem = -1; 
+            uniqueItem = -1;
             return true;
         }
         return false;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemStation : MonoBehaviour
 {
-    public int itemID; 
+    public int itemID;
     private HashSet<int> collectedByPlayers = new HashSet<int>();
 
     public bool TryCollectItem(int playerID, PlayerInventory playerInventory)

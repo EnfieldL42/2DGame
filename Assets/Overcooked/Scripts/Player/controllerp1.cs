@@ -258,9 +258,9 @@ public class controllerp1 : MonoBehaviour
                 {
                     gameManager.AddScore(playerID, uniqueItemID);
                     Debug.Log("Unique item used, " + triggerArea.pointsToAdd + " points added to player " + playerID);
-                    itemDisplay.UpdateItemDisplay();  
+                    itemDisplay.UpdateItemDisplay();
 
-                    
+
                     ItemStation[] itemStations = FindObjectsOfType<ItemStation>();
                     foreach (ItemStation stationToReset in itemStations)
                     {

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class ItemDisplay : MonoBehaviour
 {
-    public Transform[] ingredientPositions;  
-    public SpriteRenderer[] ingredientRenderers;  
-    public Sprite[] ingredientSprites;  
+    public Transform[] ingredientPositions;
+    public SpriteRenderer[] ingredientRenderers;
+    public Sprite[] ingredientSprites;
 
-    public Transform uniqueItemPosition;  
-    public SpriteRenderer uniqueItemRenderer;  
-    public Sprite[] uniqueItemSprites;  
+    public Transform uniqueItemPosition;
+    public SpriteRenderer uniqueItemRenderer;
+    public Sprite[] uniqueItemSprites;
 
     private PlayerInventory playerInventory;
 
@@ -31,12 +31,12 @@ public class ItemDisplay : MonoBehaviour
             {
                 Debug.Log($"Setting ingredient sprite for position {i} to itemID {itemID}");
                 ingredientRenderers[i].sprite = ingredientSprites[itemID];
-                ingredientRenderers[i].enabled = true;  
+                ingredientRenderers[i].enabled = true;
             }
             else
             {
                 Debug.Log($"Disabling ingredient renderer at position {i}");
-                ingredientRenderers[i].enabled = false; 
+                ingredientRenderers[i].enabled = false;
             }
         }
 
