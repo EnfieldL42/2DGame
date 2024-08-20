@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] playerScoreTexts;
     [SerializeField] TextMeshProUGUI[] uniqueScoreTexts;
 
+    [SerializeField] GameObject[] gameObjectsToToggle;
+
     public OCGameManager gameManager;
 
     void Start()
@@ -21,6 +23,12 @@ public class UIManager : MonoBehaviour
         {
             uniqueScoreText.gameObject.SetActive(false);
         }
+
+        foreach (var obj in gameObjectsToToggle)
+        {
+            obj.SetActive(false);
+        }
+
     }
 
     void Update()
@@ -28,6 +36,7 @@ public class UIManager : MonoBehaviour
         UpdateTimer(gameManager.timer);
         UpdateScores(gameManager.playerScores);
         UpdateUniqueScores(gameManager.uniqueScores);
+        EnableGameObjects();
     }
 
     void UpdateTimer(float timer)
@@ -73,6 +82,17 @@ public class UIManager : MonoBehaviour
             else
             {
                 uniqueScoreTexts[i].gameObject.SetActive(false);
+            }
+        }
+    }
+    void EnableGameObjects()
+    {
+        // Enable the GameObject corresponding to each active player
+        for (int i = 0; i < gameManager.playerScores.Count && i < gameObjectsToToggle.Length; i++)
+        {
+            if (gameManager.playerScores[i] != int.MaxValue) // Example check for active player
+            {
+                gameObjectsToToggle[i].SetActive(true); // Enable the GameObject corresponding to the player
             }
         }
     }
