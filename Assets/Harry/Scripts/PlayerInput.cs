@@ -97,7 +97,7 @@ public class PlayerInput : MonoBehaviour
     private void AttackPerformed(InputAction.CallbackContext context)
     {
         anim.SetTrigger("Attack");
-        StartCoroutine(DisableAttack());
+        //StartCoroutine(DisableAttack());
     }
 
     private void JumpCanceled(InputAction.CallbackContext context)
@@ -156,6 +156,7 @@ public class PlayerInput : MonoBehaviour
         rb.velocity = ball.rb.velocity * ball.initialSpeed;
         col.enabled = false;
         int id = playerID;
+        DisableControls();
         gameManager.GameEnded(id);
     }
 
@@ -164,10 +165,10 @@ public class PlayerInput : MonoBehaviour
        playerActive = false;
        inputControls.Disable();
     }
-    IEnumerator DisableAttack()
+    /*IEnumerator DisableAttack()
     {
         inputControls.BallControls.Attack.performed -= AttackPerformed;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         inputControls.BallControls.Attack.performed += AttackPerformed;
-    }
+    }*/
 }
