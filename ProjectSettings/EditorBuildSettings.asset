@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Ball Game Test.unity
+    guid: bc589f09b0d8dbc408c69062e2cf2c37
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 46ed70accfad5634f8512b1d5dff7e27
   - enabled: 1
     path: Assets/Scenes/Don't Stop Smithing.unity
     guid: a925c793f67084a4cb09de2ed9b6a446
-  - enabled: 1
-    path: Assets/Scenes/Ball Game Test.unity
-    guid: bc589f09b0d8dbc408c69062e2cf2c37
   m_configObjects: {}
