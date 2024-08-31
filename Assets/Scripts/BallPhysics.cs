@@ -61,6 +61,7 @@ public class BallPhysics : MonoBehaviour
         {
             FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
             collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
+            rb.isKinematic = false;
         }
     }
 
