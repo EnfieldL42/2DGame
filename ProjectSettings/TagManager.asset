@@ -54,18 +54,18 @@ TagManager:
   - name: Background
     uniqueID: 3985568263
     locked: 0
-  - name: Fore Background
+  - name: Objectives
     uniqueID: 1440661789
+    locked: 0
+  - name: Objects/Walls
+    uniqueID: 2074814425
+    locked: 0
+  - name: Halos
+    uniqueID: 1565805967
     locked: 0
   - name: Player
     uniqueID: 1418824025
     locked: 0
-  - name: Foreground
-    uniqueID: 2074814425
-    locked: 0
-  - name: fore foreground
-    uniqueID: 2481703097
-    locked: 0
-  - name: Decoration
-    uniqueID: 2175287751
+  - name: Inventory
+    uniqueID: 1413808511
     locked: 0

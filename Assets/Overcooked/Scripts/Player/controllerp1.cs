@@ -29,6 +29,8 @@ public class controllerp1 : MonoBehaviour
     private Animator animator;
     private Vector2 lastTargetPos;
 
+    [SerializeField] private bool canInteract;
+
     private void Start()
     {
         moveSpeed = walkingSpeed;
@@ -216,6 +218,9 @@ public class controllerp1 : MonoBehaviour
             ItemStation itemStation = collider.GetComponent<ItemStation>();
             if (itemStation != null)
             {
+
+
+
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
                 if (playerInventory != null && itemStation.TryCollectItem(playerID, playerInventory))
                 {

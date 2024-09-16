@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    playerScoreTexts[i].text = "P" + (i + 1) + ": " + scores[i];
+                    playerScoreTexts[i].text = scores[i].ToString();
                 }
             }
             else
