@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,8 +27,10 @@ public class controllerp1 : MonoBehaviour
 
     private BoxCollider2D boxCollider;
     private Transform spriteTransform;
-    private Animator animator;
     private Vector2 lastTargetPos;
+
+    Animator animator;
+    private Vector2 lastMoveDirection;
 
     public int interactCount = 0;
     public int interactionsNeeded;
@@ -53,6 +56,9 @@ public class controllerp1 : MonoBehaviour
 
     private void Update()
     {
+        ProcessInputs();
+        Animate();
+
         if (!isMoving)
         {
             if (input != Vector2.zero)
@@ -70,7 +76,7 @@ public class controllerp1 : MonoBehaviour
             }
         }
 
-        if(interactCount > interactionsNeeded)
+        if(interactCount == interactionsNeeded)
         {
             interactCount = 0;
         }
@@ -116,43 +122,34 @@ public class controllerp1 : MonoBehaviour
         return position;
     }
 
-    private void UpdateAnimatorParameters()
+    private void ProcessInputs()
     {
-        if (input.x > 0)
+
+        float moveX = input.x;
+        float moveY = input.y;
+
+        if((input.x != 0 || input.y != 0))
         {
-            animator.SetBool("isMovingRight", true);
-            animator.SetBool("isMovingLeft", false);
-            animator.SetBool("isMovingUp", false);
-            animator.SetBool("isMovingDown", false);
+            lastMoveDirection = input;
         }
-        else if (input.x < 0)
+    }
+
+    void Animate()
+    {
+        if (isMoving)
         {
-            animator.SetBool("isMovingRight", false);
-            animator.SetBool("isMovingLeft", true);
-            animator.SetBool("isMovingUp", false);
-            animator.SetBool("isMovingDown", false);
-        }
-        else if (input.y > 0)
-        {
-            animator.SetBool("isMovingRight", false);
-            animator.SetBool("isMovingLeft", false);
-            animator.SetBool("isMovingUp", true);
-            animator.SetBool("isMovingDown", false);
-        }
-        else if (input.y < 0)
-        {
-            animator.SetBool("isMovingRight", false);
-            animator.SetBool("isMovingLeft", false);
-            animator.SetBool("isMovingUp", false);
-            animator.SetBool("isMovingDown", true);
+            animator.SetBool("isMoving", true);
         }
         else
         {
-            animator.SetBool("isMovingRight", false);
-            animator.SetBool("isMovingLeft", false);
-            animator.SetBool("isMovingUp", false);
-            animator.SetBool("isMovingDown", false);
+            animator.SetBool("isMoving", false);
         }
+
+        animator.SetFloat("MoveX", input.x);
+        animator.SetFloat("MoveY", input.y);
+        animator.SetFloat("MoveMagnitude", input.magnitude);
+        animator.SetFloat("LastMoveX", lastMoveDirection.x);
+        animator.SetFloat("LastMoveY", lastMoveDirection.y);
     }
 
     private void OnDrawGizmos()
@@ -204,7 +201,6 @@ public class controllerp1 : MonoBehaviour
     private void MovementPerformed(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
-        UpdateAnimatorParameters();
     }
 
     private void RunningPerformed(InputAction.CallbackContext context)
@@ -264,7 +260,6 @@ public class controllerp1 : MonoBehaviour
                                 itemDisplay.UpdateItemDisplay();
                             }
 
-                            Debug.Log($"Player {playerInventory.gameObject.name} crafted item {uniqueItemID}.");
                         }
                     }
                     break;
@@ -280,7 +275,6 @@ public class controllerp1 : MonoBehaviour
                 if (playerInventory.UseUniqueItem())
                 {
                     gameManager.AddScore(playerID, uniqueItemID);
-                    Debug.Log("Unique item used, " + triggerArea.pointsToAdd + " points added to player " + playerID);
                     itemDisplay.UpdateItemDisplay();
 
 

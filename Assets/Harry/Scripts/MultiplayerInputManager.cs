@@ -63,6 +63,8 @@ public class MultiplayerInputManager : MonoBehaviour
             onPlayerJoined.Invoke(newPlayer.playerID);
         }
     }
+
+
     public void DisableInputs()
     {
         inputControls.Disable();
