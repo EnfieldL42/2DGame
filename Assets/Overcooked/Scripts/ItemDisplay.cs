@@ -11,7 +11,13 @@ public class ItemDisplay : MonoBehaviour
     public SpriteRenderer uniqueItemRenderer;
     public Sprite[] uniqueItemSprites;
 
+    public SpriteRenderer progressBarRenderer;
+    public Sprite[] progressBar;
+
     private PlayerInventory playerInventory;
+    public controllerp1 controller;
+
+
 
     private void Start()
     {
@@ -19,39 +25,59 @@ public class ItemDisplay : MonoBehaviour
         UpdateItemDisplay();
     }
 
+    private void Update()
+    {
+        UpdateInteractionProgress();
+
+    }
+
     public void UpdateItemDisplay()
     {
         if (playerInventory == null) return;
 
-        // Update ingredient display
         for (int i = 0; i < ingredientPositions.Length; i++)
         {
             int itemID = playerInventory.GetItemAtIndex(i);
             if (itemID != -1 && itemID < ingredientSprites.Length)
             {
-                Debug.Log($"Setting ingredient sprite for position {i} to itemID {itemID}");
                 ingredientRenderers[i].sprite = ingredientSprites[itemID];
                 ingredientRenderers[i].enabled = true;
             }
             else
             {
-                Debug.Log($"Disabling ingredient renderer at position {i}");
                 ingredientRenderers[i].enabled = false;
             }
         }
 
-        // Update unique item display
         int uniqueItemID = playerInventory.GetUniqueItem();
         if (uniqueItemID != -1 && uniqueItemID < uniqueItemSprites.Length)
         {
-            Debug.Log($"Setting unique item sprite to itemID {uniqueItemID}");
             uniqueItemRenderer.sprite = uniqueItemSprites[uniqueItemID];
             uniqueItemRenderer.enabled = true;
         }
         else
         {
-            Debug.Log($"Disabling unique item renderer");
             uniqueItemRenderer.enabled = false;
+        }
+    }
+
+    public void UpdateInteractionProgress()
+    {
+        int interactCount = controller.interactCount;
+        int interactionsNeeded = controller.interactionsNeeded;
+
+        if (interactCount > 0 && interactCount < interactionsNeeded)
+        {
+            progressBarRenderer.sprite = progressBar[interactCount];
+        }
+        else
+        {
+            progressBarRenderer.enabled = false;
+
+
+            Debug.Log($"InteractCount: {interactCount}, InteractionsNeeded: {interactionsNeeded}");
+
+            progressBarRenderer.enabled = true;
         }
     }
 }

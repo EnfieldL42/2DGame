@@ -29,7 +29,8 @@ public class controllerp1 : MonoBehaviour
     private Animator animator;
     private Vector2 lastTargetPos;
 
-    [SerializeField] private bool canInteract;
+    public int interactCount = 0;
+    public int interactionsNeeded;
 
     private void Start()
     {
@@ -68,6 +69,12 @@ public class controllerp1 : MonoBehaviour
                 lastTargetPos = targetPos;
             }
         }
+
+        if(interactCount > interactionsNeeded)
+        {
+            interactCount = 0;
+        }
+
     }
 
     private Vector2 FilterInput(Vector2 rawInput)
@@ -218,19 +225,22 @@ public class controllerp1 : MonoBehaviour
             ItemStation itemStation = collider.GetComponent<ItemStation>();
             if (itemStation != null)
             {
+                interactCount++;
 
-
-
-                PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-                if (playerInventory != null && itemStation.TryCollectItem(playerID, playerInventory))
+                if(interactCount == interactionsNeeded)
                 {
-                    ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
-                    if (itemDisplay != null)
+                    PlayerInventory playerInventory = GetComponent<PlayerInventory>();
+                    if (playerInventory != null && itemStation.TryCollectItem(playerID, playerInventory))
                     {
-                        itemDisplay.UpdateItemDisplay();
+                        ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
+                        if (itemDisplay != null)
+                        {
+                            itemDisplay.UpdateItemDisplay();
+                        }
                     }
+                    break;
                 }
-                break;
+
             }
 
             CraftingStation craftingStation = collider.GetComponent<CraftingStation>();
@@ -239,19 +249,27 @@ public class controllerp1 : MonoBehaviour
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
                 if (playerInventory != null)
                 {
-                    int uniqueItemID;
-                    if (craftingStation.TryCraftItem(playerInventory, out uniqueItemID))
-                    {
-                        ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
-                        if (itemDisplay != null)
-                        {
-                            itemDisplay.UpdateItemDisplay();
-                        }
 
-                        Debug.Log($"Player {playerInventory.gameObject.name} crafted item {uniqueItemID}.");
+                    interactCount++;
+
+                    if (interactCount == interactionsNeeded)
+                    {
+
+                        int uniqueItemID;
+                        if (craftingStation.TryCraftItem(playerInventory, out uniqueItemID))
+                        {
+                            ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
+                            if (itemDisplay != null)
+                            {
+                                itemDisplay.UpdateItemDisplay();
+                            }
+
+                            Debug.Log($"Player {playerInventory.gameObject.name} crafted item {uniqueItemID}.");
+                        }
                     }
+                    break;
                 }
-                break;
+
             }
 
             DummyArea triggerArea = collider.GetComponent<DummyArea>();
@@ -273,6 +291,21 @@ public class controllerp1 : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        ItemStation itemStation = collider.GetComponent<ItemStation>();
+        if (itemStation != null)
+        {
+            interactCount = 0;
+        }
+
+        CraftingStation craftingStation = collider.GetComponent<CraftingStation>();
+        if (craftingStation != null)
+        {
+            interactCount = 0;
         }
     }
 
