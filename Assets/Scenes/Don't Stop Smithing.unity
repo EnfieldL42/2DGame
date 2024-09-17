@@ -4105,7 +4105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f191a4f77fe633b42bcf712cb1ef61b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDuration: 500
+  gameDuration: 60
   timer: 0
   playerScores: 
   playerGameObjects:
@@ -14587,7 +14587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1803546092
 Transform:
   m_ObjectHideFlags: 0
