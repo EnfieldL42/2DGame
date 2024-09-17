@@ -64,20 +64,29 @@ public class ItemDisplay : MonoBehaviour
     public void UpdateInteractionProgress()
     {
         int interactCount = controller.interactCount;
-        int interactionsNeeded = controller.interactionsNeeded;
 
-        if (interactCount > 0 && interactCount < interactionsNeeded)
-        {
-            progressBarRenderer.sprite = progressBar[interactCount];
-        }
-        else
+        if (interactCount <= 0)
         {
             progressBarRenderer.enabled = false;
 
-
-            Debug.Log($"InteractCount: {interactCount}, InteractionsNeeded: {interactionsNeeded}");
-
-            progressBarRenderer.enabled = true;
         }
+
+        if( interactCount == 2)
+        {
+            progressBarRenderer.enabled = true;
+            progressBarRenderer.sprite = progressBar[0];
+        }
+
+        if (interactCount == 4)
+        {
+            progressBarRenderer.sprite = progressBar[1];
+        }
+
+        if (interactCount == 6)
+        {
+            progressBarRenderer.sprite = progressBar[2];
+        }
+
+
     }
 }
