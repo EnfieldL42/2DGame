@@ -4479,6 +4479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 485884344}
   - component: {fileID: 485884345}
+  - component: {fileID: 485884346}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -4554,6 +4555,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &485884346
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485884343}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8dc5f95c356bbd543b5bd66506c1ac09, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &496697814
 GameObject:
   m_ObjectHideFlags: 0
@@ -5960,7 +5982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 747, y: -464}
+  m_AnchoredPosition: {x: 0, y: 463}
   m_SizeDelta: {x: 427.8638, y: 158.0798}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &868992437
@@ -8041,7 +8063,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1021225434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8068,8 +8090,16 @@ MonoBehaviour:
   canAttack: 0
   isMoving: 0
   overlapBoxSize: {x: 0.8, y: 0.8}
+  characterControllers:
+  - {fileID: 9100000, guid: 507fe72482b12004ab1fdf59d755dfe8, type: 2}
+  - {fileID: 9100000, guid: d5229a2a4b5e5b94783c9fa7be61ca15, type: 2}
+  - {fileID: 9100000, guid: cf8bc387aa30417499170a23b802370f, type: 2}
+  - {fileID: 9100000, guid: 8dc5f95c356bbd543b5bd66506c1ac09, type: 2}
   interactCount: 0
   interactionsNeeded: 7
+  characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
+  artworkSprite: {fileID: 485884345}
+  selectedOptions: 
 --- !u!61 &1021225436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13372,6 +13402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1682685395}
   - component: {fileID: 1682685396}
+  - component: {fileID: 1682685397}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -13447,6 +13478,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1682685397
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682685394}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cf8bc387aa30417499170a23b802370f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1691537103
 GameObject:
   m_ObjectHideFlags: 0
@@ -13579,7 +13631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1744548960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13606,8 +13658,16 @@ MonoBehaviour:
   canAttack: 0
   isMoving: 0
   overlapBoxSize: {x: 0.8, y: 0.8}
+  characterControllers:
+  - {fileID: 9100000, guid: 507fe72482b12004ab1fdf59d755dfe8, type: 2}
+  - {fileID: 9100000, guid: d5229a2a4b5e5b94783c9fa7be61ca15, type: 2}
+  - {fileID: 9100000, guid: cf8bc387aa30417499170a23b802370f, type: 2}
+  - {fileID: 9100000, guid: 8dc5f95c356bbd543b5bd66506c1ac09, type: 2}
   interactCount: 0
   interactionsNeeded: 7
+  characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
+  artworkSprite: {fileID: 237106768}
+  selectedOptions: 
 --- !u!61 &1744548962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13662,7 +13722,7 @@ Transform:
   m_GameObject: {fileID: 1744548959}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0961046, y: 1.7811766, z: 9.994724}
+  m_LocalPosition: {x: 1.903895, y: 1.7811766, z: 9.994724}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14395,7 +14455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1803546092
 Transform:
   m_ObjectHideFlags: 0
@@ -14405,7 +14465,7 @@ Transform:
   m_GameObject: {fileID: 1803546091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9038954, y: 1.7811766, z: 9.994724}
+  m_LocalPosition: {x: -1.096105, y: 1.7811766, z: 9.994724}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14485,8 +14545,16 @@ MonoBehaviour:
   canAttack: 0
   isMoving: 0
   overlapBoxSize: {x: 0.8, y: 0.8}
+  characterControllers:
+  - {fileID: 9100000, guid: 507fe72482b12004ab1fdf59d755dfe8, type: 2}
+  - {fileID: 9100000, guid: d5229a2a4b5e5b94783c9fa7be61ca15, type: 2}
+  - {fileID: 9100000, guid: cf8bc387aa30417499170a23b802370f, type: 2}
+  - {fileID: 9100000, guid: 8dc5f95c356bbd543b5bd66506c1ac09, type: 2}
   interactCount: 0
   interactionsNeeded: 7
+  characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
+  artworkSprite: {fileID: 236530912}
+  selectedOptions: 
 --- !u!50 &1803546104
 Rigidbody2D:
   serializedVersion: 4
@@ -14598,7 +14666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1853531516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14625,8 +14693,16 @@ MonoBehaviour:
   canAttack: 0
   isMoving: 0
   overlapBoxSize: {x: 0.8, y: 0.8}
+  characterControllers:
+  - {fileID: 9100000, guid: 507fe72482b12004ab1fdf59d755dfe8, type: 2}
+  - {fileID: 9100000, guid: d5229a2a4b5e5b94783c9fa7be61ca15, type: 2}
+  - {fileID: 9100000, guid: cf8bc387aa30417499170a23b802370f, type: 2}
+  - {fileID: 9100000, guid: 8dc5f95c356bbd543b5bd66506c1ac09, type: 2}
   interactCount: 0
-  interactionsNeeded: 0
+  interactionsNeeded: 7
+  characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
+  artworkSprite: {fileID: 1682685396}
+  selectedOptions: 
 --- !u!61 &1853531518
 BoxCollider2D:
   m_ObjectHideFlags: 0

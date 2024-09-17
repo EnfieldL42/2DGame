@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,10 +31,17 @@ public class controllerp1 : MonoBehaviour
     private Vector2 lastTargetPos;
 
     Animator animator;
+    public RuntimeAnimatorController[] characterControllers;
     private Vector2 lastMoveDirection;
 
     public int interactCount = 0;
     public int interactionsNeeded;
+
+
+
+    public CharacterDatabase characterDB;
+    public SpriteRenderer artworkSprite;
+    public int[] selectedOptions;
 
     private void Start()
     {
@@ -44,6 +52,13 @@ public class controllerp1 : MonoBehaviour
         spriteTransform = spriteObject;
         animator = spriteObject.GetComponent<Animator>();
 
+        selectedOptions = new int[4];
+
+        Load();
+
+        UpdateCharacter(selectedOptions[playerID]);
+
+
         if (MultiplayerInputManager.instance.players.Count > playerID)
         {
             AssignInputs(playerID);
@@ -52,6 +67,7 @@ public class controllerp1 : MonoBehaviour
         {
             MultiplayerInputManager.instance.onPlayerJoined += AssignInputs;
         }
+
     }
 
     private void Update()
@@ -136,14 +152,14 @@ public class controllerp1 : MonoBehaviour
 
     void Animate()
     {
-        if (isMoving)
-        {
-            animator.SetBool("isMoving", true);
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
-        }
+        //if (isMoving)
+        //{
+        //    animator.SetBool("isMoving", true);
+        //}
+        //else
+        //{
+        //    animator.SetBool("isMoving", false);
+        //}
 
         animator.SetFloat("MoveX", input.x);
         animator.SetFloat("MoveY", input.y);
@@ -152,6 +168,32 @@ public class controllerp1 : MonoBehaviour
         animator.SetFloat("LastMoveY", lastMoveDirection.y);
     }
 
+    private void UpdateCharacter(int selectedOption)
+    {
+        if (selectedOption >= 0 && selectedOption < characterControllers.Length)
+        {
+            animator.runtimeAnimatorController = characterControllers[selectedOption];
+        }
+
+
+        Character character = characterDB.GetCharacter(selectedOption);
+        artworkSprite.sprite = character.characterSprite;
+    }
+
+    private void Load()
+    {
+        for (int i = 0; i < selectedOptions.Length; i++)
+        {
+            if (PlayerPrefs.HasKey("SelectedOption_Player" + i))
+            {
+                selectedOptions[i] = PlayerPrefs.GetInt("SelectedOption_Player" + i);
+            }
+            else
+            {
+                selectedOptions[i] = 0; 
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
         if (boxCollider == null) return;

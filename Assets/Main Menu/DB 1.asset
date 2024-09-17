@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcabf60fe58eb4c41b1dbab1b0fb6c57, type: 3}
+  m_Name: DB 1
+  m_EditorClassIdentifier: 
+  character:
+  - characterName: Elric
+    characterSprite: {fileID: 2141833253, guid: 36da14ab9d1df344bacb6d57b2495285, type: 3}
+  - characterName: Hilda
+    characterSprite: {fileID: 2113055995, guid: b069c61ce06533b4486b37e024825800, type: 3}
+  - characterName: Beorn
+    characterSprite: {fileID: -4465137455631916842, guid: 14ced2238d82c7149b8f5a0481222249, type: 3}
+  - characterName: Wilfrid
+    characterSprite: {fileID: 7152930139536384079, guid: 3111f23cd57d2be48b2ee6bac4a23588, type: 3}

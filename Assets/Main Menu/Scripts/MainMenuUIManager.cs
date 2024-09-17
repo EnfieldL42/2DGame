@@ -5,7 +5,10 @@ using UnityEngine;
 public class MainMenuUIManager : MonoBehaviour
 {
     public List<TextMeshProUGUI> playerInfoTexts = new List<TextMeshProUGUI>();
-    public List<GameObject> pressToStartImages = new List<GameObject>(); 
+    public List<GameObject> pressToStartImages = new List<GameObject>();
+    public List<GameObject> playerSelection = new List<GameObject>();
+
+
     public GameObject startButton; 
     private MultiplayerInputManager inputManager;
 
@@ -27,6 +30,7 @@ public class MainMenuUIManager : MonoBehaviour
         if (playerID < pressToStartImages.Count)
         {
             pressToStartImages[playerID].SetActive(false);
+            playerSelection[playerID].SetActive(true);
         }
 
         if (inputManager.players.Count >= maxPlayers && startButton != null)
