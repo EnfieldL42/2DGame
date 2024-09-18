@@ -14,6 +14,9 @@ public class MainMenuUIManager : MonoBehaviour
 
     public int maxPlayers;
 
+
+
+
     private void Start()
     {
         inputManager = MultiplayerInputManager.instance;
@@ -43,5 +46,7 @@ public class MainMenuUIManager : MonoBehaviour
     {
         inputManager.onPlayerJoined -= UpdatePlayerInfo;
     }
+
+
 }
 

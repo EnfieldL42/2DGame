@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI; 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         {
             obj.SetActive(false);
         }
+
 
     }
 
@@ -96,4 +97,5 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
 }

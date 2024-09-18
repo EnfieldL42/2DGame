@@ -4,6 +4,8 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
 
 public class controllerp1 : MonoBehaviour
 {
@@ -42,6 +44,11 @@ public class controllerp1 : MonoBehaviour
     public CharacterDatabase characterDB;
     public SpriteRenderer artworkSprite;
     public int[] selectedOptions;
+
+
+    [SerializeField] private Sprite[] characterHeadSprites;
+    [SerializeField] private Image playerCharacterImage;
+
 
     private void Start()
     {
@@ -178,6 +185,13 @@ public class controllerp1 : MonoBehaviour
 
         Character character = characterDB.GetCharacter(selectedOption);
         artworkSprite.sprite = character.characterSprite;
+
+        if (playerCharacterImage != null && selectedOption >= 0 && selectedOption < characterHeadSprites.Length)
+        {
+            playerCharacterImage.sprite = characterHeadSprites[selectedOption];
+        }
+
+
     }
 
     private void Load()

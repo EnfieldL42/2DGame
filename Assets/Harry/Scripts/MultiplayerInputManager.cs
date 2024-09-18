@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class MultiplayerInputManager : MonoBehaviour
@@ -35,9 +36,19 @@ public class MultiplayerInputManager : MonoBehaviour
 
     private void InitializeInputs()
     {
+        Scene scene = SceneManager.GetActiveScene();
+
+
+        //if (scene.name == "Main Menu")
+        //{
+
+        //} FOR WHEN ALMOST DONE WITH GAME
+
+
         inputControls = new InputControls();
         inputControls.MasterControls.JoinButton.performed += JoinButtonPerformed;
         inputControls.Enable();
+
     }
 
     private void JoinButtonPerformed(InputAction.CallbackContext context)

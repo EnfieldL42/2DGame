@@ -8063,7 +8063,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1021225434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8100,6 +8100,12 @@ MonoBehaviour:
   characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
   artworkSprite: {fileID: 485884345}
   selectedOptions: 
+  characterHeadSprites:
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: afd3658e2d059c34aa1d188b409cd67b, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  playerCharacterImage: {fileID: 2142750337}
 --- !u!61 &1021225436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13631,7 +13637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1744548960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13668,6 +13674,12 @@ MonoBehaviour:
   characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
   artworkSprite: {fileID: 237106768}
   selectedOptions: 
+  characterHeadSprites:
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: afd3658e2d059c34aa1d188b409cd67b, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  playerCharacterImage: {fileID: 66257345}
 --- !u!61 &1744548962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14216,6 +14228,17 @@ MonoBehaviour:
   - {fileID: 116289753}
   - {fileID: 496697814}
   gameManager: {fileID: 349683754}
+  characterSprites:
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: afd3658e2d059c34aa1d188b409cd67b, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  playerCharacterImages:
+  - {fileID: 1976916090}
+  - {fileID: 66257345}
+  - {fileID: 922886020}
+  - {fileID: 2142750337}
+  characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
 --- !u!114 &1760040394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14455,7 +14478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1803546092
 Transform:
   m_ObjectHideFlags: 0
@@ -14555,6 +14578,12 @@ MonoBehaviour:
   characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
   artworkSprite: {fileID: 236530912}
   selectedOptions: 
+  characterHeadSprites:
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: afd3658e2d059c34aa1d188b409cd67b, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  playerCharacterImage: {fileID: 1976916090}
 --- !u!50 &1803546104
 Rigidbody2D:
   serializedVersion: 4
@@ -14666,7 +14695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1853531516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14703,6 +14732,12 @@ MonoBehaviour:
   characterDB: {fileID: 11400000, guid: 49c7077dc90315c42afa868754957528, type: 2}
   artworkSprite: {fileID: 1682685396}
   selectedOptions: 
+  characterHeadSprites:
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: afd3658e2d059c34aa1d188b409cd67b, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  - {fileID: 21300000, guid: fc6b538185ae07544a9c9fe029facc73, type: 3}
+  playerCharacterImage: {fileID: 922886020}
 --- !u!61 &1853531518
 BoxCollider2D:
   m_ObjectHideFlags: 0
