@@ -16,6 +16,9 @@ public class OCGameManager : MonoBehaviour
     public List<int> scores = new List<int>();
     public int whichRound = 0; //hh
 
+
+    public Animator animator;
+
     private void Awake()
     {
         timer = gameDuration;
@@ -27,7 +30,7 @@ public class OCGameManager : MonoBehaviour
 
         EnablePlayers();
         InitializePlayerScores();
-        DisableLosers(); // Disable all losers from previous rounds
+        DisableLosers(); 
 
         ChooseScores();
     }
@@ -96,26 +99,13 @@ public class OCGameManager : MonoBehaviour
         }
         else
         {
-            if (whichRound < 3)
-            {
-                Preliminaries();
-            }
-            else
-            {
-                Finals();
-            }
+            StartNextRound();
         }
     }
 
-    public void Preliminaries()
+    public void StartNextRound()
     {
         SetBallPlayers();
-        print("start deathmatch");
-    }
-
-    public void Finals()
-    {
-        print("start final round");
     }
 
     void SetBallPlayers()
@@ -140,13 +130,26 @@ public class OCGameManager : MonoBehaviour
             GameManager.SetPlayerOne(lowestScoreID);
             GameManager.SetPlayerTwo(secondLowestScoreID);
 
-            SceneManager.LoadScene("Ball Game Test");
+            SceneFade();
+
         }
         else
         {
-            Debug.LogWarning("Not enough active players for a deathmatch!");
+            Debug.LogWarning("Not enough active players for deathmatch");
         }
     }
+
+    public void SceneFade()
+    {
+        animator.SetTrigger("FadeOut");
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene("Ball Game Test");
+
+    }
+
 
     private void DisableLosers()
     {

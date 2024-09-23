@@ -20,7 +20,6 @@ public class ItemStation : MonoBehaviour
 
             {
                 collectedByPlayers.Add(playerID); // Mark this player as having collected from the station
-                Debug.Log($"Player {playerID} collected item {itemID}.");
                 return true;
             }
         }
