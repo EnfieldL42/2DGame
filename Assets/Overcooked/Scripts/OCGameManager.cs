@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class OCGameManager : MonoBehaviour
 {
@@ -16,8 +17,12 @@ public class OCGameManager : MonoBehaviour
     public List<int> scores = new List<int>();
     public int whichRound = 0; //hh
 
+<<<<<<< Updated upstream
 
     public Animator animator;
+=======
+    public TextMeshProUGUI timertext;
+>>>>>>> Stashed changes
 
     private void Awake()
     {
@@ -33,6 +38,8 @@ public class OCGameManager : MonoBehaviour
         DisableLosers(); 
 
         ChooseScores();
+
+        //StartTimer();
     }
 
     void ChooseScores()
@@ -84,26 +91,71 @@ public class OCGameManager : MonoBehaviour
 
     void Update()
     {
-        StartTimer();
+        
     }
+
+    //public void StartTimer()
+    //{
+    //    if (timer > 0)
+    //    {
+    //        timer -= Time.deltaTime;
+    //        if (timer < 0)
+    //        {
+    //            timer = 0;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (whichRound < 3)
+    //        {
+    //            Preliminaries();
+    //        }
+    //        else
+    //        {
+    //            Finals();
+    //        }
+    //    }
+    //}
 
     public void StartTimer()
     {
-        if (timer > 0)
+        timertext.gameObject.SetActive(true);
+        StartCoroutine(TimerCoroutine());
+    }
+
+    IEnumerator TimerCoroutine()
+    {
+        // Timer countdown loop
+        while (timer > 0)
         {
             timer -= Time.deltaTime;
-            if (timer < 0)
-            {
-                timer = 0;
-            }
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure timer doesn't go below 0
+        timer = 0;
+
+        // Call the appropriate method based on the round
+        if (whichRound < 3)
+        {
+            Preliminaries();
         }
         else
         {
+<<<<<<< Updated upstream
             StartNextRound();
         }
     }
 
     public void StartNextRound()
+=======
+            Finals();
+        }
+    }
+
+
+    public void Preliminaries()
+>>>>>>> Stashed changes
     {
         SetBallPlayers();
     }
