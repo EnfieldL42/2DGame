@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 public class Tutorial : MonoBehaviour
 {
@@ -85,6 +86,7 @@ public class Tutorial : MonoBehaviour
     {
         tileClosed.SetActive(false);
         tileAnimation.SetActive(true);
+        tileAnimation.GetComponent<Tilemap>().animationFrameRate = 8;
     }
 
     public void IngredientsAnimation()

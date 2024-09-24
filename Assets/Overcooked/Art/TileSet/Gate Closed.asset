@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
-  m_Name: Gate Right
+  m_Name: Gate Closed
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -1006996443, guid: 457d1ade8f441be428fdc1c3ed0912ce, type: 3}
-  - {fileID: 1783603788, guid: 457d1ade8f441be428fdc1c3ed0912ce, type: 3}
+  - {fileID: 1925729938, guid: 2ef69f9cda75b154b9d3d20118595543, type: 3}
+  - {fileID: 1680004354, guid: 2ef69f9cda75b154b9d3d20118595543, type: 3}
+  - {fileID: -79627553, guid: 2ef69f9cda75b154b9d3d20118595543, type: 3}
+  - {fileID: 624970707, guid: 2ef69f9cda75b154b9d3d20118595543, type: 3}
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
