@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: c767a2e2c16b69c46a12b53f1c1187a4
+  - enabled: 1
+    path: Assets/Scenes/Don't Stop Smithing.unity
+    guid: 980063aa7bde7fb48a842654b9a0c7ba
   m_configObjects: {}

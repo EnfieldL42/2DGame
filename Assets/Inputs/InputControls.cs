@@ -62,6 +62,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""24b45516-7e80-4c91-b632-f2a8d28a8d1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -194,6 +203,28 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""JoinButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c488b53-f0d2-4eb8-8872-ab41a4027731"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36a39703-424d-4a78-8747-cfa1b04cc449"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -384,6 +415,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_MasterControls_Attack = m_MasterControls.FindAction("Attack", throwIfNotFound: true);
         m_MasterControls_Movement = m_MasterControls.FindAction("Movement", throwIfNotFound: true);
         m_MasterControls_JoinButton = m_MasterControls.FindAction("JoinButton", throwIfNotFound: true);
+        m_MasterControls_Pause = m_MasterControls.FindAction("Pause", throwIfNotFound: true);
         // BallControls
         m_BallControls = asset.FindActionMap("BallControls", throwIfNotFound: true);
         m_BallControls_Jump = m_BallControls.FindAction("Jump", throwIfNotFound: true);
@@ -455,6 +487,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MasterControls_Attack;
     private readonly InputAction m_MasterControls_Movement;
     private readonly InputAction m_MasterControls_JoinButton;
+    private readonly InputAction m_MasterControls_Pause;
     public struct MasterControlsActions
     {
         private @InputControls m_Wrapper;
@@ -463,6 +496,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_MasterControls_Attack;
         public InputAction @Movement => m_Wrapper.m_MasterControls_Movement;
         public InputAction @JoinButton => m_Wrapper.m_MasterControls_JoinButton;
+        public InputAction @Pause => m_Wrapper.m_MasterControls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_MasterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -484,6 +518,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @JoinButton.started += instance.OnJoinButton;
             @JoinButton.performed += instance.OnJoinButton;
             @JoinButton.canceled += instance.OnJoinButton;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IMasterControlsActions instance)
@@ -500,6 +537,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @JoinButton.started -= instance.OnJoinButton;
             @JoinButton.performed -= instance.OnJoinButton;
             @JoinButton.canceled -= instance.OnJoinButton;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IMasterControlsActions instance)
@@ -593,6 +633,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnJoinButton(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IBallControlsActions
     {

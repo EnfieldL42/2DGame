@@ -15,14 +15,13 @@ public class OCGameManager : MonoBehaviour
     public List<int> uniqueScores = new List<int>();
     public List<int> startingScores = new List<int>();
     public List<int> scores = new List<int>();
-    public int whichRound = 0; //hh
+    public int whichRound = 0;
 
-<<<<<<< Updated upstream
 
+    public controllerp1[] controller;
     public Animator animator;
-=======
     public TextMeshProUGUI timertext;
->>>>>>> Stashed changes
+
 
     private void Awake()
     {
@@ -38,13 +37,10 @@ public class OCGameManager : MonoBehaviour
         DisableLosers(); 
 
         ChooseScores();
-
-        //StartTimer();
     }
 
     void ChooseScores()
     {
-        //goes through all your uniqueScores to add random Score
         for (int i = 0; i < 4; i++)
         {
             int randomScore = Random.Range(0, startingScores.Count);
@@ -94,29 +90,6 @@ public class OCGameManager : MonoBehaviour
         
     }
 
-    //public void StartTimer()
-    //{
-    //    if (timer > 0)
-    //    {
-    //        timer -= Time.deltaTime;
-    //        if (timer < 0)
-    //        {
-    //            timer = 0;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (whichRound < 3)
-    //        {
-    //            Preliminaries();
-    //        }
-    //        else
-    //        {
-    //            Finals();
-    //        }
-    //    }
-    //}
-
     public void StartTimer()
     {
         timertext.gameObject.SetActive(true);
@@ -125,42 +98,27 @@ public class OCGameManager : MonoBehaviour
 
     IEnumerator TimerCoroutine()
     {
-        // Timer countdown loop
         while (timer > 0)
         {
             timer -= Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null; 
         }
 
-        // Ensure timer doesn't go below 0
         timer = 0;
+        StartNextRound();
 
-        // Call the appropriate method based on the round
-        if (whichRound < 3)
-        {
-            Preliminaries();
-        }
-        else
-        {
-<<<<<<< Updated upstream
-            StartNextRound();
-        }
+        //if (whichRound < 3)
+        //{
+        //    //Preliminaries();
+        //}
+        //else
+        //{
+
+        //    StartNextRound();
+        //}
     }
 
-    public void StartNextRound()
-=======
-            Finals();
-        }
-    }
-
-
-    public void Preliminaries()
->>>>>>> Stashed changes
-    {
-        SetBallPlayers();
-    }
-
-    void SetBallPlayers()
+    void StartNextRound()
     {
         List<(int ID, int Score)> playerScoresList = new List<(int ID, int Score)>();
 
@@ -182,7 +140,7 @@ public class OCGameManager : MonoBehaviour
             GameManager.SetPlayerOne(lowestScoreID);
             GameManager.SetPlayerTwo(secondLowestScoreID);
 
-            SceneFade();
+            StartCoroutine(SceneWait());
 
         }
         else
@@ -196,10 +154,21 @@ public class OCGameManager : MonoBehaviour
         animator.SetTrigger("FadeOut");
     }
 
+    public IEnumerator SceneWait()
+    {
+        foreach (var controller in controller)
+        {
+            controller.DisableInputs();
+            controller.input.x = 0;
+            controller.input.y = 0;
+        }
+
+        yield return new WaitForSeconds(2f);
+        SceneFade();
+    }
     public void LoadScene()
     {
         SceneManager.LoadScene("Ball Game Test");
-
     }
 
 
@@ -237,4 +206,5 @@ public class OCGameManager : MonoBehaviour
             playerScores.Add(0);
         }
     }
+
 }

@@ -32,17 +32,31 @@ public class MultiplayerInputManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
+ 
+
     }
+
+    private void Update()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name == "Main Menu")
+        {
+            players.Clear();
+        }
+    }
+
 
     private void InitializeInputs()
     {
         Scene scene = SceneManager.GetActiveScene();
+            
+            //if (scene.name == "Main Menu")
+            //{
 
-
-        //if (scene.name == "Main Menu")
-        //{
-
-        //} FOR WHEN ALMOST DONE WITH GAME
+            //} FOR WHEN ALMOST DONE WITH GAME the stuff downwards
 
 
         inputControls = new InputControls();

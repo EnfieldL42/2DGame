@@ -49,6 +49,8 @@ public class controllerp1 : MonoBehaviour
     [SerializeField] private Sprite[] characterHeadSprites;
     [SerializeField] private Image playerCharacterImage;
 
+    public PauseMenu pauseMenu;
+
 
     private void Start()
     {
@@ -62,7 +64,6 @@ public class controllerp1 : MonoBehaviour
         selectedOptions = new int[4];
 
         Load();
-
         UpdateCharacter(selectedOptions[playerID]);
 
 
@@ -81,6 +82,8 @@ public class controllerp1 : MonoBehaviour
     {
         ProcessInputs();
         Animate();
+        InteractionAnimation();
+
 
         if (!isMoving)
         {
@@ -157,22 +160,29 @@ public class controllerp1 : MonoBehaviour
         }
     }
 
+    void InteractionAnimation()
+    {
+        if(!isMoving && interactCount > 0)
+        {
+            animator.SetBool("interact", true);
+        }
+        else
+        {
+            animator.SetBool("interact", false);
+        }
+    }
+
     void Animate()
     {
-        //if (isMoving)
-        //{
-        //    animator.SetBool("isMoving", true);
-        //}
-        //else
-        //{
-        //    animator.SetBool("isMoving", false);
-        //}
-
-        animator.SetFloat("MoveX", input.x);
-        animator.SetFloat("MoveY", input.y);
+        if (input.x != 0 || input.y != 0)
+        {
+            animator.SetFloat("MoveX", input.x);
+            animator.SetFloat("MoveY", input.y);
+        }
         animator.SetFloat("MoveMagnitude", input.magnitude);
         animator.SetFloat("LastMoveX", lastMoveDirection.x);
         animator.SetFloat("LastMoveY", lastMoveDirection.y);
+        animator.SetBool("isMoving", isMoving);
     }
 
     private void UpdateCharacter(int selectedOption)
@@ -235,10 +245,12 @@ public class controllerp1 : MonoBehaviour
             inputControls.MasterControls.Jump.performed += RunningPerformed;
             inputControls.MasterControls.Jump.canceled += WalkingPerformed;
             inputControls.MasterControls.Attack.performed += InteractionPerformed;
+            inputControls.MasterControls.Pause.performed += PausePerformed;
+
         }
     }
 
-    private void OnDisable()
+    public void DisableInputs()
     {
         if (inputControls != null)
         {
@@ -246,11 +258,33 @@ public class controllerp1 : MonoBehaviour
             inputControls.MasterControls.Jump.performed -= RunningPerformed;
             inputControls.MasterControls.Jump.canceled -= WalkingPerformed;
             inputControls.MasterControls.Attack.performed -= InteractionPerformed;
+            inputControls.MasterControls.Pause.performed += PausePerformed;
+
         }
         else
         {
             MultiplayerInputManager inputManager = MultiplayerInputManager.instance;
             inputManager.onPlayerJoined -= AssignInputs;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (inputControls != null)
+        {
+            
+            inputControls.MasterControls.Movement.performed -= MovementPerformed;
+            inputControls.MasterControls.Jump.performed -= RunningPerformed;
+            inputControls.MasterControls.Jump.canceled -= WalkingPerformed;
+            inputControls.MasterControls.Attack.performed -= InteractionPerformed;
+            inputControls.MasterControls.Pause.performed += PausePerformed;
+
+        }
+        else
+        {
+            MultiplayerInputManager inputManager = MultiplayerInputManager.instance;
+            inputManager.onPlayerJoined -= AssignInputs;
+
         }
     }
 
@@ -269,8 +303,15 @@ public class controllerp1 : MonoBehaviour
         moveSpeed = walkingSpeed;
     }
 
+    private void PausePerformed(InputAction.CallbackContext context)
+    {
+        pauseMenu.PauseGame();
+    }
+
     private void InteractionPerformed(InputAction.CallbackContext context)
     {
+
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, overlapBoxSize, 0);
         foreach (Collider2D collider in colliders)
         {

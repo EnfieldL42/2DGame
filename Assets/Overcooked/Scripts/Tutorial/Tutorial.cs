@@ -7,6 +7,7 @@ public class Tutorial : MonoBehaviour
 {
     public TextMeshProUGUI dialogue;
     public Animator anim;
+    public Animator ingredients;
     public OCGameManager gm;
 
     public string[] lines;
@@ -15,6 +16,10 @@ public class Tutorial : MonoBehaviour
 
     private int index;
     private bool isTyping = false;
+
+    public GameObject tileClosed;
+    public GameObject tileAnimation;
+    public GameObject tileOpen;
 
 
     void Start()
@@ -74,5 +79,24 @@ public class Tutorial : MonoBehaviour
     public void StartTimer()
     {
         gm.StartTimer();
+    }
+
+    public void TileOpenStartingArea()
+    {
+        tileClosed.SetActive(false);
+        tileAnimation.SetActive(true);
+    }
+
+    public void IngredientsAnimation()
+    {
+        ingredients.SetTrigger("animate");
+    }
+
+    IEnumerator gateOpen()
+    {
+        yield return new WaitForSeconds(1f);
+        tileOpen.SetActive(true);
+        tileAnimation.SetActive(false);
+
     }
 }
