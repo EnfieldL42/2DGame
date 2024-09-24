@@ -20,7 +20,7 @@ public class Tutorial : MonoBehaviour
 
     public GameObject tileClosed;
     public GameObject tileAnimation;
-    public GameObject tileOpen;
+    //public GameObject tileOpen;
 
 
     void Start()
@@ -87,6 +87,7 @@ public class Tutorial : MonoBehaviour
         tileClosed.SetActive(false);
         tileAnimation.SetActive(true);
         tileAnimation.GetComponent<Tilemap>().animationFrameRate = 8;
+        //Had to this because the tile is still animated when inactive
     }
 
     public void IngredientsAnimation()
@@ -97,7 +98,7 @@ public class Tutorial : MonoBehaviour
     IEnumerator gateOpen()
     {
         yield return new WaitForSeconds(1f);
-        tileOpen.SetActive(true);
+        //tileOpen.SetActive(true);
         tileAnimation.SetActive(false);
 
     }
