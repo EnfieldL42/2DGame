@@ -6,16 +6,29 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     public Animator animator;
-
+    public string sceneName;
 
     public void LevelFader()
     {
         animator.SetTrigger("FadeOut");
     }
 
-        public void startGame()
+    public void LoadScene()
     {
-        SceneManager.LoadSceneAsync("Character Selection");
-
+        SceneManager.LoadSceneAsync(sceneName);
     }
+
+
+    public void SetSceneToCharactSelct()
+    {
+        sceneName = "Character Selection";
+    }
+
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+
 }

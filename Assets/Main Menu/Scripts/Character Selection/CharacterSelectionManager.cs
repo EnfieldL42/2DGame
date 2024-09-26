@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CharacterSelectionManager : MonoBehaviour
 {
     public Animator animator;
+    private string sceneName;
 
     public void LevelFader()
     {
@@ -15,11 +16,32 @@ public class CharacterSelectionManager : MonoBehaviour
     }
 
 
-    public void startGame()
+    public void LoadScene()
     {
 
-        SceneManager.LoadScene("Don't Stop Smithing");
+        SceneManager.LoadSceneAsync(sceneName);
 
+    }
+
+    public void SetSceneToMenu()
+    {
+        sceneName = "Main Menu";
+    }
+
+    public void SetSceneToMainGame()
+    {
+        sceneName = "Don't Stop Smithing";
+    }
+
+    public void SetSceneToCharactSelct()
+    {
+        sceneName = "Character Selection";
+    }
+
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
 
