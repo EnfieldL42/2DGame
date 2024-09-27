@@ -9,9 +9,10 @@ public class CharacterSelectionManager : MonoBehaviour
     public Animator animator;
     private string sceneName;
 
+    public bool tutorial = true;
+
     public void LevelFader()
     {
-
         animator.SetTrigger("FadeOut");
     }
 
@@ -44,6 +45,11 @@ public class CharacterSelectionManager : MonoBehaviour
         Application.Quit();
     }
 
-
+    public void SetDifficulty(bool tutorialbool)
+    {
+        tutorial = tutorialbool;
+        PlayerPrefs.SetInt("tutorial", tutorial ? 1 : 0);
+        PlayerPrefs.Save();
+    }
 
 }

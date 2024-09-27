@@ -22,21 +22,42 @@ public class OCGameManager : MonoBehaviour
     public Animator animator;
     public TextMeshProUGUI timertext;
 
+    public bool tutorial = true;
+    public Animator tutorialAnim;
+    public Animator ingredients;
+    public GameObject timerObj;
+
 
     private void Awake()
     {
         timer = gameDuration;
+        tutorial = PlayerPrefs.GetInt("tutorial", 0) == 1;
     }
+
+
 
     void Start()
     {
         MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
+
+
 
         EnablePlayers();
         InitializePlayerScores();
         DisableLosers(); 
 
         ChooseScores();
+
+        if(tutorial)
+        {
+            tutorialAnim.SetTrigger("StartTutorial");
+        }
+        else
+        {
+            timerObj.SetActive(true);
+            StartCoroutine(StartGameWNoTutorial());
+            IngredientsAnimation();
+        }
     }
 
     void ChooseScores()
@@ -83,11 +104,6 @@ public class OCGameManager : MonoBehaviour
                 playerGameObjects[i].SetActive(true);
             }
         }
-    }
-
-    void Update()
-    {
-        
     }
 
     public void StartTimer()
@@ -207,4 +223,15 @@ public class OCGameManager : MonoBehaviour
         }
     }
 
+    public void IngredientsAnimation()
+    {
+
+    }
+
+    IEnumerator StartGameWNoTutorial()
+    {
+        yield return new WaitForSeconds(2f);
+        ingredients.SetTrigger("animate");
+        StartTimer();
+    }
 }

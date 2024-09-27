@@ -4948,6 +4948,10 @@ MonoBehaviour:
   - {fileID: 1021225434}
   animator: {fileID: 349683755}
   timertext: {fileID: 867602838}
+  tutorial: 0
+  tutorialAnim: {fileID: 1254417066}
+  ingredients: {fileID: 1760040398}
+  timerObj: {fileID: 867602837}
 --- !u!95 &349683755
 Animator:
   serializedVersion: 5
@@ -5768,7 +5772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &608944356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8270,7 +8274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1129197274
 RectTransform:
   m_ObjectHideFlags: 0
