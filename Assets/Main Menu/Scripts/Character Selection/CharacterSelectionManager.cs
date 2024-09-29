@@ -9,7 +9,14 @@ public class CharacterSelectionManager : MonoBehaviour
     public Animator animator;
     private string sceneName;
 
-    public bool tutorial = true;
+    public bool skipTutorial = false;
+
+    private void Start()
+    {
+        PlayerPrefs.SetInt("tutorial", 0);
+        PlayerPrefs.Save();
+    }
+
 
     public void LevelFader()
     {
@@ -45,10 +52,9 @@ public class CharacterSelectionManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void SetDifficulty(bool tutorialbool)
+    public void IsTutorialOn(bool tutorialbool)
     {
-        tutorial = tutorialbool;
-        PlayerPrefs.SetInt("tutorial", tutorial ? 1 : 0);
+        PlayerPrefs.SetInt("tutorial", tutorialbool ? 1 : 0);
         PlayerPrefs.Save();
     }
 

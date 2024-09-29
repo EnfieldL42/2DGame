@@ -95,7 +95,7 @@ public class Tutorial : MonoBehaviour
         ingredients.SetTrigger("animate");
     }
 
-    IEnumerator gateOpen()
+    public IEnumerator gateOpen()
     {
         yield return new WaitForSeconds(1f);
         //tileOpen.SetActive(true);
