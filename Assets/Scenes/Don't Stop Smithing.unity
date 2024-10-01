@@ -4948,7 +4948,7 @@ MonoBehaviour:
   - {fileID: 1021225434}
   animator: {fileID: 349683755}
   timertext: {fileID: 867602838}
-  skipTutorial: 0
+  skipTutorial: 1
   tutorialAnim: {fileID: 1254417066}
   ingredients: {fileID: 1760040398}
   timerObj: {fileID: 867602837}
@@ -9885,6 +9885,15 @@ MonoBehaviour:
   gm: {fileID: 349683754}
   lines:
   - welcome fellow smiths!
+  - you are here today to craft weapons and test their limits
+  - go to the material stations to collect them
+  - and so craft them at the crafting station!
+  - I provided the recipe for each weapon
+  - finally use the weapon to hit the chest!
+  - ...
+  - try to get the best score
+  - as the two slowest players will have to battle each other on a deathmatch!
+  - enjoy!
   textSpeed: 0.05
   waitTime: 1.5
   tileClosed: {fileID: 1649323173}

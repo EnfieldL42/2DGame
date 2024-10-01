@@ -233,5 +233,6 @@ public class OCGameManager : MonoBehaviour
         ingredients.SetTrigger("animate");
         StartTimer();
         tut.TileOpenStartingArea();
+        StartCoroutine(tut.gateOpen());
     }
 }
