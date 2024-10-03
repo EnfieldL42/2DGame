@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static System.Collections.Specialized.BitVector32;
 
 
 public class controllerp1 : MonoBehaviour
@@ -13,6 +14,9 @@ public class controllerp1 : MonoBehaviour
     private InputControls inputControls;
     public PlayerInventory playerInventory;
     public ItemDisplay itemDisplay;
+    private ItemStation station;
+
+
 
     public OCGameManager gameManager;
 
@@ -105,6 +109,11 @@ public class controllerp1 : MonoBehaviour
         if(interactCount == interactionsNeeded)
         {
             interactCount = 0;
+        }
+
+        if(interactCount > 0 && station != null)
+        {
+            station.ResetTimer();
         }
 
     }
@@ -320,7 +329,7 @@ public class controllerp1 : MonoBehaviour
             {
                 interactCount++;
 
-                if(interactCount == interactionsNeeded)
+                if (interactCount == interactionsNeeded)
                 {
                     PlayerInventory playerInventory = GetComponent<PlayerInventory>();
                     if (playerInventory != null && itemStation.TryCollectItem(playerID, playerInventory))
@@ -344,6 +353,7 @@ public class controllerp1 : MonoBehaviour
                 {
 
                     interactCount++;
+
 
                     if (interactCount == interactionsNeeded)
                     {
@@ -397,6 +407,24 @@ public class controllerp1 : MonoBehaviour
         if (craftingStation != null)
         {
             interactCount = 0;
+        }
+
+
+        if (collider.CompareTag("Station"))
+        {
+            if (station == collider.GetComponent<ItemStation>())
+            {
+                station = null;
+            }
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Station"))
+        {
+            station = collision.GetComponent<ItemStation>();
         }
     }
 

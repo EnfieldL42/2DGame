@@ -11,6 +11,11 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public bool skipTutorial = false;
 
+    private void Awake()
+    {
+        PlayerPrefs.SetInt("tutorial", 1);
+        PlayerPrefs.Save();
+    }
     private void Start()
     {
         PlayerPrefs.SetInt("tutorial", 0);
