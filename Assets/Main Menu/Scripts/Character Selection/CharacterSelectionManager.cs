@@ -13,6 +13,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     private void Awake()
     {
+        CharacterDataManager.instance.ResetActivePlayers();
         PlayerPrefs.SetInt("tutorial", 1);
         PlayerPrefs.Save();
     }

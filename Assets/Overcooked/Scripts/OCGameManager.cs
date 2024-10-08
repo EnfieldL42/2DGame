@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class OCGameManager : MonoBehaviour
 {
@@ -28,10 +30,21 @@ public class OCGameManager : MonoBehaviour
     public Animator ingredients;
     public GameObject timerObj;
     public Tutorial tut;
+    public bool winScene = false;
+    public int winnerSprite;
 
+
+    public GameObject winPanel;
+    public Image winnerPlayer;
+    public TextMeshProUGUI winnerText;
+    int winnerID;
+
+    public Sprite[] winnerSprites;
 
     private void Awake()
     {
+        winPanel.gameObject.SetActive(false);
+        winScene = false;
         timer = gameDuration;
         skipTutorial = PlayerPrefs.GetInt("tutorial", 0) == 1;
     }
@@ -50,11 +63,11 @@ public class OCGameManager : MonoBehaviour
 
         ChooseScores();
 
-        if(skipTutorial)
+
+        if (skipTutorial)
         {
             timerObj.SetActive(true);
             StartCoroutine(StartGameWNoTutorial());
-
         }
         else
         {
@@ -127,24 +140,15 @@ public class OCGameManager : MonoBehaviour
         timer = 0;
         StartNextRound();
 
-        //if (whichRound < 3)
-        //{
-        //    //Preliminaries();
-        //}
-        //else
-        //{
-
-        //    StartNextRound();
-        //}
     }
 
-    void StartNextRound()
+    public void StartNextRound()
     {
         List<(int ID, int Score)> playerScoresList = new List<(int ID, int Score)>();
 
         for (int i = 0; i < playerScores.Count; i++)
         {
-            if (playerGameObjects[i].activeSelf) // Only consider active players
+            if (playerGameObjects[i].activeSelf) 
             {
                 playerScoresList.Add((i, playerScores[i]));
             }
@@ -152,7 +156,7 @@ public class OCGameManager : MonoBehaviour
 
         playerScoresList.Sort((x, y) => x.Score.CompareTo(y.Score));
 
-        if (playerScoresList.Count >= 2)
+        if (playerScoresList.Count > 2)
         {
             int lowestScoreID = playerScoresList[0].ID;
             int secondLowestScoreID = playerScoresList[1].ID;
@@ -160,8 +164,19 @@ public class OCGameManager : MonoBehaviour
             GameManager.SetPlayerOne(lowestScoreID);
             GameManager.SetPlayerTwo(secondLowestScoreID);
 
+
             StartCoroutine(SceneWait());
 
+        }
+        else if(playerScoresList.Count == 2)
+        {
+            int WinnerScoreID = playerScoresList[1].ID;
+            CharacterDataManager.instance.EliminatePlayer(playerScoresList[0].ID);
+
+            winnerSprite = CharacterDataManager.instance.GetCharacterSprite(WinnerScoreID);
+
+            winScene = true;
+            StartCoroutine(SceneWait());
         }
         else
         {
@@ -184,11 +199,19 @@ public class OCGameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-        SceneFade();
+        if(!winScene)
+        {
+            SceneFade();
+        }
+        else
+        {
+            ShowWinner();
+        }
     }
     public void LoadScene()
     {
-        SceneManager.LoadScene("Ball Game Test");
+            SceneManager.LoadScene("Ball Game Test");
+
     }
 
 
@@ -200,6 +223,7 @@ public class OCGameManager : MonoBehaviour
             {
                 playerGameObjects[loserID].SetActive(false);
                 playerScores[loserID] = int.MaxValue; // Set the loser's score to a high value to exclude them
+                CharacterDataManager.instance.EliminatePlayer(loserID);
             }
         }
     }
@@ -234,5 +258,29 @@ public class OCGameManager : MonoBehaviour
         StartTimer();
         tut.TileOpenStartingArea();
         StartCoroutine(tut.gateOpen());
+    }
+
+    void ShowWinner()
+    {
+        winPanel.gameObject.SetActive(true);
+        if (winnerPlayer != null)
+        {
+            winnerPlayer.sprite = winnerSprites[winnerSprite];
+        }
+
+        for (int i = 0; i < CharacterDataManager.instance.activePlayers.Length; i++)
+        {
+            if (CharacterDataManager.instance.activePlayers[i]) // Check if player is active
+            {
+                winnerID = i; // Set the winner index
+                break; // Exit loop once the winner is found
+            }
+        }
+
+        if (winnerText != null)
+        {
+            winnerText.text = $"Player {winnerID + 1} is the winner!"; // Update the text (adjust index for 1-based display)
+        }
+
     }
 }

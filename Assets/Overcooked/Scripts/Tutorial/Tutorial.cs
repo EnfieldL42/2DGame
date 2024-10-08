@@ -46,7 +46,7 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator InbetweenLinesWait()
     {
-        isTyping = true; // Prevent multiple calls to the coroutine
+        isTyping = true;
         yield return new WaitForSeconds(waitTime);
         NextLine();
     }
@@ -59,7 +59,7 @@ public class Tutorial : MonoBehaviour
             dialogue.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
-        isTyping = false; // Typing is complete
+        isTyping = false; 
     }
 
     void NextLine()

@@ -44,6 +44,7 @@ public class CharacterManager : MonoBehaviour
         if (playerID == ID)
         {
             MultiplayerInputManager inputManager = MultiplayerInputManager.instance;
+            CharacterDataManager.instance.TurnOnPlayer(ID);
 
             inputManager.onPlayerJoined -= AssignInputs;
             inputControls = inputManager.players[playerID].playerControls;
@@ -136,7 +137,10 @@ public class CharacterManager : MonoBehaviour
 
     private void Save()
     {
+        CharacterDataManager.instance.SetPlayer(playerID, selectedOption[playerID]);
         PlayerPrefs.SetInt("SelectedOption_Player" + playerID, selectedOption[playerID]);
         PlayerPrefs.Save();
+
+        //int winnerSprite = CharacterDataManager.instance.GetCharacterSprite(playerID);
     }
 }

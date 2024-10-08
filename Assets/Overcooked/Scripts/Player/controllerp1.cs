@@ -181,6 +181,39 @@ public class controllerp1 : MonoBehaviour
         }
     }
 
+    void AttackAnimation()
+    {
+
+        animator.SetFloat("MoveMagnitude", input.magnitude);
+        animator.SetFloat("LastMoveX", lastMoveDirection.x);
+        animator.SetFloat("LastMoveY", lastMoveDirection.y);
+        if (playerInventory.uniqueItem == 0)
+        {
+            animator.SetTrigger("BowAttack");
+        }
+        else if (playerInventory.uniqueItem == 1)
+        {
+            animator.SetTrigger("ShieldAttack");
+        }
+        else if (playerInventory.uniqueItem == 2)
+        {
+            animator.SetTrigger("SwordAttack");
+        }
+        else if (playerInventory.uniqueItem == 3)
+        {
+            animator.SetTrigger("StaffAttack");
+        }
+    }
+
+    public IEnumerator attackwait()
+    {
+        DisableInputs();
+        AttackAnimation();
+        yield return new WaitForSeconds(1f);
+        AssignInputs(playerID);
+
+    }
+
     void Animate()
     {
         if (input.x != 0 || input.y != 0)
@@ -377,6 +410,8 @@ public class controllerp1 : MonoBehaviour
             DummyArea triggerArea = collider.GetComponent<DummyArea>();
             if (triggerArea != null && playerInventory.GetUniqueItem() != -1)
             {
+                //AttackAnimation();
+                StartCoroutine(attackwait());
                 int uniqueItemID = playerInventory.GetUniqueItem();
 
                 if (playerInventory.UseUniqueItem())
