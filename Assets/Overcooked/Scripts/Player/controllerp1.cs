@@ -80,6 +80,8 @@ public class controllerp1 : MonoBehaviour
             MultiplayerInputManager.instance.onPlayerJoined += AssignInputs;
         }
 
+
+
     }
 
     private void Update()
@@ -91,6 +93,8 @@ public class controllerp1 : MonoBehaviour
 
         if (!isMoving)
         {
+            AudioManager.instance.sfxSource.pitch = 1f;
+
             if (input != Vector2.zero)
             {
                 Vector2 filteredInput = FilterInput(input);
@@ -103,6 +107,18 @@ public class controllerp1 : MonoBehaviour
                 }
 
                 lastTargetPos = targetPos;
+            }
+        }
+        else if (isMoving)
+        {
+            if(moveSpeed >= 10)
+            {
+                AudioManager.instance.FastSFXOnce("Footstep", 2.5f);
+            }
+            else
+            {
+                AudioManager.instance.FastSFXOnce("Footstep", 1.5f);
+
             }
         }
 
@@ -209,7 +225,7 @@ public class controllerp1 : MonoBehaviour
     {
         DisableInputs();
         AttackAnimation();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(0.5f);
         AssignInputs(playerID);
 
     }
@@ -338,6 +354,8 @@ public class controllerp1 : MonoBehaviour
     private void RunningPerformed(InputAction.CallbackContext context)
     {
         moveSpeed = runningSpeed;
+
+        AudioManager.instance.PlaySFX("Sprint", 1f);
     }
 
     private void WalkingPerformed(InputAction.CallbackContext context)
@@ -360,6 +378,8 @@ public class controllerp1 : MonoBehaviour
             ItemStation itemStation = collider.GetComponent<ItemStation>();
             if (itemStation != null)
             {
+                AudioManager.instance.SFXOnce("Grabing Ingredients"); //need this to not be play once
+
                 interactCount++;
 
                 if (interactCount == interactionsNeeded)
@@ -367,11 +387,17 @@ public class controllerp1 : MonoBehaviour
                     PlayerInventory playerInventory = GetComponent<PlayerInventory>();
                     if (playerInventory != null && itemStation.TryCollectItem(playerID, playerInventory))
                     {
+
                         ItemDisplay itemDisplay = GetComponentInChildren<ItemDisplay>();
                         if (itemDisplay != null)
                         {
                             itemDisplay.UpdateItemDisplay();
+                            AudioManager.instance.PlaySFX("Item Pickup");
                         }
+                    }
+                    else
+                    {
+                        AudioManager.instance.PlaySFX("Fail to Interact");
                     }
                     break;
                 }
@@ -384,6 +410,7 @@ public class controllerp1 : MonoBehaviour
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
                 if (playerInventory != null)
                 {
+                    AudioManager.instance.SFXOnce("Crafting");
 
                     interactCount++;
 
@@ -398,8 +425,13 @@ public class controllerp1 : MonoBehaviour
                             if (itemDisplay != null)
                             {
                                 itemDisplay.UpdateItemDisplay();
+                                AudioManager.instance.PlaySFX("Crafting Finished");
                             }
 
+                        }
+                        else
+                        {
+                            AudioManager.instance.PlaySFX("Fail to Interact");
                         }
                     }
                     break;
@@ -410,7 +442,7 @@ public class controllerp1 : MonoBehaviour
             DummyArea triggerArea = collider.GetComponent<DummyArea>();
             if (triggerArea != null && playerInventory.GetUniqueItem() != -1)
             {
-                //AttackAnimation();
+                
                 StartCoroutine(attackwait());
                 int uniqueItemID = playerInventory.GetUniqueItem();
 

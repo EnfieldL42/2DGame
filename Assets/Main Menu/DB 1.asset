@@ -17,7 +17,7 @@ MonoBehaviour:
     characterSprite: {fileID: 2141833253, guid: 36da14ab9d1df344bacb6d57b2495285, type: 3}
   - characterName: Hilda
     characterSprite: {fileID: 2113055995, guid: b069c61ce06533b4486b37e024825800, type: 3}
-  - characterName: Beorn
-    characterSprite: {fileID: -4465137455631916842, guid: 14ced2238d82c7149b8f5a0481222249, type: 3}
-  - characterName: Wilfrid
-    characterSprite: {fileID: 7152930139536384079, guid: 3111f23cd57d2be48b2ee6bac4a23588, type: 3}
+  - characterName: COMING SOON
+    characterSprite: {fileID: -593640393, guid: 57ec89ac292adbb438b8b922cfb4fcff, type: 3}
+  - characterName: COMING SOON
+    characterSprite: {fileID: 148551582, guid: 57ec89ac292adbb438b8b922cfb4fcff, type: 3}

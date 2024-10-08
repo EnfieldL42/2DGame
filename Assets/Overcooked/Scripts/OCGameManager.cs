@@ -47,6 +47,12 @@ public class OCGameManager : MonoBehaviour
         winScene = false;
         timer = gameDuration;
         skipTutorial = PlayerPrefs.GetInt("tutorial", 0) == 1;
+
+        int randomInt = Random.Range(1, 5);
+        string randomString = randomInt.ToString();
+
+        AudioManager.instance.PlayMusic(randomString);
+
     }
 
 
@@ -55,7 +61,10 @@ public class OCGameManager : MonoBehaviour
     {
         MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
 
-
+        if(skipTutorial)
+        {
+            AudioManager.instance.PlaySFX("Countdown", 1f);
+        }
 
         EnablePlayers();
         InitializePlayerScores();
