@@ -29,14 +29,14 @@ public class BallPhysics : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.down * initialSpeed;
         currentSpeed = initialSpeed;
-        currentDirection = rb.velocity.normalized;
 
     }
 
 
     private void Update()
     {
-        debounce += 1f * Time.deltaTime; 
+        debounce += 1f * Time.deltaTime;
+        currentDirection = rb.velocity.normalized;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -86,6 +86,9 @@ public class BallPhysics : MonoBehaviour
 
         // Update the ball's velocity
         rb.velocity = currentDirection * currentSpeed;
+
+        // Lose a tiny bit of speed when hitting a wall
+        currentSpeed *= 0.99f;
     }
 
     void ChangeColor()
