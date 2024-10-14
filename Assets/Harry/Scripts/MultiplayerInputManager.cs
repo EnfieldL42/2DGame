@@ -98,4 +98,13 @@ public class MultiplayerInputManager : MonoBehaviour
             players.playerControls.Disable();
         }
     }
+
+    public void EnableInputs()
+    {
+        inputControls.Enable();
+        foreach (PlayerControls players in players)
+        {
+            players.playerControls.Enable();
+        }
+    }
 }

@@ -70,7 +70,8 @@ public class OCGameManager : MonoBehaviour
 
         EnablePlayers();
         InitializePlayerScores();
-        DisableLosers(); 
+        DisableLosers();
+        MultiplayerInputManager.instance.DisableInputs();
 
         ChooseScores();
 
@@ -138,6 +139,7 @@ public class OCGameManager : MonoBehaviour
     {
         timertext.gameObject.SetActive(true);
         StartCoroutine(TimerCoroutine());
+        MultiplayerInputManager.instance.EnableInputs();
     }
 
     IEnumerator TimerCoroutine()
@@ -267,8 +269,8 @@ public class OCGameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ingredients.SetTrigger("animate");
         StartTimer();
-        tut.TileOpenStartingArea();
-        StartCoroutine(tut.gateOpen());
+        // tut.TileOpenStartingArea();
+        //StartCoroutine(tut.gateOpen());
     }
 
     void ShowWinner()

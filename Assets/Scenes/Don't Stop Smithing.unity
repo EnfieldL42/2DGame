@@ -10527,8 +10527,8 @@ MonoBehaviour:
   - enjoy!
   textSpeed: 0.05
   waitTime: 1.5
-  tileClosed: {fileID: 1649323173}
-  tileAnimation: {fileID: 47476098}
+  tileClosed: {fileID: 0}
+  tileAnimation: {fileID: 0}
 --- !u!1 &1270971547
 GameObject:
   m_ObjectHideFlags: 0
@@ -14613,7 +14613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1649323174
 Transform:
   m_ObjectHideFlags: 0
