@@ -894,9 +894,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "KEYBOARD \n- AWSD TO MOVE\n- E TO ATTACK/INTERACT\n- SPACE TO JUMP\n\nGAMEPAD\n-JOYSTICK
-    TO MOVE\n- X (PLAYSTATION) OR A (XBOX) TO ATTACK/INTERACT\n- O (PLAYSTATION)
-    OR B (XBOX) TO JUMP"
+  m_text: "KEYBOARD \n- WASD TO MOVE\n- J TO INTERACT\n- SHIFT TO DASH\n\nGAMEPAD\n-JOYSTICK
+    TO MOVE\n- X (PLAYSTATION) OR A (XBOX) TO INTERACT\n- \u25FB (PLAYSTATION) OR
+    X (XBOX) TO DASH"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 55fc9e9118bc8714e985ef4b8859dbd9, type: 2}
   m_sharedMaterial: {fileID: -3753339724534619227, guid: 55fc9e9118bc8714e985ef4b8859dbd9, type: 2}
