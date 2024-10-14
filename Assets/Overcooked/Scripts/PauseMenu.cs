@@ -48,6 +48,8 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
             isPaused = true;
             SetFirstSelectedButton();
+            MultiplayerInputManager.instance.DisableInputs();
+            //This just stops people from doing things when the game is paused
         }
         else if(isPaused)
         {
@@ -55,6 +57,8 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 1f;
             isPaused = false;
             EventSystem.current.SetSelectedGameObject(null);
+            MultiplayerInputManager.instance.EnableInputs();
+            //Now they can move again :)
         }
 
 
