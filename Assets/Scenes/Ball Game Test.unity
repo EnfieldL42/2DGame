@@ -1248,6 +1248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
+  players:
+  - {fileID: 2035694359}
+  - {fileID: 868016213}
 --- !u!1 &1191427420
 GameObject:
   m_ObjectHideFlags: 0

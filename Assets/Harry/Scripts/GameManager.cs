@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static int playerOne;
     public static int playerTwo;
     public static List<int> losers = new List<int>(); // Track all losers
+    public PlayerInput[] players;
 
     private void Awake()
     {
@@ -25,12 +27,24 @@ public class GameManager : MonoBehaviour
     {
         playerTwo = id;
     }
-
+    public void DisableInputs()
+    {
+        foreach(var players in players)
+        {
+            players.DisableControls();
+        }
+    }
     public void GameEnded(int id)
     {
-        if (!losers.Contains(id)) // Ensure each loser is only added once
+
+        if (id == playerTwo && !losers.Contains(id)) // Ensure each loser is only added once
         {
             losers.Add(id);
+            OCGameManager.nerfedPlayer = 100;
+        } 
+        else
+        {
+            OCGameManager.nerfedPlayer = playerOne;
         }
         StartCoroutine(ReturnToMain());
         Debug.Log("Losers: " + string.Join(", ", losers));

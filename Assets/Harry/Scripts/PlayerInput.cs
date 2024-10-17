@@ -156,13 +156,16 @@ public class PlayerInput : MonoBehaviour
         rb.velocity = ball.rb.velocity * ball.initialSpeed;
         col.enabled = false;
         int id = playerID;
-        DisableControls();
         gameManager.GameEnded(id);
     }
 
     public void DisableControls()
     {
        playerActive = false;
+       inputControls.BallControls.Movement.performed -= MovementPerformed;
+       inputControls.BallControls.Jump.performed -= JumpPerformed;
+       inputControls.BallControls.Jump.canceled -= JumpCanceled;
+       inputControls.BallControls.Attack.performed -= AttackPerformed;
        inputControls.Disable();
     }
     /*IEnumerator DisableAttack()

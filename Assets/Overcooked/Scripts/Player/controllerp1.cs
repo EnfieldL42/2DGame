@@ -70,7 +70,6 @@ public class controllerp1 : MonoBehaviour
         Load();
         UpdateCharacter(selectedOptions[playerID]);
 
-
         if (MultiplayerInputManager.instance.players.Count > playerID)
         {
             AssignInputs(playerID);
@@ -306,6 +305,7 @@ public class controllerp1 : MonoBehaviour
             inputControls.MasterControls.Pause.performed += PausePerformed;
 
         }
+        DisableDash();
     }
 
     public void DisableInputs()
@@ -462,6 +462,17 @@ public class controllerp1 : MonoBehaviour
         }
     }
 
+    private void DisableDash()
+    {
+        if(playerID == OCGameManager.nerfedPlayer && inputControls != null)
+        {
+            inputControls.MasterControls.Jump.performed -= RunningPerformed;
+        }
+        else
+        {
+            inputControls.MasterControls.Jump.performed += RunningPerformed;
+        }
+    }
     private void OnTriggerExit2D(Collider2D collider)
     {
         ItemStation itemStation = collider.GetComponent<ItemStation>();

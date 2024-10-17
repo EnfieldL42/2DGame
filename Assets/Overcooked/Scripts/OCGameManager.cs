@@ -41,6 +41,8 @@ public class OCGameManager : MonoBehaviour
 
     public Sprite[] winnerSprites;
 
+    public static int nerfedPlayer = 100;
+
     private void Awake()
     {
         winPanel.gameObject.SetActive(false);
@@ -174,8 +176,8 @@ public class OCGameManager : MonoBehaviour
             int lowestScoreID = playerScoresList[0].ID;
             int secondLowestScoreID = playerScoresList[1].ID;
 
-            GameManager.SetPlayerOne(lowestScoreID);
-            GameManager.SetPlayerTwo(secondLowestScoreID);
+            GameManager.SetPlayerOne(secondLowestScoreID);
+            GameManager.SetPlayerTwo(lowestScoreID);
 
 
             StartCoroutine(SceneWait());
