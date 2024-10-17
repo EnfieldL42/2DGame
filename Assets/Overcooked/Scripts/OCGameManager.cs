@@ -266,7 +266,7 @@ public class OCGameManager : MonoBehaviour
 
     IEnumerator StartGameWNoTutorial()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.8f);
         ingredients.SetTrigger("animate");
         StartTimer();
         // tut.TileOpenStartingArea();

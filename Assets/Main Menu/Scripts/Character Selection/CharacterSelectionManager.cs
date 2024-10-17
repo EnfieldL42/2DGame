@@ -13,9 +13,19 @@ public class CharacterSelectionManager : MonoBehaviour
 
     private void Awake()
     {
+        Scene scene = SceneManager.GetActiveScene();
+
+
         CharacterDataManager.instance.ResetActivePlayers();
+
         PlayerPrefs.SetInt("tutorial", 1);
         PlayerPrefs.Save();
+
+        if (scene.name == "Character Selection")
+        {
+            MultiplayerInputManager.instance.ClearPlayers();
+            MultiplayerInputManager.instance.InitializeInputs();
+        }
     }
     private void Start()
     {

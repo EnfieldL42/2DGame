@@ -33,36 +33,21 @@ public class MultiplayerInputManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
 
- 
+    public void ClearPlayers()
+    {
+        players.Clear();
 
     }
 
-    private void Update()
+
+    public void InitializeInputs()
     {
         Scene scene = SceneManager.GetActiveScene();
-
-        if (scene.name == "Main Menu")
-        {
-            players.Clear();
-        }
-    }
-
-
-    private void InitializeInputs()
-    {
-        Scene scene = SceneManager.GetActiveScene();
-            
-            //if (scene.name == "Main Menu")
-            //{
-
-            //} FOR WHEN ALMOST DONE WITH GAME the stuff downwards
-
-
         inputControls = new InputControls();
         inputControls.MasterControls.JoinButton.performed += JoinButtonPerformed;
         inputControls.Enable();
-
     }
 
     private void JoinButtonPerformed(InputAction.CallbackContext context)

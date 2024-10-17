@@ -1,34 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public Animator animator;
-    public string sceneName;
+    public GameObject firstButton;
+    bool isSelected = false;
+    PlayerControls playerControls;
 
-    public void LevelFader()
+
+    private void Start()
     {
-        animator.SetTrigger("FadeOut");
+        isSelected = false;
     }
 
-    public void LoadScene()
+    private void Update()
     {
-        SceneManager.LoadSceneAsync(sceneName);
+        if (Keyboard.current.wKey.wasPressedThisFrame || Keyboard.current.sKey.wasPressedThisFrame)
+        {
+            if (!isSelected)
+            {
+                SetFirstSelectedButton();
+
+            }
+        }
+
+        float leftStickY = Gamepad.current.leftStick.ReadValue().y;
+
+        if (leftStickY > 0.3f || leftStickY < -0.3f || Gamepad.current.buttonSouth.wasPressedThisFrame || Gamepad.current.dpad.up.wasPressedThisFrame || Gamepad.current.dpad.down.wasPressedThisFrame)
+        {
+            if (!isSelected)
+            {
+                SetFirstSelectedButton();
+
+            }
+        }
+
+
     }
 
-
-    public void SetSceneToCharactSelct()
+    private void SetFirstSelectedButton()
     {
-        sceneName = "Character Selection";
+        isSelected = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
-
-
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-
 }
