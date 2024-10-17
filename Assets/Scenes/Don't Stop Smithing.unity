@@ -4328,9 +4328,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.45882353, b: 0, a: 1}
     m_PressedColor: {r: 0.28930807, g: 0.28930807, b: 0.28930807, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 0.45882353, b: 0, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5207,6 +5207,7 @@ MonoBehaviour:
   - {fileID: 2113055995, guid: b069c61ce06533b4486b37e024825800, type: 3}
   - {fileID: 7152930139536384079, guid: 3111f23cd57d2be48b2ee6bac4a23588, type: 3}
   - {fileID: -4465137455631916842, guid: 14ced2238d82c7149b8f5a0481222249, type: 3}
+  canPauseWalk: 0
 --- !u!95 &349683755
 Animator:
   serializedVersion: 5
@@ -8559,9 +8560,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.45882353, b: 0, a: 1}
     m_PressedColor: {r: 0.28930807, g: 0.28930807, b: 0.28930807, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 0.45882353, b: 0, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -13580,6 +13581,8 @@ MonoBehaviour:
   pauseMenu: {fileID: 1412288370}
   isPaused: 0
   firstButton: {fileID: 247352637}
+  gm: {fileID: 349683754}
+  audiogm: {fileID: 1591221006}
 --- !u!1 &1420306455
 GameObject:
   m_ObjectHideFlags: 0
@@ -14111,7 +14114,7 @@ Transform:
   m_GameObject: {fileID: 1591221004}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.26, z: -10}
+  m_LocalPosition: {x: 953, y: 545, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14362,9 +14365,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.45882353, b: 0, a: 1}
     m_PressedColor: {r: 0.28930807, g: 0.28930807, b: 0.28930807, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 0.45882353, b: 0, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

@@ -100,8 +100,37 @@ public class AudioManager : MonoBehaviour
             }
 
         }
-
-
     }
 
+    public void PauseAllAudio()
+    {
+        PauseAudioSource(musicSource);
+        PauseAudioSource(sfxSource);
+        PauseAudioSource(fastsfxSource);
+        PauseAudioSource(sfxPlayOnce);
+    }
+    public void UnpauseAllAudio()
+    {
+        UnpauseAudioSource(musicSource);
+        UnpauseAudioSource(sfxSource);
+        UnpauseAudioSource(fastsfxSource);
+        UnpauseAudioSource(sfxPlayOnce);
+    }
+    private void PauseAudioSource(AudioSource source)
+    {
+        if (source != null && source.isPlaying)
+        {
+            Debug.Log("music paused");
+            source.Pause();
+        }
+    }
+
+    private void UnpauseAudioSource(AudioSource source)
+    {
+        if (source != null && source.clip != null)
+        {
+            Debug.Log("music unpaused");
+            source.UnPause();
+        }
+    }
 }

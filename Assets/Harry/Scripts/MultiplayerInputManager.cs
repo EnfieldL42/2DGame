@@ -81,6 +81,7 @@ public class MultiplayerInputManager : MonoBehaviour
         foreach (PlayerControls players in players)
         {
             players.playerControls.Disable();
+            players.playerControls.MasterControls.Pause.Enable();
         }
     }
 
