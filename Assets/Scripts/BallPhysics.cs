@@ -7,11 +7,12 @@ public class BallPhysics : MonoBehaviour
     public float initialSpeed = 10f;
     public float speedMultiplier = 1.1f;
     public float maxSpeed = 30f;
+    public float currentSpeed;
+    public float gravityScale;
 
-    public float debounce;
 
     private Vector2 currentDirection;
-    public float currentSpeed;
+    public float hitSpeed;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
     public Color color;
@@ -23,20 +24,39 @@ public class BallPhysics : MonoBehaviour
 
     void Awake()
     {
-        debounce = 0;
         lastHit = 100;
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero * initialSpeed;
-        currentSpeed = initialSpeed;
-        rb.gravityScale = 0f;
+        hitSpeed = initialSpeed;
     }
 
 
     private void Update()
     {
-        debounce += 1f * Time.deltaTime;
         currentDirection = rb.velocity.normalized;
+        
+        if(currentDirection != Vector2.zero )
+        {
+            transform.up = currentDirection;
+        }
+
+        StartCoroutine(SpeedCalc());
+        if(lastHit != 75)
+        {
+            rb.gravityScale = gravityScale;
+            gravityScale = ((-currentSpeed / 75) + 1);
+            gravityScale = Mathf.Clamp(gravityScale, 0f, 1f);
+        }
+
+    }
+
+    IEnumerator SpeedCalc()
+    {
+        Vector3 lastPos = transform.position;
+        yield return new WaitForFixedUpdate();
+        currentSpeed = (lastPos - transform.position).magnitude /Time.deltaTime;
+
     }
 
    /* void OnCollisionEnter2D(Collision2D collision)
@@ -67,10 +87,11 @@ public class BallPhysics : MonoBehaviour
     }
     void BallHit(Collider2D collision)
     {   
-        if(lastHit ==100)
+        /*if(lastHit ==100)
         {
             rb.gravityScale = 1f;
         }
+        */
         StartCoroutine(FreezePhysics(collision));
     }
     void BallLaunched(Collider2D collision)
@@ -81,11 +102,11 @@ public class BallPhysics : MonoBehaviour
         
 
         // Update the ball's velocity
-        rb.velocity = currentDirection * currentSpeed;
+        rb.velocity = currentDirection * hitSpeed;
 
         // Increase speed and clamp to maxSpeed
-        currentSpeed *= speedMultiplier;
-        currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
+        hitSpeed *= speedMultiplier;
+        hitSpeed = Mathf.Min(hitSpeed, maxSpeed);
     }
     /*
        void ReflectOffWall(Collision2D collision)
@@ -121,26 +142,25 @@ public class BallPhysics : MonoBehaviour
 
     IEnumerator FreezePhysics(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
+        if (collision.gameObject.CompareTag("Hitbox"))
         {
-            StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(currentSpeed / maxSpeed));
-            debounce = 0;
+            StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(hitSpeed / maxSpeed));
             //hitStop.Stop(currentSpeed / maxSpeed);
             lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
             collision.gameObject.SetActive(false);
             ChangeColor();
             rb.simulated = false;
-            yield return new WaitForSecondsRealtime(currentSpeed / maxSpeed);
+            yield return new WaitForSecondsRealtime(hitSpeed / maxSpeed);
             rb.simulated = true;
             BallLaunched(collision);
         }
         else if (collision.gameObject.CompareTag("Hurtbox") && collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
         {
-            StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(currentSpeed / maxSpeed));
+            StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(hitSpeed / maxSpeed));
             //hitStop.Stop(currentSpeed / maxSpeed);
             collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
             rb.simulated = false;
-            yield return new WaitForSecondsRealtime(currentSpeed / maxSpeed);
+            yield return new WaitForSecondsRealtime(hitSpeed / maxSpeed);
             rb.simulated = true;
             HitPlayer(collision);
         }
