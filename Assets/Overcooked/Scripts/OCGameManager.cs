@@ -43,14 +43,16 @@ public class OCGameManager : MonoBehaviour
 
     public static int nerfedPlayer = 100;
 
+    public bool canPauseWalk = false;
+
+    private string sceneName;
+
     private void Awake()
     {
         winPanel.gameObject.SetActive(false);
         winScene = false;
         timer = gameDuration;
         skipTutorial = PlayerPrefs.GetInt("tutorial", 0) == 1;
-
-
 
     }
 
@@ -139,6 +141,7 @@ public class OCGameManager : MonoBehaviour
 
     public void StartTimer()
     {
+        CanPauseWalk();
         timertext.gameObject.SetActive(true);
         StartCoroutine(TimerCoroutine());
         MultiplayerInputManager.instance.EnableInputs();
@@ -216,6 +219,7 @@ public class OCGameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if(!winScene)
         {
+            SetSceneBallGame();
             SceneFade();
         }
         else
@@ -223,9 +227,22 @@ public class OCGameManager : MonoBehaviour
             ShowWinner();
         }
     }
+
+    public void SetSceneMainMenu()
+    {
+        sceneName = "Main Menu";
+    }
+
+    public void SetSceneBallGame()
+    {
+        sceneName = "Ball Game Test";
+    }
+
     public void LoadScene()
     {
-            SceneManager.LoadScene("Ball Game Test");
+        SceneManager.LoadScene(sceneName);
+
+         //SceneManager.LoadScene("Ball Game Test");
 
     }
 
@@ -297,5 +314,10 @@ public class OCGameManager : MonoBehaviour
             winnerText.text = $"Player {winnerID + 1} is the winner!"; // Update the text (adjust index for 1-based display)
         }
 
+    }
+
+    public void CanPauseWalk()
+    {
+        canPauseWalk = true;
     }
 }

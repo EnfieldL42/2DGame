@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource, sfxSource, fastsfxSource, sfxPlayOnce;
 
     public static AudioManager instance;
+    public float fadeDuration;
 
     public void Awake()
     {
@@ -73,7 +74,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            if(!fastsfxSource.isPlaying)
+            if (!fastsfxSource.isPlaying)
             {
                 fastsfxSource.PlayOneShot(s.clip);
             }
@@ -100,8 +101,38 @@ public class AudioManager : MonoBehaviour
             }
 
         }
-
-
     }
 
+    public void PauseAllAudio()
+    {
+        AudioListener.pause = true;
+    }
+    public void UnpauseAllAudio()
+    {
+        AudioListener.pause = false;
+    }
+
+    IEnumerator StopAudioGradually(AudioSource audioSource, float fadeDuration)
+    {
+        float startVolume = audioSource.volume;
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    public void StopAllAudio()
+    {
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+        if (allAudioSources.Length == 0) return;
+
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            StartCoroutine(StopAudioGradually(audioS, fadeDuration));
+        }
+    }
 }
