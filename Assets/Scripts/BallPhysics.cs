@@ -65,7 +65,7 @@ public class BallPhysics : MonoBehaviour
    */
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BallHit(collision);
+        StartCoroutine(FreezePhysics(collision));
         /*if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
         {
             debounce = 0;
@@ -82,15 +82,15 @@ public class BallPhysics : MonoBehaviour
         */
 
     }
-    void BallHit(Collider2D collision)
+    /*void BallHit(Collider2D collision)
     {   
-        /*if(lastHit ==100)
+        if(lastHit ==100)
         {
             rb.gravityScale = 1f;
         }
-        */
         StartCoroutine(FreezePhysics(collision));
-    }
+    } */
+
     void BallLaunched(Collider2D collision)
     {
         // Calculate a new random direction within a specified angle range

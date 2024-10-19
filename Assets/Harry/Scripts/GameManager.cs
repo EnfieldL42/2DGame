@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameEnded(int id)
     {
+        DisableInputs();
 
         if (id == playerTwo && !losers.Contains(id)) // Ensure each loser is only added once
         {
