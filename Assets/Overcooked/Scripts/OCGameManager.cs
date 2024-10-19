@@ -69,7 +69,7 @@ public class OCGameManager : MonoBehaviour
 
         if(skipTutorial)
         {
-            AudioManager.instance.PlaySFX("Countdown", 1f);
+            AudioManager.instance.PlaySFX("Countdown", 4, 1f);
         }
 
         EnablePlayers();

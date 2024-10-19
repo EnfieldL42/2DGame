@@ -92,7 +92,7 @@ public class controllerp1 : MonoBehaviour
 
         if (!isMoving)
         {
-            AudioManager.instance.sfxSource.pitch = 1f;
+            //AudioManager.instance.sfxSource.pitch = 1f;
 
             if (input != Vector2.zero)
             {
@@ -355,7 +355,7 @@ public class controllerp1 : MonoBehaviour
     {
         moveSpeed = runningSpeed;
 
-        AudioManager.instance.PlaySFX("Sprint", 1f);
+        AudioManager.instance.PlaySFX("Sprint", playerID, 1f);
     }
 
     private void WalkingPerformed(InputAction.CallbackContext context)
@@ -378,7 +378,7 @@ public class controllerp1 : MonoBehaviour
             ItemStation itemStation = collider.GetComponent<ItemStation>();
             if (itemStation != null)
             {
-                AudioManager.instance.SFXOnce("Grabing Ingredients"); //need this to not be play once
+                AudioManager.instance.SFXOnce("Grabing Ingredients", playerID); //need this to not be play once
 
                 interactCount++;
 
@@ -392,12 +392,12 @@ public class controllerp1 : MonoBehaviour
                         if (itemDisplay != null)
                         {
                             itemDisplay.UpdateItemDisplay();
-                            AudioManager.instance.PlaySFX("Item Pickup");
+                            AudioManager.instance.PlaySFX("Item Pickup", playerID);
                         }
                     }
                     else
                     {
-                        AudioManager.instance.PlaySFX("Fail to Interact");
+                        AudioManager.instance.PlaySFX("Fail to Interact", playerID);
                     }
                     break;
                 }
@@ -410,7 +410,7 @@ public class controllerp1 : MonoBehaviour
                 PlayerInventory playerInventory = GetComponent<PlayerInventory>();
                 if (playerInventory != null)
                 {
-                    AudioManager.instance.SFXOnce("Crafting");
+                    AudioManager.instance.SFXOnce("Crafting", playerID);
 
                     interactCount++;
 
@@ -425,13 +425,13 @@ public class controllerp1 : MonoBehaviour
                             if (itemDisplay != null)
                             {
                                 itemDisplay.UpdateItemDisplay();
-                                AudioManager.instance.PlaySFX("Crafting Finished");
+                                AudioManager.instance.PlaySFX("Crafting Finished", playerID);
                             }
 
                         }
                         else
                         {
-                            AudioManager.instance.PlaySFX("Fail to Interact");
+                            AudioManager.instance.PlaySFX("Fail to Interact", playerID);
                         }
                     }
                     break;

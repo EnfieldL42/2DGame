@@ -6,7 +6,18 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] musicSounds, sfxSounds;
-    public AudioSource musicSource, sfxSource, fastsfxSource, sfxPlayOnce;
+
+    // Audio source collections for each player.
+    private Dictionary<int, AudioSource[]> playerAudioSources;
+
+    public AudioSource musicSource;
+
+    // Individual sources for all players.
+    public AudioSource sfxSource1, sfxPlayOnce1;
+    public AudioSource sfxSource2, sfxPlayOnce2;
+    public AudioSource sfxSource3, sfxPlayOnce3;
+    public AudioSource sfxSource4, sfxPlayOnce4;
+    public AudioSource sfxSourceNonPlayer, fastsfxSourceNonPlayer;
 
     public static AudioManager instance;
     public float fadeDuration;
@@ -21,6 +32,32 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+        InitializePlayerAudioSources();
+    }
+
+    private void InitializePlayerAudioSources()
+    {
+        playerAudioSources = new Dictionary<int, AudioSource[]>
+        {
+            { 0, new AudioSource[] { sfxSource1, sfxPlayOnce1 } },
+            { 1, new AudioSource[] { sfxSource2, sfxPlayOnce2 } },
+            { 2, new AudioSource[] { sfxSource3, sfxPlayOnce3 } },
+            { 3, new AudioSource[] { sfxSource4, sfxPlayOnce4 } },
+            { 4, new AudioSource[] { sfxSourceNonPlayer, fastsfxSourceNonPlayer}}
+        };
+    }
+
+    private AudioSource[] GetPlayerAudioSources(int playerID)
+    {
+        if (playerAudioSources.TryGetValue(playerID, out var sources))
+        {
+            return sources;
+        }
+        else
+        {
+            Debug.LogWarning($"Player ID {playerID} does not have assigned audio sources.");
+            return null;
         }
     }
 
@@ -43,29 +80,26 @@ public class AudioManager : MonoBehaviour
 
 
 
-    public void PlaySFX(string name, float pitch = 1f)
+    public void PlaySFX(string name, int playerID, float pitch = 1f)
     {
-
-        sfxSource.pitch = pitch;
+        var sources = GetPlayerAudioSources(playerID);
+        if (sources == null) return;
 
         Sound s = Array.Find(sfxSounds, x => x.name == name);
-
         if (s == null)
         {
             Debug.Log("Sound not found");
-        }
-        else
-        {
-            sfxSource.PlayOneShot(s.clip);
-
+            return;
         }
 
-
+        sources[0].pitch = pitch; // sfxSource
+        sources[0].PlayOneShot(s.clip);
     }
+
 
     public void FastSFXOnce(string name, float pitch = 1f)
     {
-        fastsfxSource.pitch = pitch;
+        fastsfxSourceNonPlayer.pitch = pitch;
         Sound s = Array.Find(sfxSounds, x => x.name == name);
 
         if (s == null)
@@ -74,9 +108,9 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            if (!fastsfxSource.isPlaying)
+            if (!fastsfxSourceNonPlayer.isPlaying)
             {
-                fastsfxSource.PlayOneShot(s.clip);
+                fastsfxSourceNonPlayer.PlayOneShot(s.clip);
             }
 
         }
@@ -84,22 +118,22 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    public void SFXOnce(string name, float pitch = 1f)
+    public void SFXOnce(string name, int playerID, float pitch = 1f)
     {
-        sfxPlayOnce.pitch = pitch;
-        Sound s = Array.Find(sfxSounds, x => x.name == name);
+        var sources = GetPlayerAudioSources(playerID);
+        if (sources == null) return;
 
+        Sound s = Array.Find(sfxSounds, x => x.name == name);
         if (s == null)
         {
             Debug.Log("Sound not found");
+            return;
         }
-        else
-        {
-            if (!sfxPlayOnce.isPlaying)
-            {
-                sfxPlayOnce.PlayOneShot(s.clip);
-            }
 
+        sources[1].pitch = pitch; // sfxPlayOnce
+        if (!sources[1].isPlaying)
+        {
+            sources[1].PlayOneShot(s.clip);
         }
     }
 
