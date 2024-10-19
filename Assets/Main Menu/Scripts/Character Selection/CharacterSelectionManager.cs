@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
@@ -49,16 +50,21 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public void SetSceneToMenu()
     {
+        AudioManager.instance.sfxSourceNonPlayer.Stop();
+        AudioManager.instance.PlaySFX("Click Button", 4);
         sceneName = "Main Menu";
     }
 
     public void SetSceneToMainGame()
     {
+        AudioManager.instance.PlaySFX("Character Select Start Game", 4, 1.2f);
         sceneName = "Don't Stop Smithing";
     }
 
     public void SetSceneToCharactSelct()
     {
+        AudioManager.instance.sfxSourceNonPlayer.Stop();
+        AudioManager.instance.PlaySFX("Click Button", 4);
         sceneName = "Character Selection";
     }
 
@@ -74,4 +80,9 @@ public class CharacterSelectionManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+
+    public void PlayButtonSound()
+    {
+        AudioManager.instance.PlaySFX("Select Button", 4);
+    }
 }
