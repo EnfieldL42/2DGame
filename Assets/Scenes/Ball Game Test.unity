@@ -983,11 +983,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 1
-  rb: {fileID: 0}
-  anim: {fileID: 0}
-  gameManager: {fileID: 0}
-  ball: {fileID: 0}
-  col: {fileID: 0}
+  rb: {fileID: 868016215}
+  anim: {fileID: 868016212}
+  gameManager: {fileID: 1182484895}
+  ball: {fileID: 1512115003}
+  col: {fileID: 868016214}
+  spriteRenderer: {fileID: 868016216}
   canJump: 0
   stickCoord: {x: 0, y: 0}
   facingRight: 0
@@ -1097,7 +1098,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1991,11 +1992,10 @@ MonoBehaviour:
   currentSpeed: 0
   gravityScale: 0
   hitSpeed: 0
-  rb: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  rb: {fileID: 1512115007}
+  spriteRenderer: {fileID: 1512115004}
   lastHit: 100
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1182484895}
 --- !u!212 &1512115004
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3209,7 +3209,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3251,11 +3251,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
-  rb: {fileID: 0}
-  anim: {fileID: 0}
-  gameManager: {fileID: 0}
-  ball: {fileID: 0}
-  col: {fileID: 0}
+  rb: {fileID: 2035694354}
+  anim: {fileID: 2035694360}
+  gameManager: {fileID: 1182484895}
+  ball: {fileID: 1512115003}
+  col: {fileID: 2035694355}
+  spriteRenderer: {fileID: 2035694356}
   canJump: 0
   stickCoord: {x: 0, y: 0}
   facingRight: 0

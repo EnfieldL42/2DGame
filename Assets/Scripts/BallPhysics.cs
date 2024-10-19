@@ -15,7 +15,6 @@ public class BallPhysics : MonoBehaviour
     public float hitSpeed;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
-    public Color color;
     
 
     public int lastHit;
@@ -25,8 +24,6 @@ public class BallPhysics : MonoBehaviour
     void Awake()
     {
         lastHit = 100;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero * initialSpeed;
         hitSpeed = initialSpeed;
     }
@@ -42,7 +39,7 @@ public class BallPhysics : MonoBehaviour
         }
 
         StartCoroutine(SpeedCalc());
-        if(lastHit != 75)
+        if(lastHit != 100)
         {
             rb.gravityScale = gravityScale;
             gravityScale = ((-currentSpeed / 75) + 1);
@@ -130,13 +127,20 @@ public class BallPhysics : MonoBehaviour
 
     void ChangeColor()
     {
-        if(lastHit == GameManager.playerOne)
+        switch(lastHit)
         {
-            spriteRenderer.color = Color.red;
-        }
-        else if (lastHit == GameManager.playerTwo)
-        {
-            spriteRenderer.color = Color.blue;
+            case 0: 
+                spriteRenderer.color = Color.red;
+                break;
+            case 1:
+                spriteRenderer.color = Color.blue; 
+                break;
+            case 2:
+                spriteRenderer.color = Color.green;
+                break;
+            case 3:
+                spriteRenderer.color = Color.yellow;
+                break;
         }
     }
 

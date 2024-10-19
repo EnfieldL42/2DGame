@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     public GameManager gameManager;
     public BallPhysics ball;
     public Collider2D col;
+    public SpriteRenderer spriteRenderer;
 
     public bool canJump;
     public Vector2 stickCoord;
@@ -26,17 +27,10 @@ public class PlayerInput : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        ball = FindObjectOfType<BallPhysics>();
-        gameManager = FindObjectOfType<GameManager>();
-
-        col = GetComponent<Collider2D>();
-
-        rb = GetComponent<Rigidbody2D>();
         rb.excludeLayers.Equals("Player");
         rb.mass = 1f;
         rb.gravityScale = 8;
 
-        anim = GetComponent<Animator>();
         if(playerID == 0)
         {
             playerID = GameManager.playerOne;
@@ -55,6 +49,8 @@ public class PlayerInput : MonoBehaviour
         {
             MultiplayerInputManager.instance.onPlayerJoined += AssignInputs;
         }
+
+        SetColor();
     }
     private void Update()
     {
@@ -148,6 +144,24 @@ public class PlayerInput : MonoBehaviour
             anim.SetBool("Airborne", true);
         }
     }
+    void SetColor()
+    {
+        switch(playerID)
+        {
+            case 0:
+                spriteRenderer.color = Color.red;
+                break;
+            case 1:
+                spriteRenderer.color = Color.blue;
+                break;
+            case 2:
+                spriteRenderer.color = Color.green;
+                break;
+            case 3:
+                spriteRenderer.color = Color.yellow;
+                break;
+        }
+    }    
 
     public void PlayerHit()
     {
