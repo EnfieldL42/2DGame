@@ -45,6 +45,8 @@ public class OCGameManager : MonoBehaviour
 
     public bool canPauseWalk = false;
 
+    private string sceneName;
+
     private void Awake()
     {
         winPanel.gameObject.SetActive(false);
@@ -217,6 +219,7 @@ public class OCGameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if(!winScene)
         {
+            SetSceneBallGame();
             SceneFade();
         }
         else
@@ -224,9 +227,22 @@ public class OCGameManager : MonoBehaviour
             ShowWinner();
         }
     }
+
+    public void SetSceneMainMenu()
+    {
+        sceneName = "Main Menu";
+    }
+
+    public void SetSceneBallGame()
+    {
+        sceneName = "Ball Game Test";
+    }
+
     public void LoadScene()
     {
-            SceneManager.LoadScene("Ball Game Test");
+        SceneManager.LoadScene(sceneName);
+
+         //SceneManager.LoadScene("Ball Game Test");
 
     }
 

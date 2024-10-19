@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource, sfxSource, fastsfxSource, sfxPlayOnce;
 
     public static AudioManager instance;
+    public float fadeDuration;
 
     public void Awake()
     {
@@ -73,7 +74,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            if(!fastsfxSource.isPlaying)
+            if (!fastsfxSource.isPlaying)
             {
                 fastsfxSource.PlayOneShot(s.clip);
             }
@@ -104,33 +105,34 @@ public class AudioManager : MonoBehaviour
 
     public void PauseAllAudio()
     {
-        PauseAudioSource(musicSource);
-        PauseAudioSource(sfxSource);
-        PauseAudioSource(fastsfxSource);
-        PauseAudioSource(sfxPlayOnce);
+        AudioListener.pause = true;
     }
     public void UnpauseAllAudio()
     {
-        UnpauseAudioSource(musicSource);
-        UnpauseAudioSource(sfxSource);
-        UnpauseAudioSource(fastsfxSource);
-        UnpauseAudioSource(sfxPlayOnce);
-    }
-    private void PauseAudioSource(AudioSource source)
-    {
-        if (source != null && source.isPlaying)
-        {
-            Debug.Log("music paused");
-            source.Pause();
-        }
+        AudioListener.pause = false;
     }
 
-    private void UnpauseAudioSource(AudioSource source)
+    IEnumerator StopAudioGradually(AudioSource audioSource, float fadeDuration)
     {
-        if (source != null && source.clip != null)
+        float startVolume = audioSource.volume;
+        while (audioSource.volume > 0)
         {
-            Debug.Log("music unpaused");
-            source.UnPause();
+            audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    public void StopAllAudio()
+    {
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+        if (allAudioSources.Length == 0) return;
+
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            StartCoroutine(StopAudioGradually(audioS, fadeDuration));
         }
     }
 }

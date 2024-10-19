@@ -11,9 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject firstButton;
     public OCGameManager gm;
 
-    public AudioManager audiogm;
 
-    // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -34,7 +32,12 @@ public class PauseMenu : MonoBehaviour
     public void GoMenu()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene("Main Menu");
+        pauseMenu.SetActive(false);
+        gm.SetSceneMainMenu();
+        gm.SceneFade();
+
+        AudioManager.instance.UnpauseAllAudio();
+        AudioManager.instance.StopAllAudio();
 
     }
 
@@ -51,7 +54,8 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
             isPaused = true;
             SetFirstSelectedButton();
-            audiogm.PauseAllAudio();
+            AudioManager.instance.PauseAllAudio();
+
             MultiplayerInputManager.instance.DisableInputs();
             //This just stops people from doing things when the game is paused
         }
@@ -61,7 +65,8 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 1f;
             isPaused = false;
             EventSystem.current.SetSelectedGameObject(null);
-            audiogm.UnpauseAllAudio();
+            AudioManager.instance.UnpauseAllAudio();
+
             if (gm.canPauseWalk)
             {
                 MultiplayerInputManager.instance.EnableInputs();
