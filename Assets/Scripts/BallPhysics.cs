@@ -19,7 +19,7 @@ public class BallPhysics : MonoBehaviour
 
     public int lastHit;
     public GameManager gameManager;
-    public HitStop hitStop;
+    //public HitStop hitStop;
 
     void Awake()
     {
@@ -39,16 +39,17 @@ public class BallPhysics : MonoBehaviour
         currentDirection = rb.velocity.normalized;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+   /* void OnCollisionEnter2D(Collision2D collision)
     {if (collision.gameObject.CompareTag("Wall")||collision.gameObject.CompareTag("Ground"))
         {
             ReflectOffWall(collision);
         }
     }
-
+   */
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
+        BallHit(collision);
+        /*if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
         {
             BallHit(collision);
             debounce = 0;
@@ -59,14 +60,15 @@ public class BallPhysics : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Hurtbox") && collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
         {
-            hitStop.Stop(currentSpeed / maxSpeed);
+            //hitStop.Stop(currentSpeed / maxSpeed);
             collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
         }
+        */
+
     }
     void BallHit(Collider2D collision)
     {
         StartCoroutine(FreezePhysics(collision));
-        StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(currentSpeed / maxSpeed));
     }
     void BallLaunched(Collider2D collision)
     {
@@ -97,6 +99,12 @@ public class BallPhysics : MonoBehaviour
         */
     }
 
+    void HitPlayer(Collider2D collision)
+    {
+        rb.velocity = new Vector2 (-currentDirection.x, -currentDirection.y);
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+    }
+
     void ChangeColor()
     {
         if(lastHit == GameManager.playerOne)
@@ -111,9 +119,28 @@ public class BallPhysics : MonoBehaviour
 
     IEnumerator FreezePhysics(Collider2D collision)
     {
-        rb.simulated = false;
-        yield return new WaitForSecondsRealtime(currentSpeed / maxSpeed);
-        rb.simulated = true;
-        BallLaunched(collision);
+        if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
+        {
+            StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(currentSpeed / maxSpeed));
+            debounce = 0;
+            //hitStop.Stop(currentSpeed / maxSpeed);
+            lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
+            collision.gameObject.SetActive(false);
+            ChangeColor();
+            rb.simulated = false;
+            yield return new WaitForSecondsRealtime(currentSpeed / maxSpeed);
+            rb.simulated = true;
+            BallLaunched(collision);
+        }
+        else if (collision.gameObject.CompareTag("Hurtbox") && collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
+        {
+            StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(currentSpeed / maxSpeed));
+            //hitStop.Stop(currentSpeed / maxSpeed);
+            collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
+            rb.simulated = false;
+            yield return new WaitForSecondsRealtime(currentSpeed / maxSpeed);
+            rb.simulated = true;
+            HitPlayer(collision);
+        }
     }
 }
