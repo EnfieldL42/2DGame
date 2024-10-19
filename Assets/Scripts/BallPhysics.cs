@@ -27,9 +27,9 @@ public class BallPhysics : MonoBehaviour
         lastHit = 100;
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.down * initialSpeed;
+        rb.velocity = Vector2.zero * initialSpeed;
         currentSpeed = initialSpeed;
-
+        rb.gravityScale = 0f;
     }
 
 
@@ -51,7 +51,6 @@ public class BallPhysics : MonoBehaviour
         BallHit(collision);
         /*if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
         {
-            BallHit(collision);
             debounce = 0;
             //hitStop.Stop(currentSpeed / maxSpeed);
             lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
@@ -67,7 +66,11 @@ public class BallPhysics : MonoBehaviour
 
     }
     void BallHit(Collider2D collision)
-    {
+    {   
+        if(lastHit ==100)
+        {
+            rb.gravityScale = 1f;
+        }
         StartCoroutine(FreezePhysics(collision));
     }
     void BallLaunched(Collider2D collision)
@@ -84,20 +87,19 @@ public class BallPhysics : MonoBehaviour
         currentSpeed *= speedMultiplier;
         currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
     }
-
-    void ReflectOffWall(Collision2D collision)
+    /*
+       void ReflectOffWall(Collision2D collision)
     {
-        /*
         // Reflect the direction of the ball off the wall
         currentDirection = Vector2.Reflect(currentDirection, collision.GetContact(0).normal).normalized;
-
+         
         // Update the ball's velocity
         rb.velocity = currentDirection * currentSpeed;
 
         // Lose a tiny bit of speed when hitting a wall
         currentSpeed *= 0.99f;
-        */
     }
+    */
 
     void HitPlayer(Collider2D collision)
     {
