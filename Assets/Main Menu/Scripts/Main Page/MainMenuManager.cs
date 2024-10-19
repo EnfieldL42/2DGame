@@ -14,11 +14,17 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.instance.PlayMusic("5");
         isSelected = false;
     }
 
     private void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            isSelected = false;
+        }
+
         if (Keyboard.current.wKey.wasPressedThisFrame || Keyboard.current.sKey.wasPressedThisFrame)
         {
             if (!isSelected)
@@ -38,7 +44,6 @@ public class MainMenuManager : MonoBehaviour
 
             }
         }
-
 
     }
 

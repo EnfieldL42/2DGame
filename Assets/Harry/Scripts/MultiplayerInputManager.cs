@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -70,6 +71,7 @@ public class MultiplayerInputManager : MonoBehaviour
 
         if (onPlayerJoined != null)
         {
+            AudioManager.instance.PlaySFX("Character Select Player Joined", 4);
             onPlayerJoined.Invoke(newPlayer.playerID);
         }
     }
