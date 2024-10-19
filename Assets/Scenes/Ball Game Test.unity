@@ -1995,6 +1995,7 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   lastHit: 100
   gameManager: {fileID: 0}
+  hitStop: {fileID: 177642571}
 --- !u!212 &1512115004
 SpriteRenderer:
   m_ObjectHideFlags: 0

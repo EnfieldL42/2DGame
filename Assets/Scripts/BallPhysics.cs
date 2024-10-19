@@ -19,13 +19,13 @@ public class BallPhysics : MonoBehaviour
 
     public int lastHit;
     public GameManager gameManager;
+    public HitStop hitStop;
 
     void Awake()
     {
         debounce = 0;
         lastHit = 100;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        gameManager = FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.down * initialSpeed;
         currentSpeed = initialSpeed;
@@ -50,26 +50,30 @@ public class BallPhysics : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
         {
-            BallLaunched(collision);
+            BallHit(collision);
             debounce = 0;
-            FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
+            //hitStop.Stop(currentSpeed / maxSpeed);
             lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
             collision.gameObject.SetActive(false);
             ChangeColor();
         }
         else if (collision.gameObject.CompareTag("Hurtbox") && collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
         {
-            FindObjectOfType<HitStop>().Stop(currentSpeed / maxSpeed);
+            hitStop.Stop(currentSpeed / maxSpeed);
             collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
-            rb.isKinematic = false;
         }
     }
-
+    void BallHit(Collider2D collision)
+    {
+        StartCoroutine(FreezePhysics(collision));
+        StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(currentSpeed / maxSpeed));
+    }
     void BallLaunched(Collider2D collision)
     {
         // Calculate a new random direction within a specified angle range
         collision.gameObject.GetComponent<HitboxParameters>().GenerateAngle();
         currentDirection = collision.gameObject.GetComponent<HitboxParameters>().launchAngle;
+        
 
         // Update the ball's velocity
         rb.velocity = currentDirection * currentSpeed;
@@ -103,5 +107,13 @@ public class BallPhysics : MonoBehaviour
         {
             spriteRenderer.color = Color.blue;
         }
+    }
+
+    IEnumerator FreezePhysics(Collider2D collision)
+    {
+        rb.simulated = false;
+        yield return new WaitForSecondsRealtime(currentSpeed / maxSpeed);
+        rb.simulated = true;
+        BallLaunched(collision);
     }
 }

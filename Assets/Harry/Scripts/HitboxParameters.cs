@@ -9,6 +9,8 @@ public class HitboxParameters : MonoBehaviour
 
     public Vector2 launchAngle;
 
+
+
     public void GenerateAngle()
     {
         float random = Random.Range(min, max);
@@ -23,7 +25,6 @@ public class HitboxParameters : MonoBehaviour
         {
             launchAngle = randomAngle * Vector2.right;
         }
-        
 
     }
 
