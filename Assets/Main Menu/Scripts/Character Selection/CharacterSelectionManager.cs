@@ -12,6 +12,8 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public bool skipTutorial = false;
 
+    public SettingsMenu settings;
+
     private void Awake()
     {
         Scene scene = SceneManager.GetActiveScene();
@@ -85,4 +87,10 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         AudioManager.instance.PlaySFX("Select Button", 4);
     }
+
+    public void SettingsButton()
+    {
+        settings.SettingsOFFON();
+    }
+
 }

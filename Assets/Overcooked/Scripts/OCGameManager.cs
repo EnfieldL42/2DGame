@@ -53,7 +53,7 @@ public class OCGameManager : MonoBehaviour
         winScene = false;
         timer = gameDuration;
         skipTutorial = PlayerPrefs.GetInt("tutorial", 0) == 1;
-
+        LockMouse();
     }
 
 
@@ -320,4 +320,18 @@ public class OCGameManager : MonoBehaviour
     {
         canPauseWalk = true;
     }
+
+    public void LockMouse()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.SetCursor(null, new Vector2(Screen.width / 2, Screen.height / 2), CursorMode.Auto);
+    }
+
+    public void UnlockMouse()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
 }

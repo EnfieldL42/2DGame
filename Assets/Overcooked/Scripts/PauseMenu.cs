@@ -55,26 +55,36 @@ public class PauseMenu : MonoBehaviour
             isPaused = true;
             SetFirstSelectedButton();
             AudioManager.instance.PauseAllAudio();
+            gm.UnlockMouse();
 
             MultiplayerInputManager.instance.DisableInputs();
             //This just stops people from doing things when the game is paused
         }
         else if(isPaused)
         {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
-            isPaused = false;
-            EventSystem.current.SetSelectedGameObject(null);
-            AudioManager.instance.UnpauseAllAudio();
-
-            if (gm.canPauseWalk)
+            if(pauseMenu != null)
             {
-                MultiplayerInputManager.instance.EnableInputs();
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1f;
+                isPaused = false;
+                EventSystem.current.SetSelectedGameObject(null);
+                AudioManager.instance.UnpauseAllAudio();
+                gm.LockMouse();
+
+                if (gm.canPauseWalk)
+                {
+                    MultiplayerInputManager.instance.EnableInputs();
+                }
+                //Now they can move again :)
             }
-            //Now they can move again :)
+
         }
 
 
     }
 
+    public void PlayButtonClickSound()
+    {
+        AudioManager.instance.PlaySFX("Click Button", 4);
+    }
 }
