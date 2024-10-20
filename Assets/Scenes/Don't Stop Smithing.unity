@@ -8394,6 +8394,7 @@ MonoBehaviour:
   playerID: 3
   playerInventory: {fileID: 1021225440}
   itemDisplay: {fileID: 731628548}
+  tut: {fileID: 1254417067}
   gameManager: {fileID: 349683754}
   input: {x: 0, y: 0}
   solidObjectsLayer:
@@ -10724,10 +10725,8 @@ MonoBehaviour:
   - try to get the best score
   - as the two slowest players will have to battle each other on a deathmatch!
   - enjoy!
-  textSpeed: 0.05
+  textSpeed: 0.02
   waitTime: 1.5
-  tileClosed: {fileID: 0}
-  tileAnimation: {fileID: 0}
 --- !u!1 &1270971547
 GameObject:
   m_ObjectHideFlags: 0
@@ -15580,6 +15579,7 @@ MonoBehaviour:
   playerID: 1
   playerInventory: {fileID: 1744548966}
   itemDisplay: {fileID: 699331576}
+  tut: {fileID: 1254417067}
   gameManager: {fileID: 349683754}
   input: {x: 0, y: 0}
   solidObjectsLayer:
@@ -16660,6 +16660,7 @@ MonoBehaviour:
   playerID: 0
   playerInventory: {fileID: 1803546107}
   itemDisplay: {fileID: 1411830068}
+  tut: {fileID: 1254417067}
   gameManager: {fileID: 349683754}
   input: {x: 0, y: 0}
   solidObjectsLayer:
@@ -16818,6 +16819,7 @@ MonoBehaviour:
   playerID: 2
   playerInventory: {fileID: 1853531522}
   itemDisplay: {fileID: 1362308851}
+  tut: {fileID: 1254417067}
   gameManager: {fileID: 349683754}
   input: {x: 0, y: 0}
   solidObjectsLayer:

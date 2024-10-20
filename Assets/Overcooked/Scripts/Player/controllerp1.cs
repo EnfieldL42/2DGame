@@ -15,7 +15,7 @@ public class controllerp1 : MonoBehaviour
     public PlayerInventory playerInventory;
     public ItemDisplay itemDisplay;
     private ItemStation station;
-
+    public Tutorial tut;
 
 
     public OCGameManager gameManager;
@@ -371,6 +371,7 @@ public class controllerp1 : MonoBehaviour
     private void InteractionPerformed(InputAction.CallbackContext context)
     {
 
+        tut.SkipTutorial();
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, overlapBoxSize, 0);
         foreach (Collider2D collider in colliders)

@@ -47,6 +47,8 @@ public class OCGameManager : MonoBehaviour
 
     private string sceneName;
 
+    private int negativeScoreIndex = -1;
+
     private void Awake()
     {
         winPanel.gameObject.SetActive(false);
@@ -105,9 +107,30 @@ public class OCGameManager : MonoBehaviour
 
     void SetSingleItem(int id)
     {
-        int randomScore = Random.Range(0, scores.Count);
-        uniqueItemScores[id] = scores[randomScore];
-        uniqueScores[id] = scores[randomScore];
+        // Randomly select a score from the scores list
+        int randomIndex = Random.Range(0, scores.Count);
+        int selectedScore = scores[randomIndex];
+
+        // If there is no negative score assigned yet, allow this score to be negative
+        if (negativeScoreIndex == -1 && selectedScore < 0)
+        {
+            uniqueItemScores[id] = selectedScore;
+            uniqueScores[id] = uniqueItemScores[id];
+            negativeScoreIndex = id;  // Store which score is negative
+        }
+        else
+        {
+            // Ensure the score is positive or reassign if the current score is negative
+            uniqueItemScores[id] = Mathf.Abs(selectedScore);
+            uniqueScores[id] = uniqueItemScores[id];
+
+            // If the previously negative score is now positive, reset the index
+            if (id == negativeScoreIndex && uniqueItemScores[id] >= 0)
+            {
+                negativeScoreIndex = -1;
+            }
+        }
+
     }
 
     private void OnDestroy()

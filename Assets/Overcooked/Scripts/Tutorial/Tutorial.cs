@@ -18,9 +18,6 @@ public class Tutorial : MonoBehaviour
     private int index;
     private bool isTyping = false;
 
-    public GameObject tileClosed;
-    public GameObject tileAnimation;
-    //public GameObject tileOpen;
 
 
     void Start()
@@ -50,6 +47,20 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         NextLine();
     }
+
+    public void SkipTutorial()
+    {
+        if (dialogue.text == lines[index])
+        {
+            NextLine();
+        }
+        else
+        {
+            StopAllCoroutines();
+            dialogue.text = lines[index];
+        }
+    }
+
 
     IEnumerator TypeLine()
     {
@@ -82,24 +93,11 @@ public class Tutorial : MonoBehaviour
         gm.StartTimer();
     }
 
-    /*public void TileOpenStartingArea()
-    {
-        tileClosed.SetActive(false);
-        tileAnimation.SetActive(true);
-        tileAnimation.GetComponent<Tilemap>().animationFrameRate = 8;
-        //Had to this because the tile is still animated when inactive
-    } */
 
     public void IngredientsAnimation()
     {
         ingredients.SetTrigger("animate");
     }
 
-    /*public IEnumerator gateOpen()
-    {
-        yield return new WaitForSeconds(1f);
-        //tileOpen.SetActive(true);
-        tileAnimation.SetActive(false);
 
-    }*/
 }

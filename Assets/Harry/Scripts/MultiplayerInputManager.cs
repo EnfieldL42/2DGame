@@ -84,6 +84,7 @@ public class MultiplayerInputManager : MonoBehaviour
         {
             players.playerControls.Disable();
             players.playerControls.MasterControls.Pause.Enable();
+            players.playerControls.MasterControls.Attack.Enable();
         }
     }
 
