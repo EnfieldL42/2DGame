@@ -295,6 +295,19 @@ public class OCGameManager : MonoBehaviour
         {
             Debug.LogWarning($"No score found for unique item ID {uniqueItemID}");
         }
+        
+        switch(uniqueItemID)
+        {
+            case 0: AudioManager.instance.PlaySFX("Bow Arrow", playerID); 
+                break;
+            case 1: AudioManager.instance.PlaySFX("Shield", playerID);
+                break;
+            case 2: AudioManager.instance.PlaySFX("Sword", playerID);
+                break;
+            case 3: AudioManager.instance.PlaySFX("Staff", playerID);
+                break;
+        }
+
     }
 
     private void InitializePlayerScores()

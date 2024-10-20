@@ -181,15 +181,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSounds:
   - name: 1
-    clip: {fileID: 8300000, guid: 85ecb27ba89f0e045b54e91fcbb25882, type: 3}
+    clip: {fileID: 8300000, guid: 5d8b13ddf20e74440b8a5008835e6167, type: 3}
   - name: 2
-    clip: {fileID: 8300000, guid: d3966e585660a154e9f6b70276de3283, type: 3}
+    clip: {fileID: 8300000, guid: 30b7130c5c7837344b6bd6d69e03b13d, type: 3}
   - name: 3
-    clip: {fileID: 8300000, guid: 461ef10e08ede774cb9e58434486d65b, type: 3}
+    clip: {fileID: 8300000, guid: b0e2e599c7abf584080cadd9dafc5f9b, type: 3}
   - name: 4
-    clip: {fileID: 8300000, guid: 91e6fb7c72c39854880119d3f0d19760, type: 3}
+    clip: {fileID: 8300000, guid: a71e8216fd037774f83a24708c26a4eb, type: 3}
   - name: 5
-    clip: {fileID: 8300000, guid: 05635222e93aab443b8c88adb2072037, type: 3}
+    clip: {fileID: 8300000, guid: 9c17fb00bd70ebc429f358499e8419df, type: 3}
   sfxSounds:
   - name: Countdown
     clip: {fileID: 8300000, guid: 971a01926871ae448ba89ada3bfc089b, type: 3}
@@ -198,9 +198,9 @@ MonoBehaviour:
   - name: Crafting Finished
     clip: {fileID: 8300000, guid: ef718660559fbed4e97df7c0c57b3815, type: 3}
   - name: Score Up
-    clip: {fileID: 8300000, guid: 95eeb027c140ea64284b5b85d8d521f9, type: 3}
-  - name: Score Down
     clip: {fileID: 8300000, guid: a1cfc04edab683649a13d975b1b94658, type: 3}
+  - name: Score Down
+    clip: {fileID: 8300000, guid: 95eeb027c140ea64284b5b85d8d521f9, type: 3}
   - name: Fail to Interact
     clip: {fileID: 8300000, guid: 0e52ad615cb3d834eaa131a1fa9b0087, type: 3}
   - name: Item Pickup
@@ -216,9 +216,29 @@ MonoBehaviour:
   - name: Character Select Start Game
     clip: {fileID: 8300000, guid: 0b66d83931bdd27468d3fd511972fc1c, type: 3}
   - name: Click Button
-    clip: {fileID: 8300000, guid: 5f3c46f8f681e2f47984281671993416, type: 3}
+    clip: {fileID: 8300000, guid: f8a843a755930f64e801158b1f3142fe, type: 3}
   - name: Select Button
-    clip: {fileID: 8300000, guid: bb4050bcd39018d469f40ea6d3b549f5, type: 3}
+    clip: {fileID: 8300000, guid: 97c84e6cbe390ac4bac422d2ac2e3bd3, type: 3}
+  - name: Bow Arrow
+    clip: {fileID: 8300000, guid: 146db37f5e0b68e4b9c613bb9504e3bb, type: 3}
+  - name: Shield
+    clip: {fileID: 8300000, guid: 4f3662a456fb8524dbe9f977c215ab24, type: 3}
+  - name: Sword
+    clip: {fileID: 8300000, guid: 733cb9601b8a4904d9714a229f5ff77b, type: 3}
+  - name: Staff
+    clip: {fileID: 8300000, guid: 3123633d5877704428260cc84d3cfed7, type: 3}
+  - name: Ball Hit
+    clip: {fileID: 8300000, guid: 1a7409d841365324db45c2a27f15f4f5, type: 3}
+  - name: Ball Hit Fast
+    clip: {fileID: 8300000, guid: fb1836c346abada44ae571216b5bff00, type: 3}
+  - name: Attack
+    clip: {fileID: 8300000, guid: 3628bf04286b98e4f808f95b68fc6884, type: 3}
+  - name: Ball Bounce
+    clip: {fileID: 8300000, guid: a1ea5ef3ebd56dd438fc660e7d0c4921, type: 3}
+  - name: Death
+    clip: {fileID: 8300000, guid: dca3f6532535487439583d0f2ff651a1, type: 3}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 73b1ccf26e12cf24a8c6cc0e8747444d, type: 3}
   musicSource: {fileID: 6665966084144462624}
   sfxSource1: {fileID: 754481052127415781}
   sfxPlayOnce1: {fileID: 3747212124182866908}

@@ -350,8 +350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 80
-  max: 100
+  min: 70
+  max: 110
   launchAngle: {x: 0, y: 0}
 --- !u!61 &288505535
 BoxCollider2D:
@@ -602,8 +602,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 260
-  max: 280
+  min: 250
+  max: 290
   launchAngle: {x: 0, y: 0}
 --- !u!61 &510959184
 BoxCollider2D:
@@ -928,6 +928,115 @@ Transform:
   - {fileID: 1191427423}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &861285051
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[18].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1a7409d841365324db45c2a27f15f4f5, type: 3}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[18].name
+      value: Ball Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[19].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: fb1836c346abada44ae571216b5bff00, type: 3}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[19].name
+      value: Ball Hit Fast
+      objectReference: {fileID: 0}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[20].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3628bf04286b98e4f808f95b68fc6884, type: 3}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[20].name
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[21].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a1ea5ef3ebd56dd438fc660e7d0c4921, type: 3}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[21].name
+      value: Ball Bounce
+      objectReference: {fileID: 0}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[22].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dca3f6532535487439583d0f2ff651a1, type: 3}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[22].name
+      value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[23].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 73b1ccf26e12cf24a8c6cc0e8747444d, type: 3}
+    - target: {fileID: 978199180022160332, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: sfxSounds.Array.data[23].name
+      value: Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593950584423575080, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_Name
+      value: Audio Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 953
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 545
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925617525153965289, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c9333e7c01b6a2246a4cae37da3a712b, type: 3}
 --- !u!1 &868016211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,8 +2034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 80
-  max: 100
+  min: 70
+  max: 110
   launchAngle: {x: 0, y: 0}
 --- !u!61 &1362910612
 BoxCollider2D:
@@ -2548,8 +2657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: -10
-  max: 10
+  min: -20
+  max: 20
   launchAngle: {x: 0, y: 0}
 --- !u!61 &1629204839
 BoxCollider2D:
@@ -3071,8 +3180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: -10
-  max: 10
+  min: -20
+  max: 20
   launchAngle: {x: 0, y: 0}
 --- !u!1 &1886750819
 GameObject:
@@ -3575,3 +3684,4 @@ SceneRoots:
   - {fileID: 1512115005}
   - {fileID: 795209945}
   - {fileID: 442619533}
+  - {fileID: 861285051}

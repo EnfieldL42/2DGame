@@ -67,7 +67,7 @@ public class BallPhysics : MonoBehaviour
    */
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(FreezePhysics(collision));
+            StartCoroutine(FreezePhysics(collision));
         /*if (collision.gameObject.CompareTag("Hitbox") && debounce >= 0.12f)
         {
             debounce = 0;
@@ -83,6 +83,14 @@ public class BallPhysics : MonoBehaviour
         }
         */
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+        {
+            AudioManager.instance.PlaySFX("Ball Bounce", 4);
+        }
     }
     /*void BallHit(Collider2D collision)
     {   
@@ -150,6 +158,15 @@ public class BallPhysics : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Hitbox"))
         {
+            if (hitSpeed <= 75)
+            {
+                AudioManager.instance.PlaySFX("Ball Hit", 4);
+            }
+            else if (hitSpeed >=75)
+            {
+                AudioManager.instance.PlaySFX("Ball Hit Fast", 4);
+            }
+
             actionLines.gameObject.SetActive(true);
             Instantiate(hitParticle, transform.position, Quaternion.identity);
             StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(hitSpeed / maxSpeed));

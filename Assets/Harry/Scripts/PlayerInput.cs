@@ -64,11 +64,17 @@ public class PlayerInput : MonoBehaviour
         {
             Flip();
         }
+
         if(playerActive == true)
         {
             stickCoord = inputControls.BallControls.Movement.ReadValue<Vector2>();
             anim.SetFloat("StickX", stickCoord.x);
             anim.SetFloat("StickY", stickCoord.y);
+        }
+
+        if(stickCoord.x !=0 && canJump == true) 
+        {
+            AudioManager.instance.FastSFXOnce("Footstep", 1.5f);
         }
         
     }
@@ -92,6 +98,7 @@ public class PlayerInput : MonoBehaviour
 
     private void AttackPerformed(InputAction.CallbackContext context)
     {
+        AudioManager.instance.PlaySFX("Attack", playerID);
         anim.SetTrigger("Attack");
         //StartCoroutine(DisableAttack());
     }
@@ -106,6 +113,7 @@ public class PlayerInput : MonoBehaviour
 
     private void JumpPerformed(InputAction.CallbackContext context)
     {
+        AudioManager.instance.PlaySFX("Jump", playerID);
         if (canJump == true)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -165,6 +173,7 @@ public class PlayerInput : MonoBehaviour
 
     public void PlayerHit()
     {
+        AudioManager.instance.PlaySFX("Death", playerID);
         rb.mass = 0;
         rb.gravityScale = 0;
         rb.velocity = ball.rb.velocity * ball.initialSpeed;
