@@ -15,6 +15,8 @@ public class BallPhysics : MonoBehaviour
     public float hitSpeed;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
+    public ParticleSystem actionLines;
+    public ParticleSystem hitParticle;
     
 
     public int lastHit;
@@ -35,7 +37,7 @@ public class BallPhysics : MonoBehaviour
         
         if(currentDirection != Vector2.zero )
         {
-            transform.up = currentDirection;
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, currentDirection );
         }
 
         StartCoroutine(SpeedCalc());
@@ -127,9 +129,9 @@ public class BallPhysics : MonoBehaviour
 
     void ChangeColor()
     {
-        switch(lastHit)
-        {
-            case 0: 
+        switch (lastHit)
+        { 
+            case 0:
                 spriteRenderer.color = Color.red;
                 break;
             case 1:
@@ -148,6 +150,8 @@ public class BallPhysics : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Hitbox"))
         {
+            actionLines.gameObject.SetActive(true);
+            Instantiate(hitParticle, transform.position, Quaternion.identity);
             StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(hitSpeed / maxSpeed));
             //hitStop.Stop(currentSpeed / maxSpeed);
             lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
@@ -155,11 +159,13 @@ public class BallPhysics : MonoBehaviour
             ChangeColor();
             rb.simulated = false;
             yield return new WaitForSecondsRealtime(hitSpeed / maxSpeed);
+            actionLines.gameObject.SetActive(false);
             rb.simulated = true;
             BallLaunched(collision);
         }
         else if (collision.gameObject.CompareTag("Hurtbox") && collision.gameObject.GetComponentInParent<PlayerInput>().playerID != lastHit & lastHit != 100)
         {
+            Instantiate(hitParticle, transform.position, Quaternion.identity);
             StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(hitSpeed / maxSpeed));
             //hitStop.Stop(currentSpeed / maxSpeed);
             collision.gameObject.GetComponentInParent<PlayerInput>().PlayerHit();
