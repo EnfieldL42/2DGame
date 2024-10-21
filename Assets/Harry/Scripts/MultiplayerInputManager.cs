@@ -21,6 +21,8 @@ public class MultiplayerInputManager : MonoBehaviour
     public delegate void OnPlayerJoined(int playerID);
     public OnPlayerJoined onPlayerJoined;
 
+    public MainMenuUIManager mainMenuManager;
+
     private void Awake()
     {
         if (instance == null)
@@ -65,6 +67,9 @@ public class MultiplayerInputManager : MonoBehaviour
                 return;
             }
         }
+
+
+
         PlayerControls newPlayer = new PlayerControls();
         newPlayer.SetupPlayer(context, players.Count);
         players.Add(newPlayer);
@@ -96,4 +101,5 @@ public class MultiplayerInputManager : MonoBehaviour
             players.playerControls.Enable();
         }
     }
+
 }

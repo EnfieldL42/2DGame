@@ -30,8 +30,12 @@ public class CharacterManager : MonoBehaviour
 
     public Button returnButton;
 
+    [SerializeField] Dictionary<int, bool> playerConfirmed = new Dictionary<int, bool>();
+
     private void Start()
     {
+           
+        playerConfirmed[playerID] = false;
 
         selectedOption = new int[4];
 
@@ -91,7 +95,6 @@ public class CharacterManager : MonoBehaviour
             //inputControls.MasterControls.Pause.performed -= EscapePerformed;
         }
 
-
     }
 
     private void enableInputs()
@@ -108,7 +111,7 @@ public class CharacterManager : MonoBehaviour
 
     private void MovementPerformed(InputAction.CallbackContext context)
     {
-        if (!hasConfirmed)
+        if (!playerConfirmed[playerID])
         {
             input = context.ReadValue<Vector2>();
 
@@ -129,7 +132,7 @@ public class CharacterManager : MonoBehaviour
         }
         if (playerID == 0)
         {
-            if (hasConfirmed)
+            if (playerConfirmed[playerID])
             {
                 if (!isSelected && playerID == 0)
                 {
@@ -155,21 +158,35 @@ public class CharacterManager : MonoBehaviour
 
     private void InteractionPerformed(InputAction.CallbackContext context)
     {
-            canReturntoMenu = false;
-            AudioManager.instance.PlaySFX("Select Button", 4);
-            hasConfirmed = true;
-            mainMenuManager.turnOnConfirmedBackground(playerID);
+        if (!playerConfirmed[playerID])
+        {
+            mainMenuManager.confirmselection();
+            playerConfirmed[playerID] = true;
+        }
 
-            if (playerID > 0)
-            {
-                disableInputs();
-            }
+        mainMenuManager.selectUINoArrow[playerID].SetActive(true);
+        mainMenuManager.selectUI[playerID].SetActive(false);
+        canReturntoMenu = false;    
+        AudioManager.instance.PlaySFX("Select Button", 4);
+        //hasConfirmed = true;
+        mainMenuManager.turnOnConfirmedBackground(playerID);
+        if (playerID > 0)
+        {
+            disableInputs();
+        }
 
 
     }
 
     private void EscapePerformed(InputAction.CallbackContext context)
     {
+        if (playerConfirmed[playerID])
+        {
+            mainMenuManager.confirmselection();
+            playerConfirmed[playerID] = false;
+
+        }
+
 
         if (canReturntoMenu)
         {
@@ -180,11 +197,13 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            canReturntoMenu = true;
+            mainMenuManager.unconfirmSelection();
+            mainMenuManager.selectUINoArrow[playerID].SetActive(false);
+            mainMenuManager.selectUI[playerID].SetActive(true);
 
             isSelected = true;
             AudioManager.instance.PlaySFX("Select Button", 4);
-            hasConfirmed = false;
+            //hasConfirmed = false;
             mainMenuManager.turnOffConfirmedBackground(playerID);
 
             if (playerID == 0)

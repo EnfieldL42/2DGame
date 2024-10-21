@@ -12,6 +12,8 @@ public class MainMenuUIManager : MonoBehaviour
     public List<GameObject> pressToStartImages = new List<GameObject>();
     public List<GameObject> playerSelection = new List<GameObject>();
     public List<GameObject> confirmedImages = new List<GameObject>();
+    public List<GameObject> selectUI = new List<GameObject>();
+    public List<GameObject> selectUINoArrow = new List<GameObject>();
 
 
     public GameObject startButton; 
@@ -22,6 +24,8 @@ public class MainMenuUIManager : MonoBehaviour
     public Button[] uiButtons;
 
     public EventSystem eventSystem;
+
+    public int confirmedNumber = 0;
 
     private void Awake()
     {
@@ -44,8 +48,10 @@ public class MainMenuUIManager : MonoBehaviour
 
         if (playerID < pressToStartImages.Count)
         {
+
             pressToStartImages[playerID].SetActive(false);
             playerSelection[playerID].SetActive(true);
+            selectUI[playerID].SetActive(true);
         }
 
         //if (inputManager.players.Count >= maxPlayers && startButton != null)
@@ -54,6 +60,16 @@ public class MainMenuUIManager : MonoBehaviour
         //}
 
  
+    }
+
+    public void confirmselection()
+    {
+        confirmedNumber++;
+    }
+
+    public void unconfirmSelection()
+    {
+        confirmedNumber--;
     }
 
     public void turnOnConfirmedBackground(int playerID)
@@ -78,11 +94,11 @@ public class MainMenuUIManager : MonoBehaviour
         //
         //
         //
-        if (inputManager.players.Count >= maxPlayers)
+        if (inputManager.players.Count >= maxPlayers && confirmedNumber >= maxPlayers)
         {
             EnableUIButtons();
         }
-        if (inputManager.players.Count < maxPlayers)
+        if (inputManager.players.Count < maxPlayers && confirmedNumber < maxPlayers)
         {
             DisableUIButtons();
         }
