@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class MainMenuManager : MonoBehaviour
     PlayerControls playerControls;
 
     public SettingsMenu settingsMenu;
+    public GameObject controlsScreen;
+    public GameObject controlsButton;
 
+    public Button[] uiButtons = new Button[4];
 
     private void Start()
     {
@@ -27,7 +31,9 @@ public class MainMenuManager : MonoBehaviour
 
     private void Update()
     {
-        if(!settingsMenu.gameObject.activeSelf)
+
+
+        if (!settingsMenu.gameObject.activeSelf)
         {
             if (EventSystem.current.currentSelectedGameObject == null)
             {
@@ -76,13 +82,39 @@ public class MainMenuManager : MonoBehaviour
             {
                 if (!isSelected)
                 {
-                    SetSelectedButtonSettings();
+                    SelectControlsButtons();
+
+                }
+            }
+        }
+        else if (controlsScreen.gameObject.activeSelf)
+        {
+            if (EventSystem.current.currentSelectedGameObject == null)
+            {
+                isSelected = false;
+            }
+
+            if (Keyboard.current.wKey.wasPressedThisFrame || Keyboard.current.sKey.wasPressedThisFrame)
+            {
+                if (!isSelected)
+                {
+                    SelectControlsButtons();
+
+                }
+            }
+
+            float leftStickY = Gamepad.current.leftStick.ReadValue().y;
+
+            if (leftStickY > 0.3f || leftStickY < -0.3f || Gamepad.current.buttonSouth.wasPressedThisFrame || Gamepad.current.dpad.up.wasPressedThisFrame || Gamepad.current.dpad.down.wasPressedThisFrame)
+            {
+                if (!isSelected)
+                {
+                    SelectControlsButtons();
 
                 }
             }
         }
 
-        
 
     }
 
@@ -104,5 +136,56 @@ public class MainMenuManager : MonoBehaviour
         isSelected = true;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstSettingsButton);
+    }
+
+    private void SelectControlsButtons()
+    {
+        isSelected = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(controlsButton);
+    }
+
+
+
+    public void OpenControls()
+    {
+
+        if (controlsScreen.gameObject.activeSelf == true)
+        {
+            EnableUIButtons();
+            isSelected = false;
+            controlsScreen.gameObject.SetActive(false);
+            AudioManager.instance.PlaySFX("Click Button", 4);
+        }
+        else
+        {
+            DisableUIButtons();
+            SelectControlsButtons();
+            controlsScreen.gameObject.SetActive(true);
+        }
+
+    }
+
+
+    public void DisableUIButtons()
+    {
+        foreach (Button button in uiButtons)
+        {
+            if (button != null)
+            {
+                button.interactable = false;
+            }
+        }
+    }
+
+    public void EnableUIButtons()
+    {
+        foreach (Button button in uiButtons)
+        {
+            if (button != null)
+            {
+                button.interactable = true;
+            }
+        }
     }
 }

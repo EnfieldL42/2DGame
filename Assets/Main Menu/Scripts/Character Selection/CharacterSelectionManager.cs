@@ -79,6 +79,7 @@ public class CharacterSelectionManager : MonoBehaviour
     public void IsTutorialOn(bool tutorialbool)
     {
         PlayerPrefs.SetInt("tutorial", tutorialbool ? 1 : 0);
+        AudioManager.instance.PlaySFX("Click Button", 4);
         PlayerPrefs.Save();
     }
 
@@ -92,5 +93,6 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         settings.SettingsOFFON();
     }
+
 
 }

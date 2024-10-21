@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public bool isPaused;
     public GameObject firstButton;
     public OCGameManager gm;
+    public GameObject winScreen;
 
 
     void Start()
@@ -48,34 +49,36 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        if(!isPaused)
+        if(!winScreen.gameObject.activeSelf)
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
-            isPaused = true;
-            SetFirstSelectedButton();
-            AudioManager.instance.PauseAllAudio();
-            gm.UnlockMouse();
-
-            MultiplayerInputManager.instance.DisableInputs();
-            //This just stops people from doing things when the game is paused
-        }
-        else if(isPaused)
-        {
-            if(pauseMenu != null)
+            if (!isPaused)
             {
-                pauseMenu.SetActive(false);
-                Time.timeScale = 1f;
-                isPaused = false;
-                EventSystem.current.SetSelectedGameObject(null);
-                AudioManager.instance.UnpauseAllAudio();
-                gm.LockMouse();
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0f;
+                isPaused = true;
+                SetFirstSelectedButton();
+                AudioManager.instance.PauseAllAudio();
+                gm.UnlockMouse();
 
-                if (gm.canPauseWalk)
+                MultiplayerInputManager.instance.DisableInputs();
+                //This just stops people from doing things when the game is paused
+            }
+            else if (isPaused)
+            {
+                if (pauseMenu != null)
                 {
-                    MultiplayerInputManager.instance.EnableInputs();
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1f;
+                    isPaused = false;
+                    EventSystem.current.SetSelectedGameObject(null);
+                    AudioManager.instance.UnpauseAllAudio();
+                    gm.LockMouse();
+
+                    if (gm.canPauseWalk)
+                    {
+                        MultiplayerInputManager.instance.EnableInputs();
+                    }
                 }
-                //Now they can move again :)
             }
 
         }

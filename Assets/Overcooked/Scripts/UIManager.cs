@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
@@ -12,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject[] gameObjectsToToggle;
 
     public OCGameManager gameManager;
+    public GameObject winnerFirstButton;
 
     void Start()
     {
@@ -86,6 +88,8 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+
     void EnableGameObjects()
     {
         // Enable the GameObject corresponding to each active player
@@ -96,6 +100,13 @@ public class UIManager : MonoBehaviour
                 gameObjectsToToggle[i].SetActive(true); // Enable the GameObject corresponding to the player
             }
         }
+    }
+
+
+    public void SetFirstSelectedButton()
+    {
+        EventSystem.current.SetSelectedGameObject(null); // Deselect anything currently selected
+        EventSystem.current.SetSelectedGameObject(winnerFirstButton); // Select the first button
     }
 
 }

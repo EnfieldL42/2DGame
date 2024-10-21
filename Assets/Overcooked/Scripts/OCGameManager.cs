@@ -49,6 +49,8 @@ public class OCGameManager : MonoBehaviour
 
     private int negativeScoreIndex = -1;
 
+    public UIManager uiman;
+
     private void Awake()
     {
         winPanel.gameObject.SetActive(false);
@@ -67,7 +69,7 @@ public class OCGameManager : MonoBehaviour
         string randomString = randomInt.ToString();
         AudioManager.instance.PlayMusic(randomString);
 
-        MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
+        //MultiplayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
 
         if(skipTutorial)
         {
@@ -328,9 +330,15 @@ public class OCGameManager : MonoBehaviour
         //StartCoroutine(tut.gateOpen());
     }
 
-    void ShowWinner()
+    public void ShowWinner()
     {
+        //AudioManager.instance.StopAllAudio();
+        MultiplayerInputManager.instance.DisableInputs();
         winPanel.gameObject.SetActive(true);
+        uiman.SetFirstSelectedButton();
+        AudioManager.instance.PlaySFX("victory sound", 4);
+
+
         if (winnerPlayer != null)
         {
             winnerPlayer.sprite = winnerSprites[winnerSprite];

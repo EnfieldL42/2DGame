@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -17,7 +18,17 @@ public class CharacterManager : MonoBehaviour
     public Vector2 input;
     private InputControls inputControls;
 
-    private bool canChangeOption = true; 
+    private bool canChangeOption = true;
+
+    public bool hasConfirmed = false;
+
+    public GameObject firstButton;
+    bool isSelected = false;
+
+    public MainMenuUIManager mainMenuManager;
+    bool canReturntoMenu = true;
+
+    public Button returnButton;
 
     private void Start()
     {
@@ -49,6 +60,8 @@ public class CharacterManager : MonoBehaviour
             inputManager.onPlayerJoined -= AssignInputs;
             inputControls = inputManager.players[playerID].playerControls;
             inputControls.MasterControls.Movement.performed += MovementPerformed;
+            inputControls.MasterControls.Attack.performed += InteractionPerformed;
+            inputControls.MasterControls.Pause.performed += EscapePerformed;
         }
     }
 
@@ -57,6 +70,10 @@ public class CharacterManager : MonoBehaviour
         if (inputControls != null)
         {
             inputControls.MasterControls.Movement.performed -= MovementPerformed;
+            inputControls.MasterControls.Attack.performed -= InteractionPerformed;
+            inputControls.MasterControls.Pause.performed -= EscapePerformed;
+
+
         }
         else
         {
@@ -65,28 +82,130 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
-    private void MovementPerformed(InputAction.CallbackContext context)
+    private void disableInputs()
     {
-        input = context.ReadValue<Vector2>();
+        if (inputControls != null)
+        {
+            inputControls.MasterControls.Movement.performed -= MovementPerformed;
+            inputControls.MasterControls.Attack.performed -= InteractionPerformed;
+            //inputControls.MasterControls.Pause.performed -= EscapePerformed;
+        }
 
-        if (canChangeOption && input.x > 0.3f)
+
+    }
+
+    private void enableInputs()
+    {
+        if (inputControls != null)
         {
-            NextOption();
-            canChangeOption = false;
-        }
-        else if (canChangeOption && input.x < -0.3f)
-        {
-            BackOption();
-            canChangeOption = false;
-        }
-        else if (input.x > -0.3f && input.x < 0.3f)
-        {
-            canChangeOption = true;
+            inputControls.MasterControls.Movement.performed += MovementPerformed;
+            inputControls.MasterControls.Attack.performed += InteractionPerformed;
+            inputControls.MasterControls.Pause.performed += EscapePerformed;
         }
     }
 
+
+
+    private void MovementPerformed(InputAction.CallbackContext context)
+    {
+        if (!hasConfirmed)
+        {
+            input = context.ReadValue<Vector2>();
+
+            if (canChangeOption && input.x > 0.3f)
+            {
+                NextOption();
+                canChangeOption = false;
+            }
+            else if (canChangeOption && input.x < -0.3f)
+            {
+                BackOption();
+                canChangeOption = false;
+            }
+            else if (input.x > -0.3f && input.x < 0.3f)
+            {
+                canChangeOption = true;
+            }
+        }
+        if (playerID == 0)
+        {
+            if (hasConfirmed)
+            {
+                if (!isSelected && playerID == 0)
+                {
+                    SetFirstSelectedButton();
+                }
+
+            }
+        }
+
+    }
+
+    private void SetFirstSelectedButton()
+    {
+        isSelected = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
+    }
+
+    private void UnselectButton()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private void InteractionPerformed(InputAction.CallbackContext context)
+    {
+            canReturntoMenu = false;
+            AudioManager.instance.PlaySFX("Select Button", 4);
+            hasConfirmed = true;
+            mainMenuManager.turnOnConfirmedBackground(playerID);
+
+            if (playerID > 0)
+            {
+                disableInputs();
+            }
+
+
+    }
+
+    private void EscapePerformed(InputAction.CallbackContext context)
+    {
+
+        if (canReturntoMenu)
+        {
+            if (returnButton != null)
+            {
+                returnButton.onClick.Invoke();
+            }
+        }
+        else
+        {
+            canReturntoMenu = true;
+
+            isSelected = true;
+            AudioManager.instance.PlaySFX("Select Button", 4);
+            hasConfirmed = false;
+            mainMenuManager.turnOffConfirmedBackground(playerID);
+
+            if (playerID == 0)
+            {
+                UnselectButton();
+            }
+
+            if (playerID > 0)
+            {
+                enableInputs();
+            }
+        }
+
+
+    }
+
+
+
     public void NextOption()
     {
+
         selectedOption[playerID]++;
 
         if (selectedOption[playerID] >= characterDB.characterCount)
@@ -95,6 +214,8 @@ public class CharacterManager : MonoBehaviour
         }
 
         UpdateCharacter(selectedOption[playerID]);
+
+
     }
 
     public void BackOption()
@@ -107,7 +228,6 @@ public class CharacterManager : MonoBehaviour
         }
 
         UpdateCharacter(selectedOption[playerID]);
-
     }
 
     private void UpdateCharacter(int selectedOption)
@@ -130,7 +250,7 @@ public class CharacterManager : MonoBehaviour
             }
             else
             {
-                selectedOption[i] = 0; 
+                selectedOption[i] = 0;
             }
         }
     }

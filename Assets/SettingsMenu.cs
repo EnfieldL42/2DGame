@@ -113,14 +113,17 @@ public class SettingsMenu : MonoBehaviour
 
     public void SettingsOFFON()
     {
-        if(gameObject.activeSelf == true)
+
+        if (gameObject.activeSelf == true)
         {
+            mmgm.EnableUIButtons(); 
             mmgm.isSelected = false;
             gameObject.SetActive(false);
+            AudioManager.instance.PlaySFX("Click Button", 4);
         }
         else
         {
-
+            mmgm.DisableUIButtons();
             mmgm.UnselectCurrentButton();
             gameObject.SetActive(true);
         }
