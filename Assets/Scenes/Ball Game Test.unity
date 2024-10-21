@@ -350,8 +350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 70
-  max: 110
+  min: 80
+  max: 100
   launchAngle: {x: 0, y: 0}
 --- !u!61 &288505535
 BoxCollider2D:
@@ -602,8 +602,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 250
-  max: 290
+  min: 260
+  max: 280
   launchAngle: {x: 0, y: 0}
 --- !u!61 &510959184
 BoxCollider2D:
@@ -2034,8 +2034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: 70
-  max: 110
+  min: 80
+  max: 100
   launchAngle: {x: 0, y: 0}
 --- !u!61 &1362910612
 BoxCollider2D:
@@ -2172,6 +2172,7 @@ MonoBehaviour:
   maxSpeed: 150
   currentSpeed: 0
   gravityScale: 0
+  deceleration: 1
   hitSpeed: 0
   rb: {fileID: 1512115007}
   spriteRenderer: {fileID: 1512115004}
@@ -2742,8 +2743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: -20
-  max: 20
+  min: -10
+  max: 10
   launchAngle: {x: 0, y: 0}
 --- !u!61 &1629204839
 BoxCollider2D:
@@ -3265,8 +3266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c44935b7b6287c4b94b8c49967eaee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: -20
-  max: 20
+  min: -10
+  max: 10
   launchAngle: {x: 0, y: 0}
 --- !u!1 &1886750819
 GameObject:

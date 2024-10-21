@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BallPhysics : MonoBehaviour
@@ -9,6 +10,7 @@ public class BallPhysics : MonoBehaviour
     public float maxSpeed = 30f;
     public float currentSpeed;
     public float gravityScale;
+    public float deceleration;
 
 
     private Vector2 currentDirection;
@@ -40,16 +42,30 @@ public class BallPhysics : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward, currentDirection );
         }
 
-        StartCoroutine(SpeedCalc());
+        //StartCoroutine(SpeedCalc());
         if(lastHit != 100)
         {
             rb.gravityScale = gravityScale;
-            gravityScale = ((-currentSpeed / 75) + 1);
-            gravityScale = Mathf.Clamp(gravityScale, 0f, 1f);
+            gravityScale = ((-2*currentSpeed / 75) + 2);
+            //Mathf.Clamp(gravityScale, 0f, 1f);
         }
 
-    }
+        gravityScale = Mathf.Clamp(gravityScale, 0f, 2f);
+        currentSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
 
+
+    }
+    IEnumerator Decelerate()
+    {
+        while( lastHit != 100 )
+        {
+            yield return new WaitForSeconds(0.1f);
+            currentSpeed -= deceleration;
+            
+            Debug.Log("Decelerate");
+        }
+        yield return null;
+    }
     IEnumerator SpeedCalc()
     {
         Vector3 lastPos = transform.position;
@@ -90,6 +106,7 @@ public class BallPhysics : MonoBehaviour
         if(collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             AudioManager.instance.PlaySFX("Ball Bounce", 4);
+            ReflectOffWall(collision);
         }
     }
     /*void BallHit(Collider2D collision)
@@ -114,8 +131,9 @@ public class BallPhysics : MonoBehaviour
         // Increase speed and clamp to maxSpeed
         hitSpeed *= speedMultiplier;
         hitSpeed = Mathf.Min(hitSpeed, maxSpeed);
+        currentSpeed = hitSpeed;
     }
-    /*
+    
        void ReflectOffWall(Collision2D collision)
     {
         // Reflect the direction of the ball off the wall
@@ -125,9 +143,9 @@ public class BallPhysics : MonoBehaviour
         rb.velocity = currentDirection * currentSpeed;
 
         // Lose a tiny bit of speed when hitting a wall
-        currentSpeed *= 0.99f;
+        //currentSpeed *= 0.99f;
     }
-    */
+    
 
     void HitPlayer(Collider2D collision)
     {
@@ -166,7 +184,11 @@ public class BallPhysics : MonoBehaviour
             {
                 AudioManager.instance.PlaySFX("Ball Hit Fast", 4);
             }
-
+            if (lastHit == 100)
+            {
+                lastHit = collision.gameObject.GetComponentInParent<PlayerInput>().playerID;
+                StartCoroutine(Decelerate());
+            }
             actionLines.gameObject.SetActive(true);
             Instantiate(hitParticle, transform.position, Quaternion.identity);
             StartCoroutine(collision.gameObject.GetComponentInParent<PlayerInput>().FreezeControls(hitSpeed / maxSpeed));

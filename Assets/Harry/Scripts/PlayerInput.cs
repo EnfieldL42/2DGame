@@ -190,7 +190,7 @@ public class PlayerInput : MonoBehaviour
        inputControls.BallControls.Jump.canceled -= JumpCanceled;
        inputControls.BallControls.Attack.performed -= AttackPerformed;
        inputControls.Disable();
-       rb.simulated = false;
+       
     }
     public void EnableControls()
     {
@@ -200,7 +200,7 @@ public class PlayerInput : MonoBehaviour
         inputControls.BallControls.Jump.canceled += JumpCanceled;
         inputControls.BallControls.Attack.performed += AttackPerformed;
         inputControls.Enable();
-        rb.simulated = true;
+        
     }
     /*IEnumerator DisableAttack()
     {
@@ -211,10 +211,11 @@ public class PlayerInput : MonoBehaviour
 
     public IEnumerator FreezeControls(float duration)
     {
+        rb.simulated = false;
         DisableControls();
         
         yield return new WaitForSecondsRealtime(duration);
+        rb.simulated = true;
         EnableControls();
-        
     }
 }
