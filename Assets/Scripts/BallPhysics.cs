@@ -61,8 +61,6 @@ public class BallPhysics : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
             currentSpeed -= deceleration;
-            
-            Debug.Log("Decelerate");
         }
         yield return null;
     }
