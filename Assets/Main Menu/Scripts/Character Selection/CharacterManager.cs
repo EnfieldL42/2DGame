@@ -290,6 +290,7 @@ public class CharacterManager : MonoBehaviour
 
         PlayerPrefs.DeleteKey("SelectedOption_Player" + playerID);
 
+        PlayerPrefs.Save();
     }
 
 }
