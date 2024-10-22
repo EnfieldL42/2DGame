@@ -32,6 +32,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoMenu()
     {
+        GameManager.losers.Clear();
         Time.timeScale = 1.0f;
         pauseMenu.SetActive(false);
         gm.SetSceneMainMenu();
