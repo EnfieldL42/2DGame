@@ -34,7 +34,8 @@ public class CharacterManager : MonoBehaviour
 
     private void Start()
     {
-           
+        ResetPlayerPrefs(playerID);
+
         playerConfirmed[playerID] = false;
 
         selectedOption = new int[4];
@@ -282,4 +283,13 @@ public class CharacterManager : MonoBehaviour
 
         //int winnerSprite = CharacterDataManager.instance.GetCharacterSprite(playerID);
     }
+
+    private void ResetPlayerPrefs(int playerID)
+    {
+        CharacterDataManager.instance.ResetActivePlayers();
+
+        PlayerPrefs.DeleteKey("SelectedOption_Player" + playerID);
+
+    }
+
 }
