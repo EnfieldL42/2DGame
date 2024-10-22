@@ -249,6 +249,7 @@ public class OCGameManager : MonoBehaviour
         }
         else
         {
+            CharacterDataManager.instance.ResetActivePlayers();
             ShowWinner();
         }
     }
